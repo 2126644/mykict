@@ -216,19 +216,29 @@
                             <span>Main Menu</span>
                         </li>
 
-                        @if (Auth::user()->role_id == '1')
+                    @if (Auth::user()->role_id == '1')
                         <li class="submenu active">
-                            <a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="dashboard">Welcome Dashboard</a></li>
-                                <li><a href="admin-dashboard">Admin Dashboard</a></li>
-                                <!--<li><a href="teacher-dashboard">Teacher Dashboard</a></li>-->
-                                <li><a href="student-dashboard">Student Dashboard</a></li>
+                                <li><a href="adminSSP-dashboard">Admin Dashboard</a></li>
+                                <li><a href="list-course">Courses</a></li>
+                                <li><a href="add-studyplan">Study Plan</a></li>
                             </ul>
                         </li>
                     @endif
 
+                        @if (Auth::user()->role_id == '6')
+                        <li class="submenu active">
+                            <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="SSP-dashboard">Student Dashboard</a></li>
+                                <li><a href="view-course">View Suggested Courses</a></li>
+                                <li><a href="cgpa-calculator">CGPA Calculator and Predictor</a></li>
+                            </ul>
+                        </li>
+                    @endif
 
+                        <!--                         
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
                         <li class="submenu">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Academicians</span> <span
@@ -252,17 +262,18 @@
                         @endif
 
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '6')
-                            <li class="submenu">
+                        <li class="submenu">
                                 <a href="#"><i class="fas fa-graduation-cap"></i> <span>Smart Study Planner</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="admin-welcome">Administrator</a></li>
                                     <li><a href="SSP-welcome">Student</a></li>
-                                    <!--<li><a href="add-student.html">Student Add</a></li>-->
-                                    <!--<li><a href="edit-student.html">Student Edit</a></li>-->
+                                    <li><a href="add-student.html">Student Add</a></li>
+                                    <li><a href="edit-student.html">Student Edit</a></li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif -->
+                        
 
                         {{-- <li class="submenu">
                             <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span

@@ -132,3 +132,9 @@ Route::get('add-course', function () {
 })->name('add.course');
 
 
+// Route for Edit Course
+Route::get('edit-course', function () {
+    return view('StudyPlanner.edit-course');
+})->name('edit.course');
+
+
