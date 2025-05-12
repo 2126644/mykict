@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Welcome Admin001!</h3>
+                        <h3 class="page-title">Welcome {{ $admin->ad_name }}!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard</a></li>
@@ -26,9 +26,9 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Admin ID</h6>
-                                <h3>Admin001</h3>
+                                <h3>{{ $admin->admin_id }}</h3>
                                 <h6>Name</h6>
-                                <h3>Nur Fatihah Adawiyah binti Rusdi</h3>
+                                <h3>{{ $admin->ad_name }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
@@ -43,7 +43,7 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Email</h6>
-                                <h3>fatihahadawiyah@gmail.com</h3>
+                                <h3>{{ $admin->ad_email }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
@@ -78,26 +78,7 @@
                                                     <input type="checkbox" name="username">
                                                     <span class="checkmark"></span> Brian Johnson
                                                 </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" name="username">
-                                                    <span class="checkmark"></span> Russell Copeland
-                                                </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" name="username">
-                                                    <span class="checkmark"></span> Greg Lynch
-                                                </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" name="username">
-                                                    <span class="checkmark"></span> John Blair
-                                                </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" name="username">
-                                                    <span class="checkmark"></span> Barbara Moore
-                                                </label>
-                                                <label class="custom_check w-100">
-                                                    <input type="checkbox" name="username">
-                                                    <span class="checkmark"></span> Hendry Evan
-                                                </label>
+                                    
                                                 <label class="custom_check w-100">
                                                     <input type="checkbox" name="username">
                                                     <span class="checkmark"></span> Richard Miles

@@ -27,6 +27,8 @@
                         <h5 class="card-title">Add Course</h5>
                     </div>
                     <div class="card-body">
+                        <form action="{{ route('courses.store') }}" method="POST">
+                        @csrf
 
                         <!-- Course Code -->
                         <div class="form-group row">
