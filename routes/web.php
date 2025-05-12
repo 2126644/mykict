@@ -146,4 +146,3 @@ Route::middleware(['auth'])->group(function () {
 //Route for update profile form to student database
 // Route::put('/students/{matric_no}', [StudentController::class, 'update'])->name('students.update');
 // Route::get('/students/{matric_no}/edit', [StudentController::class, 'edit'])->name('students.edit');
-
