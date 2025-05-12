@@ -11,12 +11,12 @@ class CGPACalculator extends Model
 
     protected $fillable = [
         'matric_no',
-        'course_code', 
-        'grade', 
-        'semester', 
+        'course_code',
+        'grade',
+        'semester',
         'credit_completed',
-        'current_cgpa', 
-        'new_gpa', 
+        'current_cgpa',
+        'new_gpa',
         'new_cgpa'
     ];
 

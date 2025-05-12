@@ -238,7 +238,7 @@
                         </li>
                     @endif
 
-                        <!--                         
+                        <!--
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
                         <li class="submenu">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Academicians</span> <span
@@ -273,7 +273,7 @@
                                 </ul>
                             </li>
                         @endif -->
-                        
+
 
                         {{-- <li class="submenu">
                             <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
@@ -539,3 +539,4 @@
 </body>
 
 </html>
+

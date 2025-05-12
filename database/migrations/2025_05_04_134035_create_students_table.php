@@ -21,7 +21,15 @@ return new class extends Migration
             $table->integer('year');
             $table->integer('sem');
             $table->string('major');
+            $table->string('specialization');
             $table->decimal('current_cgpa', 4, 2)->nullable();
+            $table->decimal('target_cgpa', 4, 2)->nullable();
+
+            // GPA & CGPA Sem 1–8
+            for ($i = 1; $i <= 8; $i++) {
+                $table->decimal("gpa_sem{$i}", 4, 2)->nullable();
+                $table->decimal("cgpa_sem{$i}", 4, 2)->nullable();
+            }
 
             $table->timestamps(); // for created_at and updated_at
         });

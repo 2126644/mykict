@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -137,4 +138,12 @@ Route::get('edit-course', function () {
     return view('StudyPlanner.edit-course');
 })->name('edit.course');
 
+//Route for DATABASE
+Route::middleware(['auth'])->group(function () {
+    Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('SSP.dashboard');
+});
+
+//Route for update profile form to student database
+// Route::put('/students/{matric_no}', [StudentController::class, 'update'])->name('students.update');
+// Route::get('/students/{matric_no}/edit', [StudentController::class, 'edit'])->name('students.edit');
 

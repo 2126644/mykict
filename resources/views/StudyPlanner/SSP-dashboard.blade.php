@@ -22,7 +22,8 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Welcome Nur Ain!</h3>
+                        {{-- <h3 class="page-title">Welcome Nur Ain!</h3> --}}
+                        <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('SSP.welcome') }}">Home</a></li>
                             <li class="breadcrumb-item active">Student Dashboard</a></li>
@@ -44,10 +45,10 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Matric No</h6>
-                                <h3>2127942</h3>
+                                <h3>{{ $student->matric_no }}</h3>
 
                                 <h6>Name</h6>
-                                <h3>Nur Ain binti Lizam</h3>
+                                <h3>{{ $student->st_name }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
@@ -62,9 +63,9 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Major</h6>
-                                <h3>BIT</h3>
+                                <h3>{{ $student->major }}</h3>
                                 <h6>Specialization</h6>
-                                <h3>Business Intelligence and Analytics</h3>
+                                <h3>{{ $student->specialization }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
@@ -79,9 +80,9 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Year</h6>
-                                <h3>3</h3>
+                                <h3>{{ $student->year }}</h3>
                                 <h6>Semester</h6>
-                                <h3>2</h3>
+                                <h3>{{ $student->sem }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
@@ -96,9 +97,9 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Current CGPA</h6>
-                                <h3>3.54</h3>
+                                <h3>{{ $student->current_cgpa }}</h3>
                                 <h6>Targetted CGPA</h6>
-                                <h3>3.75</h3>
+                                <h3>{{ $student->target_cgpa }}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="assets/img/icons/student-icon-02.svg" alt="Dashboard Icon">
@@ -177,9 +178,14 @@
                                         <div class="lesson-imgs">
                                             <img src="assets/img/icons/lesson-icon-04.svg" alt="">
                                         </div>
+
+                                        @php
+                                        $semLeft = max(0, 8 - $student->year);
+                                        @endphp
+
                                         <div class="views-lesson">
-                                            <h5>Semester Left</h5>
-                                            <h4>2</h4>
+                                        <h5>Semester Left</h5>
+                                        <h4>{{ $semLeft }} {{ $semLeft === 1 ? 'sem' : 'sem' }}</h4>
                                         </div>
                                     </div>
                                     <div class="lesson-activity">
@@ -188,16 +194,21 @@
                                         </div>
                                         <div class="views-lesson">
                                             <h5>Specialization</h5>
-                                            <h4>Bachelor of Information Technology</h4>
+                                            <h4>{{ $student->specialization }}</h4>
                                         </div>
                                     </div>
                                     <div class="lesson-activity">
                                         <div class="lesson-imgs">
                                             <img src="assets/img/icons/lesson-icon-06.svg" alt="">
                                         </div>
+
+                                        @php
+                                        $yearsLeft = max(0, 4 - $student->year);
+                                        @endphp
+
                                         <div class="views-lesson">
-                                            <h5>Year of Study</h5>
-                                            <h4>3/4 years</h4>
+                                        <h5>Years Left</h5>
+                                        <h4>{{ $yearsLeft }} {{ $yearsLeft === 1 ? 'year' : 'years' }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +219,7 @@
                                     <form action="{{ url('update-profile') }}" method="get">
                                         <button type="submit" class="btn btn-info skip-btn">Edit</button>
                                     </form>
+
                                     <button type="submit" class="btn btn-info continue-btn">Continue</button>
                                 </div>
                             </div>
