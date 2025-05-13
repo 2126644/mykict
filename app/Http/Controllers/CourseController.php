@@ -2,64 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+    $validated = $request->validate([
+        'course_code' => 'required|string|max:255',
+        'course_title' => 'required|string|max:255',
+        'credit_hrs' => 'required|int',
+        'department' => 'required|string',
+        'pre_requisites' => 'nullable|string',
+        'year' => 'required|int',
+        'sem' => 'required|int',
+        'specialization' => 'nullable|string',
+        'category' => 'nullable|string',
+    ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Course $course)
-    {
-        //
-    }
+    Course::create($validated);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
+    return redirect()->route('adminSSP.dashboard')->with('success', 'Course added successfully!');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Course $course)
-    {
-        //
-    }
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Course $course)
-    {
-        //
-    }
+public function stats($course_code)
+{
+    $maxPerSection = 30;
+
+    $total_students = DB::table('student_preferences')
+        ->where('course_code', $course_code)
+        ->where('action', 'add')
+        ->count();
+
+    $sections = ceil($total_students / $maxPerSection);
+
+    return view('adminSSP.dashboard', [
+        'course_code' => $course_code,
+        'total_students' => $total_students,
+        'sections' => $sections,
+    ]);
+}
 }
