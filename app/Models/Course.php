@@ -18,7 +18,8 @@ class Course extends Model
         'pre_requisites',
         'year',
         'sem',
-        'admin_id'
+        'specialization',
+        'category'
     ];
 
     //relationships

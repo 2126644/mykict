@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -146,6 +146,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/adminSSP-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('adminSSP.dashboard');
 
 });
+
+Route::post('/add-course', [CourseController::class, 'store'])->name('add.courses');
+
 
 
 //Route for update profile form to student database
