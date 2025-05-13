@@ -144,7 +144,6 @@ Route::get('edit-course', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('SSP.dashboard');
     Route::get('/adminSSP-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('adminSSP.dashboard');
-
 });
 
 Route::post('/add-course', [CourseController::class, 'store'])->name('add.courses');
