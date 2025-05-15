@@ -238,6 +238,14 @@
                         </li>
                     @endif
 
+                    <li class="menu-title">
+                            <span>Profile</span>
+                        </li>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form>
                         <!--
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
                         <li class="submenu">

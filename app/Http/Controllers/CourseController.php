@@ -29,21 +29,21 @@ class CourseController extends Controller
 
 }
 
-public function stats($course_code)
-{
-    $maxPerSection = 30;
+// public function stats($course_code)
+// {
+//     $maxPerSection = 30;
 
-    $total_students = DB::table('student_preferences')
-        ->where('course_code', $course_code)
-        ->where('action', 'add')
-        ->count();
+//     $total_students = DB::table('student_preferences')
+//         ->where('course_code', $course_code)
+//         ->where('action', 'add')
+//         ->count();
 
-    $sections = ceil($total_students / $maxPerSection);
+//     $sections = ceil($total_students / $maxPerSection);
 
-    return view('adminSSP.dashboard', [
-        'course_code' => $course_code,
-        'total_students' => $total_students,
-        'sections' => $sections,
-    ]);
-}
+//     return view('adminSSP.dashboard', [
+//         'course_code' => $course_code,
+//         'total_students' => $total_students,
+//         'sections' => $sections,
+//     ]);
+// }
 }

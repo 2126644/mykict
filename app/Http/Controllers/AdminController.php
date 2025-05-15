@@ -43,7 +43,13 @@ class AdminController extends Controller
         $query->where('category', $request->category);
     }
 
+
     $courses = $query->get();
+
+    //  $total_course = DB::table('student_preferences')
+    //     ->where('course_code', $course_code)
+    //     ->where('action', 'add')
+    //     ->count();
 
     // Return the view with all data
     return view('StudyPlanner.adminSSP-dashboard', compact(
