@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-<head>
+{{-- <head>
     <link rel="shortcut icon" href="assets/img/favicon.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
-</head>
+</head> --}}
 
     <div class="content container-fluid">
 
@@ -184,7 +184,7 @@
 </div>
 </a>
 <html>
-<script src="assets/js/jquery-3.6.0.min.js"></script>
+{{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script src="assets/js/feather.min.js"></script>
@@ -196,7 +196,7 @@
 <script src="assets/plugins/moment/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="assets/js/script.js"></script>
+<script src="assets/js/script.js"></script> --}}
 
 </html>
 @endsection

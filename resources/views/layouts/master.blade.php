@@ -190,10 +190,6 @@
                         {{-- <a class="dropdown-item" href="profile.html">My Profile</a> --}}
                         <a class="dropdown-item" href="{{ route('update.profile') }}">My Profile</a>
 
-                        {{-- <x-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('My Profile') }}
-                        </x-dropdown-link> --}}
-
                         {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -219,33 +215,69 @@
                     @if (Auth::user()->role_id == '1')
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
-                            <ul>
+                            <ul style="display: block;">
+                                <li class="{{ Request::is('adminSSP-dashboard') ? 'active' : '' }}">
+                                    <a href="adminSSP-dashboard">Admin Dashboard</a>
+                                </li>
+                                <li class="{{ Request::is('list-course') ? 'active' : '' }}">
+                                    <a href="list-course">Courses</a>
+                                </li>
+                                <li class="{{ Request::is('add-studyplan') ? 'active' : '' }}">
+                                    <a href="add-studyplan">Study Plan</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+
+
+                    @if (Auth::user()->role_id == '6')
+                        <li class="submenu active">
+                            <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: block;">
+                                <li class="{{ Request::is('SSP-dashboard') ? 'active' : '' }}">
+                                    <a href="SSP-dashboard">Student Dashboard</a>
+                                </li>
+                                <li class="{{ Request::is('view-course') ? 'active' : '' }}">
+                                    <a href="view-course">View Suggested Courses</a>
+                                </li>
+                                <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
+                                    <a href="cgpa-calculator">CGPA Calculator and Predictor</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+
+                    {{-- ORIGINAL NAV BAR FROM TEMPLATE --}}
+                    {{-- @if (Auth::user()->role_id == '1')
+                        <li class="submenu active">
+                            <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: block;">
                                 <li><a href="adminSSP-dashboard">Admin Dashboard</a></li>
                                 <li><a href="list-course">Courses</a></li>
                                 <li><a href="add-studyplan">Study Plan</a></li>
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
 
-                        @if (Auth::user()->role_id == '6')
+                    {{-- @if (Auth::user()->role_id == '6')
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
-                            <ul>
+                            <ul style="display: block;">
                                 <li><a href="SSP-dashboard">Student Dashboard</a></li>
                                 <li><a href="view-course">View Suggested Courses</a></li>
                                 <li><a href="cgpa-calculator">CGPA Calculator and Predictor</a></li>
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
 
-                    <li class="menu-title">
+                    {{-- <li class="menu-title">
                             <span>Profile</span>
-                        </li>
+                        </li> --}}
 
-                        <form method="POST" action="{{ route('logout') }}">
+                        {{-- <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item">Logout</button>
-                        </form>
+                        </form> --}}
                         <!--
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
                         <li class="submenu">
@@ -259,15 +291,6 @@
                         </li>
                         @endif
 
-                        @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> SEMS</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="{{ route('SEMS.dashboard') }}">SEMS</a></li>
-                            </ul>
-                        </li>
-                        @endif
 
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '6')
                         <li class="submenu">

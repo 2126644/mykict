@@ -26,7 +26,7 @@
 
         <!-- Add Buttons -->
         <div style="margin-top: 15px;">
-            <a href="{{ route('student.dashboard') }}" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">STUDENT DASHBOARD</a>
+            <a href="{{ route('SSP.dashboard') }}" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">STUDENT DASHBOARD</a>
         </div>
 
         <div style="margin-top: 15px;">

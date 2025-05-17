@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="card report-card">
             <div class="card-body pb-0">
@@ -121,7 +121,7 @@
                         @endforeach
                     </select>
                     </div>
-                    
+
                     <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
                     <button type="submit" class="btn btn-primary">Apply</button>
                     <a href="{{ route('adminSSP.dashboard') }}" class="btn btn-secondary">Reset</a>
@@ -173,7 +173,7 @@
                     </div>
                 </div>
             </div>
-        
+
         @empty
             <div class="col-12">
                 <div class="alert alert-warning text-center">
@@ -186,7 +186,7 @@
 
 
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    {{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -198,6 +198,6 @@
 
     <script src="assets/js/circle-progress.min.js"></script>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script> --}}
     </body>
 @endsection

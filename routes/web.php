@@ -74,11 +74,12 @@ Route::get('edit-course', function () {
 
 //Route for DATABASE
 Route::middleware(['auth'])->group(function () {
-    Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
+    // Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
+    Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('SSP.dashboard');
     Route::get('/adminSSP-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('adminSSP.dashboard');
-    Route::get('student-dashboard', function () {
-         return view('admin/student-dashboard');
-     })->name('SSP.dashboard');
+    // Route::get('student-dashboard', function () {
+    //      return view('admin/student-dashboard');
+    //  })->name('SSP.dashboard');
 });
 
 Route::post('/add-course', [CourseController::class, 'store'])->name('add.courses');

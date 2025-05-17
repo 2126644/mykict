@@ -3,10 +3,10 @@
 @section('content')
 
 <!-- Head section -->
-<head>
+{{-- <head>
     <link rel="stylesheet" href="assets/plugins/feather/feather.css">
     <link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
-</head>
+</head> --}}
 
 <div class="content container-fluid">
 
@@ -230,14 +230,14 @@
 </div>
 
 <!-- Scripts -->
-<script src="assets/js/jquery-3.6.0.min.js"></script>
+{{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/feather.min.js"></script>
 <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="assets/plugins/select2/js/select2.min.js"></script>
 <script src="assets/plugins/moment/moment.min.js"></script>
 <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
-<script src="assets/js/script.js"></script>
+<script src="assets/js/script.js"></script> --}}
 
 <script>
     function saveSubjectDetails() {
