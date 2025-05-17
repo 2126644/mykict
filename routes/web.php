@@ -27,9 +27,9 @@ Route::get('SSP-welcome', function () {
 // })->name('SSP.dashboard');
 
 // Route for Update Profile
-Route::get('update-profile', function () {
-    return view('StudyPlanner.update-profile');
-})->name('update.profile');
+// Route::get('update-profile', function () {
+//     return view('StudyPlanner.update-profile');
+// })->name('update.profile');
 
 // Route for View Course Suggested
 Route::get('view-course', function () {
@@ -81,7 +81,13 @@ Route::middleware(['auth'])->group(function () {
     //      return view('admin/student-dashboard');
     //  })->name('SSP.dashboard');
 });
+//Student update profile to student database
+Route::middleware(['auth'])->group(function () {
+    Route::get('/update-profile', [StudentController::class, 'editProfile'])->name('update.profile');
+    Route::put('/student/update-profile', [StudentController::class, 'updateProfile'])->name('student.profile.update');
+});
 
+//Admin add course store to course database
 Route::post('/add-course', [CourseController::class, 'store'])->name('add.courses');
 
 Route::middleware([

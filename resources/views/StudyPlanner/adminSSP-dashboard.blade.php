@@ -7,12 +7,12 @@
                 <div class="col-sm-12">
                     <div class="page-sub-header">
                         <h3 class="page-title">Welcome {{ $admin->ad_name }}!</h3>
-                        <ul class="breadcrumb">
+                        {{-- <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('list.course') }}">Course</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </div>

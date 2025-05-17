@@ -564,6 +564,7 @@
     <script src="assets/plugins/apexchart/chart-data.js"></script>
     <script src="assets/js/script.js"></script>
 
+
     {{-- <script src="assets/plugins/simple-calendar/jquery.simple-calendar.js"></script>
     <script src="assets/js/calander.js"></script>
     <script src="assets/js/circle-progress.min.js"></script> --}}

@@ -14,12 +14,12 @@
         <div class="row align-items-center">
             <div class="col">
                 <h3 class="page-title">Course</h3>
-                <ul class="breadcrumb">
+                {{-- <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('SSP.welcome') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('SSP.dashboard') }}">Student Dashboard</a></li>
                     <li class="breadcrumb-item active">View Suggested Courses</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('cgpa.calculator') }}">CGPA Calculator</a></li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
     </div>

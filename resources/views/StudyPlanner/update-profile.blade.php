@@ -7,12 +7,12 @@
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
-                                @endif
+                @endif
                 <div class="row">
                     <div class="col">
                         <h3 class="page-title">My Profile</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/SSP-dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">My Profile</li>
                         </ul>
                     </div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="card-body">
 
-                         <form action="#" method="GET">
+                         {{-- <form action="#" method="GET">
 
                             <div class="form-group row">
                                         <label class="col-form-label col-md-2">Name</label>
@@ -148,11 +148,12 @@
                                         </table>
                                     </div>
                                 </div>
-                                </div>
+                                </div> --}}
 
-                            {{-- <form action="{{ route('students.update', $student->matric_no) }}" method="POST">
-                                @csrf
-                                @method('PUT')
+                            {{-- START SINIIIII --}}
+                            <form action="{{ route('student.profile.update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
 
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-2">Name</label>
@@ -278,14 +279,8 @@
                                 <div class="col-md-10 offset-md-2">
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                            </div>  --}}
+                            </div>
 
-
-                                <div class="form-group row">
-                                    <div class="col-md-10 offset-md-2">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>

@@ -26,12 +26,12 @@
             <div class="row align-items-center">
                 <div class="col">
                     <h3 class="page-title">Study Plans</h3>
-                    <ul class="breadcrumb">
+                    {{-- <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('list.course') }}">Course</a></li>
                         <li class="breadcrumb-item active">Study Plan</a></li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>

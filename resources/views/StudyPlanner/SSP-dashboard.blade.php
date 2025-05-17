@@ -24,14 +24,14 @@
                     <div class="page-sub-header">
                         {{-- <h3 class="page-title">Welcome Nur Ain!</h3> --}}
                         <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
-                        <ul class="breadcrumb">
+                        {{-- <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('SSP.welcome') }}">Home</a></li>
                             <li class="breadcrumb-item active">Student Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('view.course') }}">View Suggested Courses</a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{ route('cgpa.calculator') }}">CGPA Calculator</a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                                         </div>
 
                                         @php
-                                        $semLeft = max(0, 8 - $student->year);
+                                        $semLeft = max(0, 8 - ($student->year * 2));
                                         @endphp
 
                                         <div class="views-lesson">
@@ -237,17 +237,19 @@
                                     </div>
                                     <!-- GPA/CGPA Chart -->
                                     <div class="card-body">
-                                        <div id="gpaCgpaChart" style="height: 350px;"></div>
-                                    </div>
-
-                                    <!--<div class="col-6">
+                                        <div id="gpaCgpaChart" style="height: 350px;">
+                                        {{-- <div class="col-6">
                                                     <ul class="chart-list-out">
                                                         <li><span class="circle-blue"></span>CGPA</li>
                                                         <li><span class="circle-green"></span>GPA</li>
                                                         <li class="star-menus"><a href="javascript:;"><i
                                                                     class="fas fa-ellipsis-v"></i></a></li>
                                                     </ul>
-                                                </div>-->
+                                                </div> --}}
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -333,10 +335,44 @@
                 </div>
             </div>
         </div>
-        <!-- Scripts -->
-        <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk-->
+        <!-- UPDATED SCRIPT FOR CGPA TRACKER-->
+        <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk--> --}}
         <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
         <script>
+                                                    var options = {
+                                                    chart: {
+                                                        height: 350,
+                                                        type: 'line',
+                                                        toolbar: { show: false },
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name: 'GPA',
+                                                            data: @json($gpa),
+                                                        },
+                                                        {
+                                                            name: 'CGPA',
+                                                            data: @json($cgpa),
+                                                        }
+                                                    ],
+                                                    xaxis: {
+                                                        categories: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8'],
+                                                        title: { text: 'Semester' }
+                                                    },
+                                                    yaxis: {
+                                                        title: { text: 'GPA/CGPA' },
+                                                        min: 2.5,
+                                                        max: 4,
+                                                    },
+                                                    colors: ['#1E90FF', '#32CD32'],
+                                                    stroke: { width: 2, curve: 'smooth' },
+                                                    markers: { size: 4 }
+                                                };
+
+                                                var chart = new ApexCharts(document.querySelector("#gpaCgpaChart"), options);
+                                                chart.render();
+                                            </script>
+        {{-- <script>
             // ApexCharts Configuration for GPA/CGPA
             var options = {
                 chart: {
@@ -375,16 +411,17 @@
                     size: 4
                 }
             };
-
             var chart = new ApexCharts(document.querySelector("#gpaCgpaChart"), options);
             chart.render();
-        </script>
+        </script>--}}
+
         <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/feather.min.js"></script>
         <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
         <script src="assets/js/circle-progress.min.js"></script>
         <script src="assets/js/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
         </body>
     @endsection

@@ -55,12 +55,12 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <ul class="breadcrumb">
+                    {{-- <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('SSP.welcome') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('SSP.dashboard') }}">Student Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('view.course') }}">View Suggested Courses</a></li>
                         <li class="breadcrumb-item active">CGPA Calculator</a></li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>

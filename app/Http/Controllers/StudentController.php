@@ -8,19 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    /**
-     * Show the student profile update form.
-     */
-    // public function edit($matric_no)
-    // {
-    //     $user = Auth::user();
-    //     // $student = Student::where('st_email', $user->email)->first();
-    //     $student = Student::where('matric_no', $matric_no)->firstOrFail();
-    //     // return view('SSP-dashboard', compact('student'));
-    //     return view('StudyPlanner.update-profile', compact('student'));
-    // }
-
-
     //Display data from Student Table to SSP-dashboard
     public function showDashboardForLoggedInUser()
     {
@@ -28,58 +15,116 @@ class StudentController extends Controller
     $email = Auth::user()->email;
     // Retrieve the student by email only (no relations loaded)
     $student = Student::where('st_email', $email)->firstOrFail();
-    // Find the corresponding student using the email with relationship
-    // $student = Student::with('preferences', 'calculateCGPA')
-    //             ->where('st_email', $email)
-    //             ->firstOrFail();
-    return view('StudyPlanner.SSP-dashboard', compact('student'));
+
+    //Display CGPA tracker from Student table
+    $gpa = [];
+    $cgpa = [];
+
+    for ($i = 1; $i <= 8; $i++) {
+        $gpa[] = $student->{'gpa_sem' . $i} ?? null;
+        $cgpa[] = $student->{'cgpa_sem' . $i} ?? null;
     }
 
-    public function edit($matric_no)
+    return view('StudyPlanner.SSP-dashboard', compact('student', 'gpa', 'cgpa'));
+    }
+
+    //Edit student details
+    public function editProfile()
     {
-        $student = Student::where('matric_no', $matric_no)->firstOrFail();
+    $user = Auth::user();
 
-        return view('StudyPlanner.update-profile', compact('student'));
+    $student = Student::where('st_email', $user->email)->firstOrFail();
+
+    return view('StudyPlanner.update-profile', compact('student'));
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        // // Get student record based on authenticated user's email
+        $student = Student::where('st_email', $user->email)->firstOrFail();
+
+        // Validate inputs (optional but recommended)
+        $request->validate([
+            'st_name' => 'required|string|max:255',
+            'major' => 'nullable|string',
+            'specialization' => 'nullable|string',
+            'year' => 'required|integer|min:1|max:4',
+            'sem' => 'required|integer|min:1|max:8',
+            'current_cgpa' => 'nullable|numeric|between:0,4.00',
+            'target_cgpa' => 'nullable|numeric|between:0,4.00',
+        ]);
+
+        // Update student fields
+        $student->update([
+            'st_name' => $request->input('st_name'),
+            'major' => $request->input('major'),
+            'specialization' => $request->input('specialization'),
+            'year' => $request->input('year'),
+            'sem' => $request->input('sem'),
+            'current_cgpa' => $request->input('current_cgpa'),
+            'target_cgpa' => $request->input('target_cgpa'),
+            'gpa_sem1' => $request->input('gpa_sem1'),
+            'cgpa_sem1' => $request->input('cgpa_sem1'),
+            'gpa_sem2' => $request->input('gpa_sem2'),
+            'cgpa_sem2' => $request->input('cgpa_sem2'),
+            'gpa_sem3' => $request->input('gpa_sem3'),
+            'cgpa_sem3' => $request->input('cgpa_sem3'),
+            'gpa_sem4' => $request->input('gpa_sem4'),
+            'cgpa_sem4' => $request->input('cgpa_sem4'),
+            'gpa_sem5' => $request->input('gpa_sem5'),
+            'cgpa_sem5' => $request->input('cgpa_sem5'),
+            'gpa_sem6' => $request->input('gpa_sem6'),
+            'cgpa_sem6' => $request->input('cgpa_sem6'),
+            'gpa_sem7' => $request->input('gpa_sem7'),
+            'cgpa_sem7' => $request->input('cgpa_sem7'),
+            'gpa_sem8' => $request->input('gpa_sem8'),
+            'cgpa_sem8' => $request->input('cgpa_sem8'),
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+}
 
         /**
          * Update the student profile in the database.
          */
 
-        public function update(Request $request, $matric_no)
-        {
-        $student = Student::where('matric_no', $matric_no)->firstOrFail();
+        // public function update(Request $request, $matric_no)
+        // {
+        // $student = Student::where('matric_no', $matric_no)->firstOrFail();
 
-        $student->update([
-        'st_name' => $request->input('st_name'),
-        'matric_no' => $request->input('matric_no'),
-        'major' => $request->input('major'),
-        'specialization' => $request->input('specialization'),
-        'year' => $request->input('year'),
-        'sem' => $request->input('sem'),
-        'current_cgpa' => $request->input('current_cgpa'),
-        'target_cgpa' => $request->input('target_cgpa'),
-        'gpa_sem1' => $request->input('gpa_sem1'),
-        'cgpa_sem1' => $request->input('cgpa_sem1'),
-        'gpa_sem2' => $request->input('gpa_sem2'),
-        'cgpa_sem2' => $request->input('cgpa_sem2'),
-        'gpa_sem3' => $request->input('gpa_sem3'),
-        'cgpa_sem3' => $request->input('cgpa_sem3'),
-        'gpa_sem4' => $request->input('gpa_sem4'),
-        'cgpa_sem4' => $request->input('cgpa_sem4'),
-        'gpa_sem5' => $request->input('gpa_sem5'),
-        'cgpa_sem5' => $request->input('cgpa_sem5'),
-        'gpa_sem6' => $request->input('gpa_sem6'),
-        'cgpa_sem6' => $request->input('cgpa_sem6'),
-        'gpa_sem7' => $request->input('gpa_sem7'),
-        'cgpa_sem7' => $request->input('cgpa_sem7'),
-        'gpa_sem8' => $request->input('gpa_sem8'),
-        'cgpa_sem8' => $request->input('cgpa_sem8'),
-        ]);
+        // $student->update([
+        // 'st_name' => $request->input('st_name'),
+        // 'matric_no' => $request->input('matric_no'),
+        // 'major' => $request->input('major'),
+        // 'specialization' => $request->input('specialization'),
+        // 'year' => $request->input('year'),
+        // 'sem' => $request->input('sem'),
+        // 'current_cgpa' => $request->input('current_cgpa'),
+        // 'target_cgpa' => $request->input('target_cgpa'),
+        // 'gpa_sem1' => $request->input('gpa_sem1'),
+        // 'cgpa_sem1' => $request->input('cgpa_sem1'),
+        // 'gpa_sem2' => $request->input('gpa_sem2'),
+        // 'cgpa_sem2' => $request->input('cgpa_sem2'),
+        // 'gpa_sem3' => $request->input('gpa_sem3'),
+        // 'cgpa_sem3' => $request->input('cgpa_sem3'),
+        // 'gpa_sem4' => $request->input('gpa_sem4'),
+        // 'cgpa_sem4' => $request->input('cgpa_sem4'),
+        // 'gpa_sem5' => $request->input('gpa_sem5'),
+        // 'cgpa_sem5' => $request->input('cgpa_sem5'),
+        // 'gpa_sem6' => $request->input('gpa_sem6'),
+        // 'cgpa_sem6' => $request->input('cgpa_sem6'),
+        // 'gpa_sem7' => $request->input('gpa_sem7'),
+        // 'cgpa_sem7' => $request->input('cgpa_sem7'),
+        // 'gpa_sem8' => $request->input('gpa_sem8'),
+        // 'cgpa_sem8' => $request->input('cgpa_sem8'),
+        // ]);
 
-        return redirect()->route('students.edit', $matric_no)
-                        ->with('success', 'Profile updated successfully.');
-        }
+        // return redirect()->route('students.edit', $matric_no)
+        //                 ->with('success', 'Profile updated successfully.');
+        // }
 
     // public function update(Request $request, $matric_no)
     // {
@@ -147,4 +192,4 @@ class StudentController extends Controller
     //     // return redirect()->route('SSP.dashboard', ['matric_no' => $student->matric_no])
     //     //              ->with('success', 'Profile updated successfully.');
     // }
-}
+
