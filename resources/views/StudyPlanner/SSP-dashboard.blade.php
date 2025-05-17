@@ -24,14 +24,14 @@
                     <div class="page-sub-header">
                         {{-- <h3 class="page-title">Welcome Nur Ain!</h3> --}}
                         <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
-                        {{-- <ul class="breadcrumb">
+                        <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('SSP.welcome') }}">Home</a></li>
                             <li class="breadcrumb-item active">Student Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('view.course') }}">View Suggested Courses</a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{ route('cgpa.calculator') }}">CGPA Calculator</a>
                             </li>
-                        </ul> --}}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -238,23 +238,22 @@
                                     <!-- GPA/CGPA Chart -->
                                     <div class="card-body">
                                         <div id="gpaCgpaChart" style="height: 350px;">
-                                        {{-- <div class="col-6">
+                                            {{-- <div class="col-6">
                                                     <ul class="chart-list-out">
                                                         <li><span class="circle-blue"></span>CGPA</li>
                                                         <li><span class="circle-green"></span>GPA</li>
                                                         <li class="star-menus"><a href="javascript:;"><i
                                                                     class="fas fa-ellipsis-v"></i></a></li>
                                                     </ul>
-                                                </div> --}}
+                                            </div> --}}
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-lg-12 col-xl-12 d-flex">
                     <div class="card flex-fill comman-shadow">
                         <div class="card-body">

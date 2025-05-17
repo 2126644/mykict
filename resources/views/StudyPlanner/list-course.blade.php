@@ -10,12 +10,12 @@
         <div class="row align">
             <div class="col">
                 <h3 class="page-title">Courses</h3>
-                <ul class="breadcrumb">
+                {{-- <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Course</li>
                         <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
     </div>
