@@ -28,22 +28,4 @@ class CourseController extends Controller
     return redirect()->route('adminSSP.dashboard')->with('success', 'Course added successfully!');
 
 }
-
-// public function stats($course_code)
-// {
-//     $maxPerSection = 30;
-
-//     $total_students = DB::table('student_preferences')
-//         ->where('course_code', $course_code)
-//         ->where('action', 'add')
-//         ->count();
-
-//     $sections = ceil($total_students / $maxPerSection);
-
-//     return view('adminSSP.dashboard', [
-//         'course_code' => $course_code,
-//         'total_students' => $total_students,
-//         'sections' => $sections,
-//     ]);
-// }
 }

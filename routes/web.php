@@ -9,8 +9,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-// SSP
 // Route for Main Welcome Page
 Route::get('mainSSP-welcome', function () {
     return view('StudyPlanner.mainSSP-welcome');
