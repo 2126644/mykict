@@ -11,10 +11,6 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="page-title">My Profile</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/SSP-dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active">My Profile</li>
-                        </ul>
                     </div>
                 </div>
             </div>

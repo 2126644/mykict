@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
     Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('SSP.dashboard');
     Route::get('/adminSSP-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('adminSSP.dashboard');
+    
     // Route::get('student-dashboard', function () {
     //      return view('admin/student-dashboard');
     //  })->name('SSP.dashboard');
@@ -77,6 +78,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/list-course', [AdminController::class, 'showCoursesList'])->name('list.course');
+
+
+Route::get('/view-course', [CourseController::class, 'showRecommendedCourses'])->name('view.course');
+
 //Student update profile to student database
 Route::middleware(['auth'])->group(function () {
     Route::get('/update-profile', [StudentController::class, 'editProfile'])->name('update.profile');

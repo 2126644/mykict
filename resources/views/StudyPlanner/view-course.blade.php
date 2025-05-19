@@ -26,21 +26,24 @@
 
     <div class="student-group-form">
         <div class="row">
+            <form action="{{ route('view.course') }}" method="GET" class="row align">
+            <!-- Search by Course Code -->
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search by Course Code ...">
+                    <input type="text" name="course_code" class="form-control" placeholder="Search by Course Code ..." value="{{ request('course_code') }}">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search by Course Title ...">
+                    <input type="text" name="course_title" class="form-control" placeholder="Search by Course Title ..." value="{{ request('course_title') }}">
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="search-student-btn">
-                    <button type="btn" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -55,142 +58,64 @@
                                 <h3 class="page-title">Suggested Courses</h3>
                             </div>
                             <div class="col-auto text-end float-end ms-auto download-grp">
-                                <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i>
-                                    Download</a>
+                                <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i>Download</a>
                                <!-- <a href="add-subject.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>-->
                                 <a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-center add-table-items">
-                            <thead>
-                                <tr>
-                                    <th>Course Code</th>
-                                    <th>Course Title</th>
-                                    <th>Credit Hour</th>
-                                    <th>Pre-Requisite</th>
-                                    <th>Year</th>
-                                    <th>Semester</th>
-                                    <th>Category</th>
-                                    <th>Department</th>
-                                    <th>Specialization</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr class="table-form-control add-row">
-                                    <td>INFO 3301</td>
-                                    <td>Web App Development</td>
-                                    <td>3</td>
-                                    <td>-</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>Kulliyyah Required</td>
-                                    <td>Information Systems</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a href="javascript:void(0);" class="remove-btn"><i class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                                <!-- Additional rows can go here -->
-                                <tr class="table-form-control add-row">
-                                    <td>INFO 3302</td>
-                                    <td>Data Warehousing</td>
-                                    <td>3</td>
-                                    <td>Data Structure and Algorithm</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>Kulliyyah Required</td>
-                                    <td>Computer Science</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a
-                                            href="javascript:void(0);" class="remove-btn"><i
-                                                class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="table-form-control add-row">
-                                    <td>INFO 4401</td>
-                                    <td>Data Mining</td>
-                                    <td>3</td>
-                                    <td>Human Computer Interaction</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>Kulliyyah Required</td>
-                                    <td>Information Systems</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a
-                                            href="javascript:void(0);" class="remove-btn"><i
-                                                class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="table-form-control add-row">
-                                    <td>INFO 4402</td>
-                                    <td>E-Commerce</td>
-                                    <td>3</td>
-                                    <td>-</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>Kulliyyah Required</td>
-                                    <td>Computer Science</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a
-                                            href="javascript:void(0);" class="remove-btn"><i
-                                                class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="table-form-control add-row">
-                                    <td>CCUB 3301</td>
-                                    <td>Usrah In Action 2</td>
-                                    <td>3</td>
-                                    <td>-</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>University Required</td>
-                                    <td>Sejahtera</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a
-                                            href="javascript:void(0);" class="remove-btn"><i
-                                                class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="table-form-control add-row">
-                                    <td>CCFA 3302</td>
-                                    <td>First Aid Skill 2</td>
-                                    <td>3</td>
-                                    <td>Skill 1</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>University Required</td>
-                                    <td>Skill</td>
-                                    <td>-</td>
-                                    <td class="add-remove text-end">
-                                        <a href="javascript:void(0);" class="add-btn me-2"><i
-                                                class="fas fa-plus-circle"></i></a>
-                                        <a href="#" class="copy-btn me-2"><i class="fe fe-copy"></i></a><a
-                                            href="javascript:void(0);" class="remove-btn"><i
-                                                class="fe fe-trash-2"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
+                    
+    <div class="table-responsive">
+        @if($courses->count() > 0)
+        <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+            <thead class="student-thread">
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Title</th>
+                    <th>Credit Hour</th>
+                    <th>Pre-Requisite</th>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>Category</th>
+                    <th>Department</th>
+                    <th>Specialization</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($courses as $course)
+                <tr>
+                    <td>{{ $course->course_code }}</td>
+                    <td>
+                        <h2>
+                            <a>{{ $course->course_title }}</a>
+                        </h2>
+                    </td>
+                    <td>{{ $course->credit_hrs }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td>{{ $course->year }}</td>
+                    <td>{{ $course->sem }}</td>
+                    <td>{{ $course->category }}</td>
+                    <td>{{ $course->department }}</td>
+                    <td>{{ $course->specialization }}</td>
+                    <td class="text-end">
+                        <div class="actions">
+                            <a href="edit-course" class="btn btn-sm bg-danger-light">
+                                <i class="feather-edit"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <div class="alert alert-warning text-center">
+            No courses found.
+        </div>
+        @endif
+    </div>
 
                     <!-- Save button at the bottom of the page -->
                     <div class="row">

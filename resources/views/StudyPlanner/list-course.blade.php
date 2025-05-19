@@ -31,7 +31,7 @@
             <!-- Search by Course Title -->
             <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
                 <div class="form-group">
-                    <input type="text" name="course_title" class="form-control" placeholder="Search by Course Title ...">
+                    <input type="text" name="course_title" class="form-control" placeholder="Search by Course Title ..." value="{{ request('course_title') }}">
                 </div>
             </div>
             <!-- Search Button -->
@@ -182,6 +182,8 @@
                     <th>Course Title</th>
                     <th>Credit Hour</th>
                     <th>Pre-Requisite</th>
+                    <th>Year</th>
+                    <th>Semester</th>
                     <th>Category</th>
                     <th>Department</th>
                     <th>Specialization</th>
@@ -189,7 +191,7 @@
                 </tr>
             </thead>
             <tbody>
-@foreach($courses as $course)
+                @foreach($courses as $course)
                 <tr>
                     <td>{{ $course->course_code }}</td>
                     <td>
@@ -199,6 +201,8 @@
                     </td>
                     <td>{{ $course->credit_hrs }}</td>
                     <td>{{ $course->pre_requisites }}</td>
+                    <td>{{ $course->year }}</td>
+                    <td>{{ $course->sem }}</td>
                     <td>{{ $course->category }}</td>
                     <td>{{ $course->department }}</td>
                     <td>{{ $course->specialization }}</td>
@@ -214,16 +218,16 @@
             </tbody>
         </table>
         @else
-                        <div class="alert alert-warning text-center">
-                            No courses found for the selected filters.
-                        </div>
-                    @endif
+        <div class="alert alert-warning text-center">
+            No courses found.
+        </div>
+        @endif
     </div>
 
 
-            </tbody>
-        </table>
-    </div>
+    </tbody>
+    </table>
+</div>
 </div>
 </div>
 </div>
