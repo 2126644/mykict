@@ -12,37 +12,39 @@
                 <h3 class="page-title">Courses</h3>
                 {{-- <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Course</li>
-                        <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Course</li>
+                <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
                 </ul> --}}
             </div>
         </div>
     </div>
 
     <div class="row align">
-        <!-- Search by Course Code -->
-        <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search by Course Code ...">
+        <form action="{{ route('list.course') }}" method="GET" class="row align">
+            <!-- Search by Course Code -->
+            <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
+                <div class="form-group">
+                    <input type="text" name="course_code" class="form-control" placeholder="Search by Course Code ..." value="{{ request('course_code') }}">
+                </div>
             </div>
-        </div>
-        <!-- Search by Course Title -->
-        <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search by Course Title ...">
+            <!-- Search by Course Title -->
+            <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
+                <div class="form-group">
+                    <input type="text" name="course_title" class="form-control" placeholder="Search by Course Title ...">
+                </div>
             </div>
-        </div>
-        <!-- Search Button -->
-        <div class="col-lg-2 col-md-6 mb-3 mb-md-0">
-            <button type="button" class="btn btn-primary w-100">Search</button>
-        </div>
-        <!-- Add Course Button -->
-        <div class="col-lg-4 col-md-6 justify-content-end">
-            <a href="add-course" class="btn btn-primary">
-                <i class="feather feather-plus-circle"></i> Add Course
-            </a>
-        </div>
+            <!-- Search Button -->
+            <div class="col-lg-2 col-md-6 mb-3 mb-md-0">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+            <!-- Add Course Button -->
+            <div class="col-lg-4 col-md-6 justify-content-end">
+                <a href="add-course" class="btn btn-primary">
+                    <i class="feather feather-plus-circle"></i> Add Course
+                </a>
+            </div>
+        </form>
     </div>
 
 
@@ -172,14 +174,10 @@
     </div>
 
     <div class="table-responsive">
+        @if($courses->count() > 0)
         <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
             <thead class="student-thread">
                 <tr>
-                    <th>
-                        <div class="form-check check-tables">
-                            <input class="form-check-input" type="checkbox" value="something">
-                        </div>
-                    </th>
                     <th>Course Code</th>
                     <th>Course Title</th>
                     <th>Credit Hour</th>
@@ -191,24 +189,19 @@
                 </tr>
             </thead>
             <tbody>
+@foreach($courses as $course)
                 <tr>
-                    <td>
-                        <div class="form-check check-tables">
-                            <input class="form-check-input" type="checkbox" value="something">
-                        </div>
-                    </td>
-                    <td>INFO1302</td>
+                    <td>{{ $course->course_code }}</td>
                     <td>
                         <h2>
-                            <a>Business Fundamentals</a>
+                            <a>{{ $course->course_title }}</a>
                         </h2>
                     </td>
-                    <td>3</td>
-                    <td>-</td>
-                    <td>Kulliyyah Required</td>
-                    <td>Information Systems</td>
-                    <td>-</td>
-
+                    <td>{{ $course->credit_hrs }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td>{{ $course->category }}</td>
+                    <td>{{ $course->department }}</td>
+                    <td>{{ $course->specialization }}</td>
                     <td class="text-end">
                         <div class="actions">
                             <a href="edit-course" class="btn btn-sm bg-danger-light">
@@ -217,81 +210,15 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="form-check check-tables">
-                            <input class="form-check-input" type="checkbox" value="something">
+                @endforeach
+            </tbody>
+        </table>
+        @else
+                        <div class="alert alert-warning text-center">
+                            No courses found for the selected filters.
                         </div>
-                    </td>
-                    <td>CSCI1300</td>
-                    <td>
-                        <h2>
-                            <a>Elements of Programming</a>
-                        </h2>
-                    </td>
-                    <td>3</td>
-                    <td>-</td>
-                    <td>Kulliyyah Required</td>
-                    <td>Computer Science</td>
-                    <td>-</td>
-                    <td class="text-end">
-                        <div class="actions">
-                            <a href="edit-course" class="btn btn-sm bg-danger-light">
-                                <i class="feather-edit"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check check-tables">
-                            <input class="form-check-input" type="checkbox" value="something">
-                        </div>
-                    </td>
-                    <td>INFO1303</td>
-                    <td>
-                        <h2>
-                            <a>Database Systems</a>
-                        </h2>
-                    </td>
-                    <td>3</td>
-                    <td>-</td>
-                    <td>Kulliyyah Required</td>
-                    <td>Information Systems</td>
-                    <td>-</td>
-                    <td class="text-end">
-                        <div class="actions">
-                            <a href="edit-course" class="btn btn-sm bg-danger-light">
-                                <i class="feather-edit"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check check-tables">
-                            <input class="form-check-input" type="checkbox" value="something">
-                        </div>
-                    </td>
-                    <td>CSCI1301</td>
-                    <td>
-                        <h2>
-                            <a>Object-Oriented Programming</a>
-                        </h2>
-                    </td>
-                    <td>3</td>
-                    <td>CSCI1300</td>
-                    <td>Kulliyyah Required</td>
-                    <td>Computer Science</td>
-                    <td>-</td>
-                    <td class="text-end">
-                        <div class="actions">
-                            <a href="edit-course" class="btn btn-sm bg-danger-light">
-                                <i class="feather-edit"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                    @endif
+    </div>
 
 
             </tbody>

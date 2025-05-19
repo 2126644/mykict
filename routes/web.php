@@ -54,11 +54,6 @@ Route::get('list-course', function () {
     return view('StudyPlanner.list-course');
 })->name('list.course');
 
-// Route for Study Plan
-Route::get('add-studyplan', function () {
-    return view('StudyPlanner.add-studyplan');
-})->name('add.studyplan');
-
 // Route for Add Course
 Route::get('add-course', function () {
     return view('StudyPlanner.add-course');
@@ -78,7 +73,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('student-dashboard', function () {
     //      return view('admin/student-dashboard');
     //  })->name('SSP.dashboard');
+    
 });
+
+Route::get('/list-course', [AdminController::class, 'showCoursesList'])->name('list.course');
 //Student update profile to student database
 Route::middleware(['auth'])->group(function () {
     Route::get('/update-profile', [StudentController::class, 'editProfile'])->name('update.profile');
@@ -103,10 +101,6 @@ Route::middleware([
         return view('admin/admin-dashboard');
     })->name('admin.dashboard');
 
-    // Route for teacher dashboard
-    Route::get('teacher-dashboard', function () {
-        return view('admin/teacher-dashboard');
-    })->name('teacher.dashboard');
 
     // Route for student dashboard
     // Route::get('student-dashboard', function () {

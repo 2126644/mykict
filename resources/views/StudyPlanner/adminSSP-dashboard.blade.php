@@ -11,7 +11,6 @@
                         <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                         <li class="breadcrumb-item active">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('list.course') }}">Course</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
                     </ul>
                 </div>
             </div>
@@ -19,56 +18,40 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-auto col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Admin ID</h6>
-                            <h3>{{ $admin->admin_id }}</h3>
-                            <h6>Name</h6>
-                            <h3>{{ $admin->ad_name }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
-                        </div>
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Admin ID</h6>
+                        <h3>{{ $admin->admin_id }}</h3>
+                        <h6>Name</h6>
+                        <h3>{{ $admin->ad_name }}</h3>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-auto col-sm-6 col-12 d-flex">
-            <div class="card bg-comman">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Email</h6>
-                            <h3>{{ $admin->ad_email }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
-                        </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card invoices-tabs-card border-0">
-        <div class="card-body card-body pt-0 pb-0">
-            <div class="invoices-main-tabs border-0 pb-0">
-                <div class="row align-items-center">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="invoices-settings-btn invoices-settings-btn-one">
-                            <a href="add-course" class="btn">
-                                <i class="feather feather-plus-circle"></i> New Course
-                            </a>
-                        </div>
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100"> 
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Email</h6>
+                        <h3>{{ $admin->ad_email }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 
     <div class="card report-card">
         <div class="card-body pb-0">
@@ -155,11 +138,12 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col">
-                            <span><i class="far fa-money-bill-alt"></i> Total Students</span>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                            <span><i class="fas fa-users"></i> Total Students</span>
                             <h6 class="mb-0">{{ $course->total_students ?? 'N/A' }}</h6>
                         </div>
                         <div class="col-auto">
-                            <span><i class="far fa-calendar-alt"></i> Number of Sections</span>
+                            <span><i class="fas fa-chalkboard-teacher"></i> Number of Sections</span>
                             <h6 class="mb-0">{{ $course->sections ?? 'N/A' }}</h6>
                         </div>
                     </div>

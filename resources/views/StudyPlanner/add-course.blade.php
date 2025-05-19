@@ -12,7 +12,6 @@
                         <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Add Course</li>
-                        <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
 
                     </ul> --}}
                 </div>

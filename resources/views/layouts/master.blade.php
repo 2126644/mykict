@@ -222,9 +222,6 @@
                                 <li class="{{ Request::is('list-course') ? 'active' : '' }}">
                                     <a href="list-course">Courses</a>
                                 </li>
-                                <li class="{{ Request::is('add-studyplan') ? 'active' : '' }}">
-                                    <a href="add-studyplan">Study Plan</a>
-                                </li>
                             </ul>
                         </li>
                     @endif
@@ -254,7 +251,6 @@
                             <ul style="display: block;">
                                 <li><a href="adminSSP-dashboard">Admin Dashboard</a></li>
                                 <li><a href="list-course">Courses</a></li>
-                                <li><a href="add-studyplan">Study Plan</a></li>
                             </ul>
                         </li>
                     @endif --}}

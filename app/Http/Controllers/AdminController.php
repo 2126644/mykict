@@ -72,4 +72,22 @@ class AdminController extends Controller
             'courses'
         ));
     }
+
+    public function showCoursesList(Request $request)
+{
+    $query = Course::query();
+
+    if ($request->filled('course_code')) {
+        $query->where('course_code', 'like', '%' . $request->course_code . '%');
+    }
+
+    if ($request->filled('course_title')) {
+        $query->where('course_title', 'like', '%' . $request->course_title . '%');
+    }
+
+    $courses = $query->get(); // You can change to paginate() if needed
+
+    return view('StudyPlanner.list-course', compact('courses'));
+}
+
 }
