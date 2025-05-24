@@ -9,8 +9,8 @@
                 <div class="col">
                     <h3 class="page-title">Course</h3>
                     {{-- <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Add Course</li>
 
                     </ul> --}}

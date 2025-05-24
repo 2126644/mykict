@@ -3,39 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
+use App\Models\StudentPreference;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
     //Display data from Student Table to SSP-dashboard
     public function showDashboardForLoggedInUser()
     {
-    // Get the currently authenticated user's email
-    $email = Auth::user()->email;
-    // Retrieve the student by email only (no relations loaded)
-    $student = Student::where('st_email', $email)->firstOrFail();
+        // Get the currently authenticated user's email
+        $email = Auth::user()->email;
+        // Retrieve the student by email only (no relations loaded)
+        $student = Student::where('st_email', $email)->firstOrFail();
 
-    //Display CGPA tracker from Student table
-    $gpa = [];
-    $cgpa = [];
+        //Display CGPA tracker from Student table
+        $gpa = [];
+        $cgpa = [];
 
-    for ($i = 1; $i <= 8; $i++) {
-        $gpa[] = $student->{'gpa_sem' . $i} ?? null;
-        $cgpa[] = $student->{'cgpa_sem' . $i} ?? null;
-    }
+        for ($i = 1; $i <= 8; $i++) {
+            $gpa[] = $student->{'gpa_sem' . $i} ?? null;
+            $cgpa[] = $student->{'cgpa_sem' . $i} ?? null;
+        }
 
-    return view('StudyPlanner.SSP-dashboard', compact('student', 'gpa', 'cgpa'));
+        return view('student.student-dashboard', compact('student', 'gpa', 'cgpa'));
     }
 
     //Edit student details
     public function editProfile()
     {
-    $user = Auth::user();
+        $user = Auth::user();
 
-    $student = Student::where('st_email', $user->email)->firstOrFail();
+        $student = Student::where('st_email', $user->email)->firstOrFail();
 
-    return view('StudyPlanner.update-profile', compact('student'));
+        return view('student.update-profile', compact('student'));
     }
 
     public function updateProfile(Request $request)
@@ -86,11 +87,45 @@ class StudentController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
+    public function storePreferences(Request $request)
+    {
+        $student = Student::where('st_email', Auth::user()->email)->first();
+
+        $codes = $request->input('course_codes', []);
+
+        if (empty($codes)) {
+            return back()->with('error', 'No courses selected.');
+        }
+
+        // Simpan semua course yang pelajar masih mahu
+        foreach ($codes as $course_code) {
+            StudentPreference::updateOrCreate([
+                'matric_no' => $student->matric_no,
+                'course_code' => $course_code,
+            ], ['preferred' => true]);
+        }
+
+        $toDelete = session()->get('to_delete_preferences', []);
+        // Padam course yang pelajar dah pernah simpan, tapi sekarang buang dari view
+        foreach ($toDelete as $code) {
+            StudentPreference::where('matric_no', $student->matric_no)
+                ->where('course_code', $code)
+                ->delete();
+        }
+
+        // Tambah ke session supaya kekal tersembunyi lepas save
+$permanentlyRemoved = session()->get('permanently_removed_courses', []);
+$permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
+session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
+
+
+        return back()->with('success', 'Courses saved successfully.');
+    }
 }
 
-        /**
-         * Update the student profile in the database.
-         */
+/**
+ * Update the student profile in the database.
+ */
 
         // public function update(Request $request, $matric_no)
         // {
@@ -193,4 +228,3 @@ class StudentController extends Controller
     //     // return redirect()->route('SSP.dashboard', ['matric_no' => $student->matric_no])
     //     //              ->with('success', 'Profile updated successfully.');
     // }
-

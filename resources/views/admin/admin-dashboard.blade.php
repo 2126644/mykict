@@ -1,361 +1,187 @@
 @extends('layouts.master')
+
 @section('content')
-    <div class="content container-fluid">
-
-        <div class="page-header">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="page-sub-header">
-                        <h3 class="page-title">Welcome Admin!</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                            <li class="breadcrumb-item active">Admin</li>
-                        </ul>
-                    </div>
+<div class="content container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-sub-header">
+                    <h3 class="page-title">Welcome {{ $admin->ad_name }}!</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.courses') }}">Course</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
-
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                <div class="card bg-comman w-100">
-                    <div class="card-body">
-                        <div class="db-widgets d-flex justify-content-between align-items-center">
-                            <div class="db-info">
-                                <h6>ADLIN HANDSOME</h6>
-                                <h3>7631035600</h3>
-                            </div>
-                            <div class="db-icon">
-                                <img src="assets/img/icons/dash-icon-01.svg" alt="Dashboard Icon">
-                            </div>
-                        </div>
+    <div class="row">
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Admin ID</h6>
+                        <h3>{{ $admin->admin_id }}</h3>
+                        <h6>Name</h6>
+                        <h3>{{ $admin->ad_name }}</h3>
                     </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                <div class="card bg-comman w-100">
-                    <div class="card-body">
-                        <div class="db-widgets d-flex justify-content-between align-items-center">
-                            <div class="db-info">
-                                <h6>EXAMINATION PHASE</h6>
-                                <h3>PENDING +1</h3>
-                            </div>
-                            <div class="db-icon">
-                                <img src="assets/img/icons/dash-icon-02.svg" alt="Dashboard Icon">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                <div class="card bg-comman w-100">
-                    <div class="card-body">
-                        <div class="db-widgets d-flex justify-content-between align-items-center">
-                            <div class="db-info">
-                                <h6>Department</h6>
-                                <h3>30+</h3>
-                            </div>
-                            <div class="db-icon">
-                                <img src="assets/img/icons/dash-icon-03.svg" alt="Dashboard Icon">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                <div class="card bg-comman w-100">
-                    <div class="card-body">
-                        <div class="db-widgets d-flex justify-content-between align-items-center">
-                            <div class="db-info">
-                                <h6>Revenue</h6>
-                                <h3>$505</h3>
-                            </div>
-                            <div class="db-icon">
-                                <img src="assets/img/icons/dash-icon-04.svg" alt="Dashboard Icon">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-lg-6">
-
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h5 class="card-title">Overview</h5>
-                            </div>
-                            <div class="col-6">
-                                <ul class="chart-list-out">
-                                    <li><span class="circle-blue"></span>Teacher</li>
-                                    <li><span class="circle-green"></span>Student</li>
-                                    <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="apexcharts-area"></div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-12 col-lg-6">
-
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h5 class="card-title">Number of Students</h5>
-                            </div>
-                            <div class="col-6">
-                                <ul class="chart-list-out">
-                                    <li><span class="circle-blue"></span>Girls</li>
-                                    <li><span class="circle-green"></span>Boys</li>
-                                    <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="bar"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 d-flex">
-
-                <div class="card flex-fill student-space comman-shadow">
-                    <div class="card-header d-flex align-items-center">
-                        <h5 class="card-title">Star Students</h5>
-                        <ul class="chart-list-out student-ellips">
-                            <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table star-student table-hover table-center table-borderless table-striped">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th class="text-center">Marks</th>
-                                        <th class="text-center">Percentage</th>
-                                        <th class="text-end">Year</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE2209</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle" src="assets/img/profiles/avatar-02.jpg"
-                                                    width="25" alt="Star Students">
-                                                John Smith
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1185</td>
-                                        <td class="text-center">98%</td>
-                                        <td class="text-end">
-                                            <div>2019</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE1245</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg"
-                                                    width="25" alt="Star Students">
-                                                Jolie Hoskins
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1195</td>
-                                        <td class="text-center">99.5%</td>
-                                        <td class="text-end">
-                                            <div>2018</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE1625</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle" src="assets/img/profiles/avatar-03.jpg"
-                                                    width="25" alt="Star Students">
-                                                Pennington Joy
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1196</td>
-                                        <td class="text-center">99.6%</td>
-                                        <td class="text-end">
-                                            <div>2017</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE2516</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle" src="assets/img/profiles/avatar-04.jpg"
-                                                    width="25" alt="Star Students">
-                                                Millie Marsden
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1187</td>
-                                        <td class="text-center">98.2%</td>
-                                        <td class="text-end">
-                                            <div>2016</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE2209</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle" src="assets/img/profiles/avatar-05.jpg"
-                                                    width="25" alt="Star Students">
-                                                John Smith
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1185</td>
-                                        <td class="text-center">98%</td>
-                                        <td class="text-end">
-                                            <div>2015</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-xl-6 d-flex">
-
-                <div class="card flex-fill comman-shadow">
-                    <div class="card-header d-flex align-items-center">
-                        <h5 class="card-title ">Student Activity </h5>
-                        <ul class="chart-list-out student-ellips">
-                            <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="activity-groups">
-                            <div class="activity-awards">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-01.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>1st place in "Chess”</h4>
-                                    <h5>John Doe won 1st place in "Chess"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>1 Day ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-awards">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-02.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Participated in "Carrom"</h4>
-                                    <h5>Justin Lee participated in "Carrom"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>2 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-awards">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-03.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Internation conference in "St.John School"</h4>
-                                    <h5>Justin Leeattended internation conference in "St.John School"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>2 Week ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-awards mb-0">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-04.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Won 1st place in "Chess"</h4>
-                                    <h5>John Doe won 1st place in "Chess"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>3 Day ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill fb sm-box">
-                    <div class="social-likes">
-                        <p>Like us on facebook</p>
-                        <h6>50,095</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-01.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill twitter sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on twitter</p>
-                        <h6>48,596</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-02.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill insta sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on instagram</p>
-                        <h6>52,085</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-03.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill linkedin sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on linkedin</p>
-                        <h6>69,050</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-04.svg" alt="Social Icon">
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100"> 
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Email</h6>
+                        <h3>{{ $admin->ad_email }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="card report-card">
+        <div class="card-body pb-0">
+            <form method="GET" action="{{ route('adminSSP.dashboard') }}">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="department" class="form-label">Select Department</label>
+                        <select name="department" id="department" class="form-select">
+                            <option value="">-- All --</option>
+                            @foreach ($departments as $dept)
+                            <option value="{{ $dept }}" {{ request('department') == $dept ? 'selected' : '' }}>
+                                {{ $dept }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="specialization" class="form-label">Select Specialization</label>
+                        <select name="specialization" id="specialization" class="form-select">
+                            <option value="">-- All --</option>
+                            @foreach ($specializations as $spec)
+                            <option value="{{ $spec }}" {{ request('specialization') == $spec ? 'selected' : '' }}>
+                                {{ $spec }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="year_semester" class="form-label">Select Year</label>
+                        <select name="year_semester" id="year_semester" class="form-select">
+                            <option value="">-- All --</option>
+                            @foreach ($years as $year)
+                            <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="category" class="form-label">Select Category</label>
+                        <select name="category" id="category" class="form-select">
+                            <option value="">-- All --</option>
+                            @foreach ($categories as $cat)
+                            <option value="{{ $cat }}" {{ request('category') == $cat ? 'selected' : '' }}>
+                                {{ $cat }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                        <a href="{{ route('adminSSP.dashboard') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        @forelse($courses as $course)
+        <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
+            <div class="card invoices-grid-card w-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <a href="#" class="invoice-grid-link">{{ $course->course_code }}</a>
+                    <div class="dropdown dropdown-action">
+                        <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#"><i class="far fa-edit me-2"></i>Edit</a>
+                            <a class="dropdown-item" href="#"><i class="far fa-eye me-2"></i>View</a>
+                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-middle">
+                    <h2 class="card-middle-avatar">
+                        <a href="#">{{ $course->course_title }}</a>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                            <span><i class="fas fa-users"></i> Total Students</span>
+                            <h6 class="mb-0">{{ $course->total_students ?? 'N/A' }}</h6>
+                        </div>
+                        <div class="col-auto">
+                            <span><i class="fas fa-chalkboard-teacher"></i> Number of Sections</span>
+                            <h6 class="mb-0">{{ $course->sections ?? 'N/A' }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="badge bg-success-dark">{{ $course->status ?? 'Open' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @empty
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                No courses found for the selected filters.
+            </div>
+        </div>
+        @endforelse
+    </div>
+</div>
+
+
+
+{{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/feather.min.js"></script>
+
+    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+
+
+    <script src="assets/js/circle-progress.min.js"></script>
+
+    <script src="assets/js/script.js"></script> --}}
+</body>
 @endsection

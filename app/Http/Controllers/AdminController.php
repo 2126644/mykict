@@ -63,7 +63,7 @@ class AdminController extends Controller
 
 
         // Return the view with all data
-        return view('StudyPlanner.adminSSP-dashboard', compact(
+        return view('admin.admin-dashboard', compact(
             'admin',
             'departments',
             'specializations',
@@ -87,7 +87,7 @@ class AdminController extends Controller
 
     $courses = $query->get(); // You can change to paginate() if needed
 
-    return view('StudyPlanner.list-course', compact('courses'));
+    return view('admin.list-course', compact('courses'));
 }
 
 }

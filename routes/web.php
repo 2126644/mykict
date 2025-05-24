@@ -1,86 +1,64 @@
 <?php
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 
+// Home page
 Route::get('/', function () {
-    return view('auth.login');
+    // If the user is already logged in…
+    if (Auth::check()) {
+        // Send admins to their dashboard…
+        if (Auth::user()->role_id === 1) {
+            return redirect()->route('admin.dashboard');
+        }
+        // …and students to /todo
+        return redirect()->route('student.dashboard');
+    }
+    // Otherwise send guests to login
+    return redirect()->route('login');
 });
 
-// Route for Main Welcome Page
-Route::get('mainSSP-welcome', function () {
-    return view('StudyPlanner.mainSSP-welcome');
-})->name('mainSSP.welcome');
+Route::get('/dashboard', function () {
+    if (Auth::check()) {
+        if (Auth::user()->role_id === 1) {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('student.dashboard');
+        }
+    }
 
-// Route for Student Welcome Page
-Route::get('SSP-welcome', function () {
-    return view('StudyPlanner.SSP-welcome');
-})->name('SSP.welcome');
+    return redirect()->route('login');
+})->middleware('auth')->name('dashboard');
 
-// Route for Student Dashboard
-// Route::get('SSP-dashboard', function () {
-//     return view('StudyPlanner.SSP-dashboard');
-// })->name('SSP.dashboard');
-
-// Route for Update Profile
-// Route::get('update-profile', function () {
-//     return view('StudyPlanner.update-profile');
-// })->name('update.profile');
-
-// Route for View Course Suggested
-Route::get('view-course', function () {
-    return view('StudyPlanner.view-course');
-})->name('view.course');
 
 // Route for CGPA Calculator
 Route::get('cgpa-calculator', function () {
-    return view('StudyPlanner.cgpa-calculator');
+    return view('student.cgpa-calculator');
 })->name('cgpa.calculator');
-
-// Route for Admin Welcome Page
-Route::get('admin-welcome', function () {
-    return view('StudyPlanner.admin-welcome');
-})->name('admin.welcome');
-
-// Route for Admin Dashboard
-Route::get('adminSSP-dashboard', function () {
-    return view('StudyPlanner.adminSSP-dashboard');
-})->name('adminSSP.dashboard');
-
-// Route for Course
-Route::get('list-course', function () {
-    return view('StudyPlanner.list-course');
-})->name('list.course');
-
-// Route for Add Course
-Route::get('add-course', function () {
-    return view('StudyPlanner.add-course');
-})->name('add.course');
-
 
 // Route for Edit Course
 Route::get('edit-course', function () {
-    return view('StudyPlanner.edit-course');
+    return view('admin.edit-course');
 })->name('edit.course');
 
 //Route for DATABASE
 Route::middleware(['auth'])->group(function () {
     // Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
-    Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('SSP.dashboard');
-    Route::get('/adminSSP-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('adminSSP.dashboard');
-    
-    // Route::get('student-dashboard', function () {
-    //      return view('admin/student-dashboard');
-    //  })->name('SSP.dashboard');
+    Route::get('student-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
+    Route::get('admin-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('admin.dashboard');
     
 });
 
-Route::get('/list-course', [AdminController::class, 'showCoursesList'])->name('list.course');
+Route::get('admin-courses', [AdminController::class, 'showCoursesList'])->name('admin.courses');
 
+Route::get('student-courses', [CourseController::class, 'showRecommendedCourses'])->name('student.courses');
 
-Route::get('/view-course', [CourseController::class, 'showRecommendedCourses'])->name('view.course');
+Route::post('student-course/remove/{course_code}', [CourseController::class, 'removeCourse'])->name('student.course.remove');
+Route::post('student-preferences', [StudentController::class, 'storePreferences'])->name('student.preferences.store');
 
 //Student update profile to student database
 Route::middleware(['auth'])->group(function () {
@@ -89,32 +67,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //Admin add course store to course database
-Route::post('/add-course', [CourseController::class, 'store'])->name('add.courses');
+Route::post('addcourse', [CourseController::class, 'store'])->name('admin.addcourse');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    // Set welcome-dashboard as the main dashboard
-    Route::get('/dashboard', function () {
-        return view('admin/welcome-dashboard');
-    })->name('dashboard');
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('student/student-dashboard');
+//     })->name('student.dashboard');
 
-    // Route for admin dashboard
-    Route::get('admin-dashboard', function () {
-        return view('admin/admin-dashboard');
-    })->name('admin.dashboard');
-
-
-    // Route for student dashboard
-    // Route::get('student-dashboard', function () {
-    //      return view('admin/student-dashboard');
-    //  })->name('SSP.dashboard');
-});
-
-
-
-//Route for update profile form to student database
-// Route::put('/students/{matric_no}', [StudentController::class, 'update'])->name('students.update');
-// Route::get('/students/{matric_no}/edit', [StudentController::class, 'edit'])->name('students.edit');
+//     // Route for admin dashboard
+//     Route::get('admin-dashboard', function () {
+//         return view('admin/admin-dashboard');
+//     })->name('admin.dashboard');
+// });
