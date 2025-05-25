@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="assets/plugins/feather/feather.css">
     <link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
 </head> --}}
-
 <div class="content container-fluid">
 
     <div class="page-header">
