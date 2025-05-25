@@ -217,7 +217,7 @@
                             <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
                                 <li class="{{ Request::is('adminSSP-dashboard') ? 'active' : '' }}">
-                                    <a href="adminSSP-dashboard">Admin Dashboard</a>
+                                    <a href="admin-dashboard">Admin Dashboard</a>
                                 </li>
                                 <li class="{{ Request::is('list-course') ? 'active' : '' }}">
                                     <a href="list-course">Courses</a>
@@ -232,10 +232,10 @@
                             <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
                                 <li class="{{ Request::is('SSP-dashboard') ? 'active' : '' }}">
-                                    <a href="SSP-dashboard">Student Dashboard</a>
+                                    <a href="student-dashboard">Student Dashboard</a>
                                 </li>
                                 <li class="{{ Request::is('view-course') ? 'active' : '' }}">
-                                    <a href="view-course">View Suggested Courses</a>
+                                    <a href="student-courses">View Suggested Courses</a>
                                 </li>
                                 <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
                                     <a href="cgpa-calculator">CGPA Calculator and Predictor</a>
