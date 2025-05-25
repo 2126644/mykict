@@ -53,21 +53,21 @@ class CourseController extends Controller
     }
 
     $hidden = session()->get('temp_hidden_courses', []);
-$removed = session()->get('permanently_removed_courses', []);
-$hideCodes = $removed; // sebab kita pakai course_code sebagai PK
+    $removed = session()->get('permanently_removed_courses', []);
+    $hideCodes = $removed; // sebab kita pakai course_code sebagai PK
 
-$query = Course::where('year', $student->year)
-               ->where('sem', $student->sem);
+    $query = Course::where('year', $student->year)
+                ->where('sem', $student->sem);
 
-if (!empty($hidden)) {
-    $query->whereNotIn('id', $hidden); // jika guna id untuk temporary hide
-}
+    if (!empty($hidden)) {
+        $query->whereNotIn('id', $hidden); // jika guna id untuk temporary hide
+    }
 
-if (!empty($hideCodes)) {
-    $query->whereNotIn('course_code', $hideCodes); // untuk permanently removed
-}
+    if (!empty($hideCodes)) {
+        $query->whereNotIn('course_code', $hideCodes); // untuk permanently removed
+    }
 
-$courses = $query->get();
+    $courses = $query->get();
 
 
 

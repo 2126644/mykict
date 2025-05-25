@@ -12,6 +12,8 @@ class StudentPreference extends Model
     protected $fillable = [
         'matric_no',
         'course_code',
+        'course_title',
+        'credit_hrs',
         'action',
     ];
 

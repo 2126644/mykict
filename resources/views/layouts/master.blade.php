@@ -216,33 +216,62 @@
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
-                                <li class="{{ Request::is('adminSSP-dashboard') ? 'active' : '' }}">
+                                <li class="{{ Request::is('admin-dashboard') ? 'active' : '' }}">
                                     <a href="admin-dashboard">Admin Dashboard</a>
                                 </li>
                                 <li class="{{ Request::is('list-course') ? 'active' : '' }}">
                                     <a href="list-course">Courses</a>
                                 </li>
+                                 <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn w-100 text-start logout-button" style="background: none; border: none; padding-left: 20px;">
+                                        <i class="feather-log-out"></i> Logout
+                                    </button>
+
+                                </form>
+                                <style>
+                                .logout-button:hover {
+                                    color: red;
+                                    background-color: transparent; /* optional: ensure background stays clean */
+                                }
+                                </style>
                             </ul>
                         </li>
                     @endif
-
 
                     @if (Auth::user()->role_id == '6')
-                        <li class="submenu active">
-                            <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: block;">
-                                <li class="{{ Request::is('SSP-dashboard') ? 'active' : '' }}">
-                                    <a href="student-dashboard">Student Dashboard</a>
-                                </li>
-                                <li class="{{ Request::is('view-course') ? 'active' : '' }}">
-                                    <a href="student-courses">View Suggested Courses</a>
-                                </li>
-                                <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
-                                    <a href="cgpa-calculator">CGPA Calculator and Predictor</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
+                    <li class="submenu active">
+                        <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: block;">
+                            <li class="{{ Request::is('SSP-dashboard') ? 'active' : '' }}">
+                                <a href="student-dashboard">Student Dashboard</a>
+                            </li>
+                            <li class="{{ Request::is('view-course') ? 'active' : '' }}">
+                                <a href="student-courses">View Suggested Courses</a>
+                            </li>
+                            <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
+                                <a href="cgpa-calculator">CGPA Calculator and Predictor</a>
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn w-100 text-start logout-button" style="background: none; border: none; padding-left: 20px;">
+                                        <i class="feather-log-out"></i> Logout
+                                    </button>
+
+                                </form>
+                                <style>
+                                .logout-button:hover {
+                                    color: red;
+                                    background-color: transparent; /* optional: ensure background stays clean */
+                                }
+                                </style>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
 
                     {{-- ORIGINAL NAV BAR FROM TEMPLATE --}}
                     {{-- @if (Auth::user()->role_id == '1')
