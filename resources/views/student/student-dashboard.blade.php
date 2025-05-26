@@ -23,7 +23,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-sub-header">
-                    {{-- <h3 class="page-title">Welcome Nur Ain!</h3> --}}
                     <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Home</a></li>
@@ -125,7 +124,7 @@
                             <ul class="chart-list-out">
                                 <li><span class="circle-blue"></span><span class="circle-gray"></span><span
                                         class="circle-gray"></span></li>
-                                <li class="lesson-view-all"><a href="{{ url('view-course') }}">View Study Plan</a>
+                                <li class="lesson-view-all"><a href="{{ route('student.courses') }}">View Study Plan</a>
                                 </li>
                                 <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
                                 </li>
@@ -298,37 +297,10 @@
                                     <span>Credit Hour: 3</span>
                                 </div>
                             </div>
-                            <div class="calendar-details">
-                                <p>INFO 4402</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>E-Commerce</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>CCUB 3301</p>
-                                <div class="calendar-box break-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Usrah In Action 2</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 1</span>
-                                </div>
-                            </div>
+                            
+                            
 
-                            <div class="calendar-details">
-                                <p>CCFA 3302</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>First Aid Skill 2</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 0.5</span>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -336,7 +308,7 @@
         </div>
     </div>
     <!-- UPDATED SCRIPT FOR CGPA TRACKER-->
-    <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk--> --}}
+    <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk-->
     <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
     <script>
         var options = {

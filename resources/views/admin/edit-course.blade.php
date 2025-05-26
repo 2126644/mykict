@@ -4,49 +4,97 @@
 
 <div class="page-wrapper">
     <div class="content container-fluid">
-
-        <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h3 class="page-title">Edit Course</h3>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-sub-header">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="add-course">Course</a></li>
-                        <li class="breadcrumb-item active">Edit Course</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                        <li class="breadcrumb-item active">Courses</li>
                     </ul>
                 </div>
             </div>
         </div>
+    </div>
+
+
 
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form>
+                        <form action="{{ route('admin.course.update', $course->course_code) }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Course Information</span></h5>
                                 </div>
-                                <div class="col-12 col-sm-4">
+
+                                <div class="col-12 col-md-4">
                                     <div class="form-group local-forms">
                                         <label>Course Code <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" value="PRE1534">
+                                        <input type="text" name="course_code" class="form-control" value="{{ $course->course_code }}" required>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group local-forms">
                                         <label>Course Title <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" value="Botony">
+                                        <input type="text" name="course_title" class="form-control" value="{{ $course->course_title }}" required>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group local-forms">
                                         <label>Credit Hour <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" value="9">
+                                        <input type="text" name="credit_hrs" class="form-control" value="{{ $course->credit_hrs }}" required>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="student-submit">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Department <span class="login-danger">*</span></label>
+                                        <input type="text" name="department" class="form-control" value="{{ $course->department }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Specialization</label>
+                                        <input type="text" name="specialization" class="form-control" value="{{ $course->specialization }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Category</label>
+                                        <input type="text" name="category" class="form-control" value="{{ $course->category }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Pre-requisites</label>
+                                        <input type="text" name="pre_requisites" class="form-control" value="{{ $course->pre_requisites }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Year <span class="login-danger">*</span></label>
+                                        <input type="number" name="year" class="form-control" value="{{ $course->year }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group local-forms">
+                                        <label>Semester <span class="login-danger">*</span></label>
+                                        <input type="number" name="sem" class="form-control" value="{{ $course->sem }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="course-submit">
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
                             </div>

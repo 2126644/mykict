@@ -10,12 +10,6 @@
         <div class="row align">
             <div class="col">
                 <h3 class="page-title">Courses</h3>
-                {{-- <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Course</li>
-                <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
-                </ul> --}}
             </div>
         </div>
     </div>
@@ -208,7 +202,7 @@
                     <td>{{ $course->specialization }}</td>
                     <td class="text-end">
                         <div class="actions">
-                            <a href="edit-course" class="btn btn-sm bg-danger-light">
+                            <a href="{{ route('admin.course.edit', $course->course_code) }}" class="btn btn-sm bg-danger-light">
                                 <i class="feather-edit"></i>
                             </a>
                         </div>
