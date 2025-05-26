@@ -55,7 +55,7 @@
 
     <div class="card report-card">
         <div class="card-body pb-0">
-            <form method="GET" action="{{ route('adminSSP.dashboard') }}">
+            <form method="GET" action="{{ route('admin.dashboard') }}">
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="department" class="form-label">Select Department</label>
@@ -107,7 +107,7 @@
 
                     <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
                         <button type="submit" class="btn btn-primary">Apply</button>
-                        <a href="{{ route('adminSSP.dashboard') }}" class="btn btn-secondary">Reset</a>
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Reset</a>
                     </div>
                 </div>
             </form>

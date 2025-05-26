@@ -219,8 +219,8 @@
                                 <li class="{{ Request::is('admin-dashboard') ? 'active' : '' }}">
                                     <a href="admin-dashboard">Admin Dashboard</a>
                                 </li>
-                                <li class="{{ Request::is('list-course') ? 'active' : '' }}">
-                                    <a href="list-course">Courses</a>
+                                <li class="{{ Request::is('admin-courses') ? 'active' : '' }}">
+                                    <a href="admin-courses">Courses</a>
                                 </li>
                                  <li>
                                 <form method="POST" action="{{ route('logout') }}">
@@ -244,10 +244,10 @@
                     <li class="submenu active">
                         <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
                         <ul style="display: block;">
-                            <li class="{{ Request::is('SSP-dashboard') ? 'active' : '' }}">
+                            <li class="{{ Request::is('student-dashboard') ? 'active' : '' }}">
                                 <a href="student-dashboard">Student Dashboard</a>
                             </li>
-                            <li class="{{ Request::is('view-course') ? 'active' : '' }}">
+                            <li class="{{ Request::is('student-courses') ? 'active' : '' }}">
                                 <a href="student-courses">View Suggested Courses</a>
                             </li>
                             <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
@@ -278,7 +278,7 @@
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
-                                <li><a href="adminSSP-dashboard">Admin Dashboard</a></li>
+                                <li><a href="admin-dashboard">Admin Dashboard</a></li>
                                 <li><a href="list-course">Courses</a></li>
                             </ul>
                         </li>

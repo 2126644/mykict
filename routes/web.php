@@ -52,7 +52,6 @@ Route::get('edit-course', function () {
 
 //Route for DATABASE
 Route::middleware(['auth'])->group(function () {
-    // Route::get('/SSP-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
     Route::get('student-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
     Route::get('admin-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('admin.dashboard');
     

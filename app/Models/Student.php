@@ -12,6 +12,7 @@ class Student extends Model
 
     protected $fillable = [
         'matric_no',
+        'user_id',
         'st_name',
         'st_email',
         'st_password',
@@ -29,7 +30,6 @@ class Student extends Model
         'gpa_sem6', 'cgpa_sem6',
         'gpa_sem7', 'cgpa_sem7',
         'gpa_sem8', 'cgpa_sem8',
-
     ];
 
     //relationships - NANTI BARU BUKAK BALIK

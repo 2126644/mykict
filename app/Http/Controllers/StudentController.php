@@ -12,10 +12,11 @@ class StudentController extends Controller
     //Display data from Student Table to SSP-dashboard
     public function showDashboardForLoggedInUser()
     {
-        // Get the currently authenticated user's email
-        $email = Auth::user()->email;
-        // Retrieve the student by email only (no relations loaded)
-        $student = Student::where('st_email', $email)->firstOrFail();
+        $student = Auth::user()->student;
+
+    if (!$student) {
+        return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
+    }
 
         //Display CGPA tracker from Student table
         $gpa = [];
@@ -114,9 +115,9 @@ class StudentController extends Controller
         }
 
         // Tambah ke session supaya kekal tersembunyi lepas save
-$permanentlyRemoved = session()->get('permanently_removed_courses', []);
-$permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
-session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
+        $permanentlyRemoved = session()->get('permanently_removed_courses', []);
+        $permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
+        session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
 
 
         return back()->with('success', 'Courses saved successfully.');

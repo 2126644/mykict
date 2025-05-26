@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    //Display data from Admin Table to adminSSP-dashboard
+    //Display data from Admin Table to admin-dashboard
     public function showDashboardForLoggedInAdmin(Request $request)
     {
         // Get the currently authenticated user's email

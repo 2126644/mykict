@@ -12,7 +12,7 @@
                 <h3 class="page-title">Courses</h3>
                 {{-- <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.welcome') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('adminSSP.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active">Course</li>
                 <li class="breadcrumb-item"><a href="{{ route('add.studyplan') }}">Study Plan</a></li>
                 </ul> --}}
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row align">
-        <form action="{{ route('list.course') }}" method="GET" class="row align">
+        <form action="{{ route('admin.courses') }}" method="GET" class="row align">
             <!-- Search by Course Code -->
             <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
                 <div class="form-group">
