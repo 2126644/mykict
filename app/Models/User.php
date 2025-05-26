@@ -26,12 +26,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     public function role()
-     {
-         return $this->belongsTo(Role::class);
-     }
-
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -70,5 +65,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_id', 'id');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id', 'id');
     }
 }

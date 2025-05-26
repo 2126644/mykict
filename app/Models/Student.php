@@ -38,8 +38,9 @@ class Student extends Model
         return $this->hasMany(StudentPreference::class, 'matric_no');
     }
 
-    // public function calculateCGPA()
-    // {
-    //     return $this->hasMany(CGPACalculator::class, 'matric_no');
-    // }
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

@@ -8,19 +8,24 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 
 // Home page
+// Route::get('/', function () {
+//     // If the user is already logged in…
+//     if (Auth::check()) {
+//         // Send admins to their dashboard…
+//         if (Auth::user()->role_id === 1) {
+//             return redirect()->route('admin.dashboard');
+//         }
+//         // …and students to /todo
+//         return redirect()->route('student.dashboard');
+//     }
+//     // Otherwise send guests to login
+//     return redirect()->route('login');
+// });
+
 Route::get('/', function () {
-    // If the user is already logged in…
-    if (Auth::check()) {
-        // Send admins to their dashboard…
-        if (Auth::user()->role_id === 1) {
-            return redirect()->route('admin.dashboard');
-        }
-        // …and students to /todo
-        return redirect()->route('student.dashboard');
-    }
-    // Otherwise send guests to login
-    return redirect()->route('login');
+    return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     if (Auth::check()) {
