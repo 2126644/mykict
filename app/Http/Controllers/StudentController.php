@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentPreference;
 use App\Models\Student;
+use App\Models\Course;
 
 class StudentController extends Controller
 {
@@ -14,9 +15,9 @@ class StudentController extends Controller
     {
         $student = Auth::user()->student;
 
-    if (!$student) {
-        return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
-    }
+        if (!$student) {
+            return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
+        }
 
         //Display CGPA tracker from Student table
         $gpa = [];
@@ -27,7 +28,30 @@ class StudentController extends Controller
             $cgpa[] = $student->{'cgpa_sem' . $i} ?? null;
         }
 
-        return view('student.student-dashboard', compact('student', 'gpa', 'cgpa'));
+        $currentSem = $student->sem;
+        $currentYear = $student->year;
+
+        if ($currentSem == 1) {
+            $nextSem = 2;
+            $nextYear = $currentYear;
+        } else {
+            $nextSem = 1;
+            $nextYear = $currentYear + 1;
+        }
+
+        $upcomingSubjects = Course::where('year', $nextYear)
+            ->where('sem', $nextSem)
+            ->get();
+
+
+        return view('student.student-dashboard', compact(
+            'student',
+            'gpa',
+            'cgpa',
+            'nextSem',
+            'nextYear',
+            'upcomingSubjects'
+        ));
     }
 
     //Edit student details
@@ -118,7 +142,6 @@ class StudentController extends Controller
         $permanentlyRemoved = session()->get('permanently_removed_courses', []);
         $permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
         session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
-
 
         return back()->with('success', 'Courses saved successfully.');
     }

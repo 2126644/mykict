@@ -76,15 +76,25 @@ class CourseController extends Controller
         // Get student info using email
         $student = Student::where('st_email', $user->email)->firstOrFail();
 
-        // Start course query with year and sem filters
-        $query = Course::where('year', $student->year)
-            ->where('sem', $student->sem);
+        // Calculate next semester/year
+        $currentYear = $student->year;
+        $currentSem = $student->sem;
+
+        if ($currentSem == 1) {
+            $nextSem = 2;
+            $nextYear = $currentYear;
+        } else {
+            $nextSem = 1;
+            $nextYear = $currentYear + 1;
+        }
+
+        // Query courses for upcoming semester
+        $query = Course::where('year', $nextYear)->where('sem', $nextSem);
 
         // Apply optional search filters
         if ($request->filled('course_code')) {
             $query->where('course_code', 'like', '%' . $request->course_code . '%');
         }
-
         if ($request->filled('course_title')) {
             $query->where('course_title', 'like', '%' . $request->course_title . '%');
         }
@@ -92,9 +102,6 @@ class CourseController extends Controller
         $hidden = session()->get('temp_hidden_courses', []);
         $removed = session()->get('permanently_removed_courses', []);
         $hideCodes = $removed; // sebab kita pakai course_code sebagai PK
-
-        $query = Course::where('year', $student->year)
-            ->where('sem', $student->sem);
 
         if (!empty($hidden)) {
             $query->whereNotIn('id', $hidden); // jika guna id untuk temporary hide
@@ -104,9 +111,9 @@ class CourseController extends Controller
             $query->whereNotIn('course_code', $hideCodes); // untuk permanently removed
         }
 
-        $courses = $query->get(); // Use paginate() if preferred
+        $courses = $query->get();
 
-        return view('student.view-course', compact('courses'));
+        return view('student.view-course', compact('courses', 'nextSem', 'nextYear'));
     }
 
     public function removeCourse($course_code)

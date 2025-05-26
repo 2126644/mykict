@@ -101,7 +101,7 @@
                                     <td>
                                         <form action="{{ route('student.course.remove', $course->course_code) }}" method="POST" onsubmit="return confirm('Remove this course from your study plan?')">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                         </form>
                                     </td>
                                 </tr>

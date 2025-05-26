@@ -259,52 +259,39 @@
                     <div class="card-body">
                         <div id="calendar-doctor" class="calendar-container"></div>
                         <div class="calendar-info calendar-info1">
-                            <div class="up-come-header">
-                                <h2>Upcoming Subjects</h2>
-                                <span><a href="{{ url('view-course') }}"><i class="feather-plus"></i></a></span>
-                            </div>
-                            <div class="upcome-event-date">
-                                <h3>Semester 2 2025/2026</h3>
-                                <span><i class="fas fa-ellipsis-h"></i></span>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 3301</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Web App Development</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h4 class="mt-0">Upcoming Subjects</h4>
+                                </div>
+                                <!-- Display the upcoming semester/year dynamically -->
+                                <!-- Calculate $nextSem and $nextYear in controller and pass to view -->
+                                <div>
+                                    <h4 class="mt-0">Semester {{ $nextSem }}, {{ $nextYear }}/{{ $nextYear + 1 }}</h4>
                                 </div>
                             </div>
-                            <div class="calendar-details">
-                                <p>INFO 3302</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Data Warehousing </h4>
-                                        <h5>Target Grade: A-</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 4401</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Data Mining</h4>
-                                        <h5>Target Grade: B+</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            
-                            
 
-                            
+                            @forelse ($upcomingSubjects as $subject)
+                            <div class="mb-3">
+                                <div class="p-3 rounded shadow-sm d-flex justify-content-between align-items-center" style="background: #f8fafc;">
+                                    <div>
+                                        <div class="fw-bold" style="font-size: 1rem;">{{ $subject->course_code }} - {{ $subject->course_title }}</div>
+                                        <div style="font-size: 0.95rem; color: #789;">Target Grade: {{ $subject->target_grade ?? '-' }}</div>
+                                    </div>
+                                    <div>
+                                        <span class="badge text-dark" style="font-size: 1rem;">Credit Hour: {{ $subject->credit_hrs ?? '-' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @empty
+                            <div class="alert alert-warning mb-3">
+                                No upcoming subjects added yet!
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- UPDATED SCRIPT FOR CGPA TRACKER-->
