@@ -82,8 +82,8 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="year_semester" class="form-label">Select Year</label>
-                        <select name="year_semester" id="year_semester" class="form-select">
+                        <label for="year" class="form-label">Select Year</label>
+                        <select name="year" id="year" class="form-select">
                             <option value="">-- All --</option>
                             @foreach ($years as $year)
                             <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
@@ -124,7 +124,7 @@
                         <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#"><i class="far fa-edit me-2"></i>Edit</a>
+                            <a class="dropdown-item" href="{{ route('admin.course.edit', $course->course_code) }}"><i class="far fa-edit me-2"></i>Edit</a>
                             <a class="dropdown-item" href="#"><i class="far fa-eye me-2"></i>View</a>
                             <a class="dropdown-item" href="#"><i class="far fa-trash-alt me-2"></i>Delete</a>
                         </div>

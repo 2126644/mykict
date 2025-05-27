@@ -57,8 +57,8 @@
                                 <h3 class="page-title">Suggested Courses</h3>
                             </div>
                             <div class="col-auto text-end float-end ms-auto download-grp">
-                                <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i>Download</a>
-                                <!-- <a href="add-subject.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>-->
+                                <a href="{{ asset('assets/files/BCS-Study-Plan-Batch-241.pdf') }}" class="btn btn-outline-primary me-2" download><i class="fas fa-download"></i> BCS Study Plan 241</a>
+                                <a href="{{ asset('assets/files/BIT-Study-Plan-Batch-241.pdf') }}" class="btn btn-outline-primary me-2" download><i class="fas fa-download"></i> BIT Study Plan 241</a>
                                 <a href="javascript:void(0);" class="add-btn me-2"><i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                     <td>
                                         <form action="{{ route('student.course.remove', $course->course_code) }}" method="POST" onsubmit="return confirm('Remove this course from your study plan?')">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                         </form>
                                     </td>
                                 </tr>

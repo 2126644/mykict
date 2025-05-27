@@ -23,7 +23,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-sub-header">
-                    {{-- <h3 class="page-title">Welcome Nur Ain!</h3> --}}
                     <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Home</a></li>
@@ -125,7 +124,7 @@
                             <ul class="chart-list-out">
                                 <li><span class="circle-blue"></span><span class="circle-gray"></span><span
                                         class="circle-gray"></span></li>
-                                <li class="lesson-view-all"><a href="{{ url('view-course') }}">View Study Plan</a>
+                                <li class="lesson-view-all"><a href="{{ route('student.courses') }}">View Study Plan</a>
                                 </li>
                                 <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
                                 </li>
@@ -260,83 +259,43 @@
                     <div class="card-body">
                         <div id="calendar-doctor" class="calendar-container"></div>
                         <div class="calendar-info calendar-info1">
-                            <div class="up-come-header">
-                                <h2>Upcoming Subjects</h2>
-                                <span><a href="{{ url('view-course') }}"><i class="feather-plus"></i></a></span>
-                            </div>
-                            <div class="upcome-event-date">
-                                <h3>Semester 2 2025/2026</h3>
-                                <span><i class="fas fa-ellipsis-h"></i></span>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 3301</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Web App Development</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h4 class="mt-0">Upcoming Subjects</h4>
                                 </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 3302</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Data Warehousing </h4>
-                                        <h5>Target Grade: A-</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 4401</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Data Mining</h4>
-                                        <h5>Target Grade: B+</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>INFO 4402</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>E-Commerce</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 3</span>
-                                </div>
-                            </div>
-                            <div class="calendar-details">
-                                <p>CCUB 3301</p>
-                                <div class="calendar-box break-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>Usrah In Action 2</h4>
-                                        <h5>Target Grade: A</h5>
-                                    </div>
-                                    <span>Credit Hour: 1</span>
+                                <!-- Display the upcoming semester/year dynamically -->
+                                <!-- Calculate $nextSem and $nextYear in controller and pass to view -->
+                                <div>
+                                    <h4 class="mt-0">Semester {{ $nextSem }}, {{ $nextYear }}/{{ $nextYear + 1 }}</h4>
                                 </div>
                             </div>
 
-                            <div class="calendar-details">
-                                <p>CCFA 3302</p>
-                                <div class="calendar-box normal-bg">
-                                    <div class="calandar-event-name">
-                                        <h4>First Aid Skill 2</h4>
-                                        <h5>Target Grade: A</h5>
+                            @forelse ($upcomingSubjects as $subject)
+                            <div class="mb-3">
+                                <div class="p-3 rounded shadow-sm d-flex justify-content-between align-items-center" style="background: #f8fafc;">
+                                    <div>
+                                        <div class="fw-bold" style="font-size: 1rem;">{{ $subject->course_code }} - {{ $subject->course_title }}</div>
+                                        <div style="font-size: 0.95rem; color: #789;">Target Grade: {{ $subject->target_grade ?? '-' }}</div>
                                     </div>
-                                    <span>Credit Hour: 0.5</span>
+                                    <div>
+                                        <span class="badge text-dark" style="font-size: 1rem;">Credit Hour: {{ $subject->credit_hrs ?? '-' }}</span>
+                                    </div>
                                 </div>
                             </div>
+                            @empty
+                            <div class="alert alert-warning mb-3">
+                                No upcoming subjects added yet!
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- UPDATED SCRIPT FOR CGPA TRACKER-->
-    <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk--> --}}
+    <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk-->
     <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
     <script>
         var options = {
