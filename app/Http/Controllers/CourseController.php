@@ -12,7 +12,15 @@ use App\Models\StudentPreference;
 
 class CourseController extends Controller
 {
-    public function store(Request $request)
+    /**
+ * Show the “create a new course” form.
+ */
+public function addCourse()
+{
+    return view('admin.add-course');  
+}
+
+    public function storeCourse(Request $request)
     {
         $validated = $request->validate([
             'course_code' => 'required|string|max:255',
@@ -42,7 +50,6 @@ class CourseController extends Controller
         return view('admin.edit-course', compact('course'));
     }
 
-
     /* this method is called after admin submits the form, 
     validating and updating the course **/
     public function updateCourse(Request $request, $courseCode)
@@ -69,76 +76,19 @@ class CourseController extends Controller
         return redirect()->route('admin.courses')->with('success', 'Course updated successfully.');
     }
 
-    public function showRecommendedCourses(Request $request)
+    /* This method is used to fetch the course's current data and 
+    send it to the Blade view for editing **/
+    public function deleteCourse(string $courseCode)
     {
-        $user = Auth::user();
+        // Find the course by its code
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
 
-        // Get student info using email
-        $student = Student::where('st_email', $user->email)->firstOrFail();
+        $course->delete();
 
-        // Calculate next semester/year
-        $currentYear = $student->year;
-        $currentSem = $student->sem;
-
-        if ($currentSem == 1) {
-            $nextSem = 2;
-            $nextYear = $currentYear;
-        } else {
-            $nextSem = 1;
-            $nextYear = $currentYear + 1;
-        }
-
-        // Query courses for upcoming semester
-        $query = Course::where('year', $nextYear)->where('sem', $nextSem);
-
-        // Apply optional search filters
-        if ($request->filled('course_code')) {
-            $query->where('course_code', 'like', '%' . $request->course_code . '%');
-        }
-        if ($request->filled('course_title')) {
-            $query->where('course_title', 'like', '%' . $request->course_title . '%');
-        }
-
-        $hidden = session()->get('temp_hidden_courses', []);
-        $removed = session()->get('permanently_removed_courses', []);
-        $hideCodes = $removed; // sebab kita pakai course_code sebagai PK
-
-        if (!empty($hidden)) {
-            $query->whereNotIn('id', $hidden); // jika guna id untuk temporary hide
-        }
-
-        if (!empty($hideCodes)) {
-            $query->whereNotIn('course_code', $hideCodes); // untuk permanently removed
-        }
-
-        $courses = $query->get();
-
-        return view('student.view-course', compact('courses', 'nextSem', 'nextYear'));
+        // Pass the course data to the Blade view
+        return back()->with('success', "Course {$courseCode} deleted successfully.");
     }
 
-    public function removeCourse($course_code)
-    {
-        $user = Auth::user();
-        $student = Student::where('st_email', $user->email)->first();
-        $course = Course::where('course_code', $course_code)->firstOrFail();
-
-        $existing = StudentPreference::where('matric_no', $student->matric_no)
-            ->where('course_code', $course->course_code)
-            ->first();
-
-        if ($existing) {
-            // Jika sudah disimpan ke database, hanya tandakan untuk delete dalam session
-            $marked = session()->get('to_delete_preferences', []);
-            $marked[] = $course->course_code;
-            session(['to_delete_preferences' => array_unique($marked)]);
-        } else {
-            // Kalau belum pernah save, sembunyikan sahaja dari view
-            $hidden = session()->get('temp_hidden_courses', []);
-            $hidden[] = $course->id;
-            session(['temp_hidden_courses' => array_unique($hidden)]);
-        }
-
-
-        return back()->with('success', 'Course removed.');
-    }
 }
+
+

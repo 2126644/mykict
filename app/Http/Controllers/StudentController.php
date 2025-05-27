@@ -112,39 +112,6 @@ class StudentController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
-    public function storePreferences(Request $request)
-    {
-        $student = Student::where('st_email', Auth::user()->email)->first();
-
-        $codes = $request->input('course_codes', []);
-
-        if (empty($codes)) {
-            return back()->with('error', 'No courses selected.');
-        }
-
-        // Simpan semua course yang pelajar masih mahu
-        foreach ($codes as $course_code) {
-            StudentPreference::updateOrCreate([
-                'matric_no' => $student->matric_no,
-                'course_code' => $course_code,
-            ], ['preferred' => true]);
-        }
-
-        $toDelete = session()->get('to_delete_preferences', []);
-        // Padam course yang pelajar dah pernah simpan, tapi sekarang buang dari view
-        foreach ($toDelete as $code) {
-            StudentPreference::where('matric_no', $student->matric_no)
-                ->where('course_code', $code)
-                ->delete();
-        }
-
-        // Tambah ke session supaya kekal tersembunyi lepas save
-        $permanentlyRemoved = session()->get('permanently_removed_courses', []);
-        $permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
-        session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
-
-        return back()->with('success', 'Courses saved successfully.');
-    }
 }
 
 /**

@@ -33,8 +33,8 @@
                 <button type="submit" class="btn btn-primary w-100">Search</button>
             </div>
             <!-- Add Course Button -->
-            <div class="col-lg-4 col-md-6 justify-content-end">
-                <a href="add-course" class="btn btn-primary">
+            <div class="col-lg-4 col-md-6 mb-3 mb-md-0 text-end">
+                <a href="{{ route('admin.course.add') }}" class="btn btn-primary">
                     <i class="feather feather-plus-circle"></i> Add Course
                 </a>
             </div>

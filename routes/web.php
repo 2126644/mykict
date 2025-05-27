@@ -6,36 +6,25 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentPreferenceController;
 
 // Home page
-// Route::get('/', function () {
-//     // If the user is already logged in…
-//     if (Auth::check()) {
-//         // Send admins to their dashboard…
-//         if (Auth::user()->role_id === 1) {
-//             return redirect()->route('admin.dashboard');
-//         }
-//         // …and students to /todo
-//         return redirect()->route('student.dashboard');
-//     }
-//     // Otherwise send guests to login
-//     return redirect()->route('login');
-// });
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/dashboard', function () {
     if (Auth::check()) {
+        // If the user is already logged in
         if (Auth::user()->role_id === 1) {
+            // Send admins to their dashboard
             return redirect()->route('admin.dashboard');
         } else {
+            // send students to their dashboard
             return redirect()->route('student.dashboard');
         }
     }
-
+    // otherwise send guests to login
     return redirect()->route('login');
 })->middleware('auth')->name('dashboard');
 
@@ -45,10 +34,6 @@ Route::get('cgpa-calculator', function () {
     return view('student.cgpa-calculator');
 })->name('cgpa.calculator');
 
-// Route for Edit Course
-Route::get('edit-course', function () {
-    return view('admin.edit-course');
-})->name('edit.course');
 
 //Route for DATABASE
 Route::middleware(['auth'])->group(function () {
@@ -59,10 +44,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('admin-courses', [AdminController::class, 'showCoursesList'])->name('admin.courses');
 
-Route::get('student-courses', [CourseController::class, 'showRecommendedCourses'])->name('student.courses');
-
-Route::post('student-course/remove/{course_code}', [CourseController::class, 'removeCourse'])->name('student.course.remove');
-Route::post('student-preferences', [StudentController::class, 'storePreferences'])->name('student.preferences.store');
+Route::get('student-courses', [StudentPreferenceController::class, 'showRecommendedCourses'])->name('student.courses');
+Route::post('student-course/add', [StudentPreferenceController::class, 'storePreferences'])->name('student.preferences.store');
 
 //Student update profile to student database
 Route::middleware(['auth'])->group(function () {
@@ -72,9 +55,17 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/admin/course/edit/{course_code}', [CourseController::class, 'editCourse'])->name('admin.course.edit');
 Route::post('/admin/course/update/{course_code}', [CourseController::class, 'updateCourse'])->name('admin.course.update');
+Route::delete('admin-course/{course_code}', [CourseController::class, 'deleteCourse'])->name('admin.course.delete');
 
-//Admin add course store to course database
-Route::post('addcourse', [CourseController::class, 'store'])->name('admin.addcourse');
+// Show the “New Course” form
+Route::get('addcourse', [CourseController::class, 'addCourse'])
+     ->middleware('auth')
+     ->name('admin.course.add');
+
+// Handle the form POST and store the course
+Route::post('addcourse', [CourseController::class, 'storeCourse'])
+     ->middleware('auth')
+     ->name('admin.course.store');
 
 // Route::middleware([
 //     'auth:sanctum',

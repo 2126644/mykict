@@ -267,8 +267,8 @@
                     @endif
 
 
-                    {{-- ORIGINAL NAV BAR FROM TEMPLATE --}}
-                    {{-- @if (Auth::user()->role_id == '1')
+                    <!-- {{-- ORIGINAL NAV BAR FROM TEMPLATE --}}
+                    @if (Auth::user()->role_id == '1')
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
@@ -276,9 +276,9 @@
                                 <li><a href="list-course">Courses</a></li>
                             </ul>
                         </li>
-                    @endif --}}
+                    @endif
 
-                    {{-- @if (Auth::user()->role_id == '6')
+                    @if (Auth::user()->role_id == '6')
                         <li class="submenu active">
                             <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
                             <ul style="display: block;">
@@ -287,17 +287,17 @@
                                 <li><a href="cgpa-calculator">CGPA Calculator and Predictor</a></li>
                             </ul>
                         </li>
-                    @endif --}}
+                    @endif
 
-                    {{-- <li class="menu-title">
+                    <li class="menu-title">
                             <span>Profile</span>
-                        </li> --}}
+                        </li>
 
-                    {{-- <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item">Logout</button>
-                    </form> --}}
-                    <!--
+                    </form>
+                    
                         @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
                         <li class="submenu">
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Academicians</span> <span
@@ -325,7 +325,7 @@
                         @endif -->
 
 
-                    {{-- <li class="submenu">
+                    <!-- <li class="submenu">
                             <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
@@ -556,7 +556,7 @@
                                     <a href="javascript:void(0);"> <span>Level 1</span></a>
                                 </li>
                             </ul>
-                        </li>--}}
+                        </li> -->
                 </ul>
             </div>
         </div>
@@ -564,7 +564,7 @@
 
 
     <div class="page-wrapper">
-        {{-- This is where page content goes --}}
+        <!-- This is where page content goes -->
         @yield('content')
         <footer>
             <p>Copyright © 2024-2025 MYKICT.</p>
