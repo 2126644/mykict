@@ -24,7 +24,7 @@
         transition: background 0.2s;
         cursor: pointer;
     }
-    
+
     .hero {
         background: linear-gradient(90deg, #f8fafc 0%, #e0e7ef 100%);
         padding: 60px 0 30px 0;
@@ -126,7 +126,7 @@
 <div class="portal-footer">
     <span>
         Project by: <strong>Nur Fatihah Adawiyah binti Rusdi | Nur Ain binti Lizam</strong> &bull; IIUM KICT<br>
-        Powered by Laravel &bull; Supervised by: [Your Supervisor Name]
+        Powered by Laravel &bull; Supervised by: Dr. Mohd Khairul Azmi bin Hassan
     </span>
 </div>
 
