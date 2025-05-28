@@ -26,7 +26,7 @@ class AdminController extends Controller
         $departments = Course::select('department')->distinct()->pluck('department');
         $specializations = Course::select('specialization')->distinct()->pluck('specialization');
         $categories = Course::select('category')->distinct()->pluck('category');
-        $years = Course::select('year')->distinct()->pluck('year'); // if exists
+        $years = Course::select('year')->distinct()->pluck('year'); 
 
         // Start base query from courses table
         $query = DB::table('courses as c')
@@ -75,19 +75,39 @@ class AdminController extends Controller
 
     public function showCoursesList(Request $request)
 {
+    // Whitelist/validate the search input
+    $validated = $request->validate([
+        // Letters (A-Z, a-z), Numbers (0-9), Spaces
+        'course_code' => ['nullable', 'string', 'max:10', 'regex:/^[A-Z0-9 ]+$/i'],
+        // Letters (A-Z, a-z), Numbers (0-9), Spaces , Dots ., Hyphens -, Apostrophes ', Parentheses ()
+        'course_title' => ['nullable', 'string', 'max:255', 'regex:/^[A-Za-z0-9 .\-\'()]+$/'],
+    ]);
+
     $query = Course::query();
 
-    if ($request->filled('course_code')) {
-        $query->where('course_code', 'like', '%' . $request->course_code . '%');
+    if (!empty($validated['course_code'])) {
+        $query->where('course_code', 'like', '%' . $validated['course_code'] . '%');
     }
 
-    if ($request->filled('course_title')) {
-        $query->where('course_title', 'like', '%' . $request->course_title . '%');
+    if (!empty($validated['course_title'])) {
+        $query->where('course_title', 'like', '%' . $validated['course_title'] . '%');
     }
 
-    $courses = $query->get(); // You can change to paginate() if needed
+    $courses = $query->get();
 
-    return view('admin.list-course', compact('courses'));
+    // Get filter options from database
+        $departments = Course::select('department')->distinct()->pluck('department');
+        $specializations = Course::select('specialization')->distinct()->pluck('specialization');
+        $categories = Course::select('category')->distinct()->pluck('category');
+        $years = Course::select('year')->distinct()->pluck('year'); 
+
+     return view('admin.list-course', compact(
+        'courses',
+        'departments',
+        'specializations',
+        'years',
+        'categories'
+    ));
 }
 
 }

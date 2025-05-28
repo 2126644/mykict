@@ -67,6 +67,9 @@ Route::post('addcourse', [CourseController::class, 'storeCourse'])
      ->middleware('auth')
      ->name('admin.course.store');
 
+     Route::delete('/admin/courses/bulk-delete', [CourseController::class, 'bulkDelete'])->name('admin.courses.bulkDelete');
+
+
 // Route::middleware([
 //     'auth:sanctum',
 //     config('jetstream.auth_session'),

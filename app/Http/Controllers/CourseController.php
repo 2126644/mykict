@@ -13,21 +13,21 @@ use App\Models\StudentPreference;
 class CourseController extends Controller
 {
     /**
- * Show the “create a new course” form.
- */
-public function addCourse()
-{
-    return view('admin.add-course');  
-}
+     * Show the “create a new course” form.
+     */
+    public function addCourse()
+    {
+        return view('admin.add-course');
+    }
 
     public function storeCourse(Request $request)
     {
         $validated = $request->validate([
-            'course_code' => 'required|string|max:255',
-            'course_title' => 'required|string|max:255',
+            'course_code' => 'required|string|max:255|regex:/^[A-Z0-9]+$/i',
+            'course_title' => 'required|string|max:255|regex:/^[A-Za-z0-9 .\-\'()]+$/',
             'credit_hrs' => 'required|int',
             'department' => 'required|string',
-            'pre_requisites' => 'nullable|string',
+            'pre_requisites' => 'nullable|string|regex:/^[A-Z0-9]+$/i',
             'year' => 'required|int',
             'sem' => 'required|int',
             'specialization' => 'nullable|string',
@@ -59,10 +59,10 @@ public function addCourse()
 
         // Validate input
         $request->validate([
-            'course_code' => 'required|string|max:255',
-            'course_title' => 'required|string|max:255',
+            'course_code' => 'required|string|max:255|regex:/^[A-Z0-9]+$/i',
+            'course_title' => 'required|string|max:255|regex:/^[A-Za-z0-9 .\-\'()]+$/',
             'credit_hrs' => 'required|integer|min:1',
-            'pre_requisites' => 'nullable|string',
+            'pre_requisites' => 'nullable|string|regex:/^[A-Z0-9]+$/i',
             'year' => 'required|integer|min:1|max:4',
             'sem' => 'required|integer|min:1|max:8',
             'category' => 'nullable|string',
@@ -89,6 +89,14 @@ public function addCourse()
         return back()->with('success', "Course {$courseCode} deleted successfully.");
     }
 
+    public function bulkDelete(Request $request)
+{
+    $codes = $request->input('course_codes', []);
+    if (!empty($codes)) {
+        Course::whereIn('course_code', $codes)->delete();
+        return redirect()->back()->with('success', 'Selected courses deleted successfully!');
+    }
+    return redirect()->back()->with('error', 'No courses selected.');
 }
 
-
+}

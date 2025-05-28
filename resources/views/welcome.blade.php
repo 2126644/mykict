@@ -125,8 +125,9 @@
 
 <div class="portal-footer">
     <span>
-        Project by: <strong>Nur Fatihah Adawiyah binti Rusdi | Nur Ain binti Lizam</strong> &bull; IIUM KICT<br>
-        Powered by Laravel &bull; Supervised by: [Your Supervisor Name]
+        <strong>Project by:</strong> Nur Fatihah Adawiyah binti Rusdi | Nur Ain binti Lizam &bull; IIUM KICT<br>
+        <strong>Powered by:</strong> Laravel | MySQL | Blade | Fortify | Bootstrap | XAMPP | phpMyAdmin<br>
+        <strong>Supervised by:</strong> Asst. Prof. Dr. Mohd Khairul Azmi bin Hasan
     </span>
 </div>
 
