@@ -73,13 +73,30 @@ class StudentController extends Controller
 
         // Validate inputs (optional but recommended)
         $request->validate([
-            'st_name' => 'required|string|max:255',
-            'major' => 'nullable|string',
+            'st_name' => 'required|string|max:255|regex:/^[A-Za-z .\'-]+$/',
+            'major' => 'required|string',
             'specialization' => 'nullable|string',
             'year' => 'required|integer|min:1|max:4',
             'sem' => 'required|integer|min:1|max:8',
-            'current_cgpa' => 'nullable|numeric|between:0,4.00',
-            'target_cgpa' => 'nullable|numeric|between:0,4.00',
+            // Between 0 and 4.00, 2 decimal places
+            'current_cgpa' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'target_cgpa' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem1' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem1' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem2' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem2' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem3' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem3' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem4' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem4' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem5' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem5' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem6' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem6' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem7' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem7' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'gpa_sem8' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'cgpa_sem8' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
         ]);
 
         // Update student fields
@@ -112,39 +129,6 @@ class StudentController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
-    public function storePreferences(Request $request)
-    {
-        $student = Student::where('st_email', Auth::user()->email)->first();
-
-        $codes = $request->input('course_codes', []);
-
-        if (empty($codes)) {
-            return back()->with('error', 'No courses selected.');
-        }
-
-        // Simpan semua course yang pelajar masih mahu
-        foreach ($codes as $course_code) {
-            StudentPreference::updateOrCreate([
-                'matric_no' => $student->matric_no,
-                'course_code' => $course_code,
-            ], ['preferred' => true]);
-        }
-
-        $toDelete = session()->get('to_delete_preferences', []);
-        // Padam course yang pelajar dah pernah simpan, tapi sekarang buang dari view
-        foreach ($toDelete as $code) {
-            StudentPreference::where('matric_no', $student->matric_no)
-                ->where('course_code', $code)
-                ->delete();
-        }
-
-        // Tambah ke session supaya kekal tersembunyi lepas save
-        $permanentlyRemoved = session()->get('permanently_removed_courses', []);
-        $permanentlyRemoved = array_merge($permanentlyRemoved, $toDelete);
-        session(['permanently_removed_courses' => array_unique($permanentlyRemoved)]);
-
-        return back()->with('success', 'Courses saved successfully.');
-    }
 }
 
 /**

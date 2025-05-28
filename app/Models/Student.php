@@ -43,4 +43,13 @@ class Student extends Model
     return $this->belongsTo(User::class);
 }
 
+// App\Models\Student.php
+
+public function courses()
+{
+    return $this->belongsToMany(Course::class, 'student_preferences', 'matric_no', 'course_code');
 }
+
+
+}
+

@@ -122,11 +122,8 @@
                         </div>
                         <div class="col-6">
                             <ul class="chart-list-out">
-                                <li><span class="circle-blue"></span><span class="circle-gray"></span><span
-                                        class="circle-gray"></span></li>
+            
                                 <li class="lesson-view-all"><a href="{{ route('student.courses') }}">View Study Plan</a>
-                                </li>
-                                <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -213,6 +210,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-md-3 d-flex align-items-center justify-content-center">
                             <div class="skip-group">
                                 <!--<button type="submit" href="{{ url('update-profile') }}" class="btn btn-info skip-btn">Edit</button>-->
@@ -238,14 +236,14 @@
                                 <!-- GPA/CGPA Chart -->
                                 <div class="card-body">
                                     <div id="gpaCgpaChart" style="height: 350px;">
-                                        {{-- <div class="col-6">
+                                        <!-- <div class="col-6">
                                                     <ul class="chart-list-out">
                                                         <li><span class="circle-blue"></span>CGPA</li>
                                                         <li><span class="circle-green"></span>GPA</li>
                                                         <li class="star-menus"><a href="javascript:;"><i
                                                                     class="fas fa-ellipsis-v"></i></a></li>
                                                     </ul>
-                                            </div> --}}
+                                            </div>  -->
                                     </div>
                                 </div>
                             </div>

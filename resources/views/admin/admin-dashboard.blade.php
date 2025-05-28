@@ -7,51 +7,46 @@
             <div class="col-sm-12">
                 <div class="page-sub-header">
                     <h3 class="page-title">Welcome {{ $admin->ad_name }}!</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.courses') }}">Course</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-    <div class="col-xl-6 col-sm-6 col-12 d-flex">
-        <div class="card bg-comman w-100">
-            <div class="card-body">
-                <div class="db-widgets d-flex justify-content-between align-items-center">
-                    <div class="db-info">
-                        <h6>Admin ID</h6>
-                        <h3>{{ $admin->admin_id }}</h3>
-                        <h6>Name</h6>
-                        <h3>{{ $admin->ad_name }}</h3>
-                    </div>
-                    <div class="db-icon">
-                        <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
+        <div class="col-xl-6 col-sm-6 col-12 d-flex">
+            <div class="card bg-comman w-100">
+                <div class="card-body">
+                    <div class="db-widgets d-flex justify-content-between align-items-center">
+                        <div class="db-info">
+                            <h6>Admin ID</h6>
+                            <h3>{{ $admin->admin_id }}</h3>
+                            <h6>Name</h6>
+                            <h3>{{ $admin->ad_name }}</h3>
+                        </div>
+                        <div class="db-icon">
+                            <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-xl-6 col-sm-6 col-12 d-flex">
-        <div class="card bg-comman w-100"> 
-            <div class="card-body">
-                <div class="db-widgets d-flex justify-content-between align-items-center">
-                    <div class="db-info">
-                        <h6>Email</h6>
-                        <h3>{{ $admin->ad_email }}</h3>
-                    </div>
-                    <div class="db-icon">
-                        <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
+        <div class="col-xl-6 col-sm-6 col-12 d-flex">
+            <div class="card bg-comman w-100">
+                <div class="card-body">
+                    <div class="db-widgets d-flex justify-content-between align-items-center">
+                        <div class="db-info">
+                            <h6>Email</h6>
+                            <h3>{{ $admin->ad_email }}</h3>
+                        </div>
+                        <div class="db-icon">
+                            <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="card report-card">
         <div class="card-body pb-0">
@@ -148,13 +143,30 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="card-footer">
                     <div class="row align-items-center">
                         <div class="col-auto">
-                            <span class="badge bg-success-dark">{{ $course->status ?? 'Open' }}</span>
+                            <a href="{{ route('admin.course.edit', $course->course_code) }}" class="btn btn-primary">
+                                <i class="far fa-edit me-2"></i>Edit
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <form
+                                action="{{ route('admin.course.delete', $course->course_code) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete {{ $course->course_code }}?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="far fa-trash-alt me-1"></i>Delete
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 

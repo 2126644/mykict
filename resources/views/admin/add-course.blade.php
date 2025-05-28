@@ -7,13 +7,7 @@
         <div class="page-header">
         <div class="row align">
                 <div class="col">
-                    <h3 class="page-title">Course</h3>
-                    {{-- <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Add Course</li>
-
-                    </ul> --}}
+                    <h3 class="page-title">Add New Course</h3>
                 </div>
             </div>
         </div>
@@ -26,7 +20,7 @@
                         <h5 class="card-title">Add Course</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('add.course') }}" method="POST">
+                        <form action="{{ route('admin.course.store') }}" method="POST">
                         @csrf
 
                         <!-- Course Code -->
@@ -136,7 +130,6 @@
                                     <option value="" disabled selected>-- Select --</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
                                 </select>
                             </div>
                         </div>

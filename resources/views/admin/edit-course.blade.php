@@ -4,21 +4,13 @@
 
 <div class="page-wrapper">
     <div class="content container-fluid">
-    <div class="page-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-sub-header">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
-                        <li class="breadcrumb-item active">Courses</li>
-                    </ul>
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Edit Course</h3>
                 </div>
             </div>
         </div>
-    </div>
-
-
 
         <div class="row">
             <div class="col-sm-12">

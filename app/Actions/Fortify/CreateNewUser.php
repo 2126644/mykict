@@ -20,12 +20,14 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+        Validator::make($input, [ // block dangerous characters (<, >, ", etc.)
+            // only letters, spaces, . ' -
+            'name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z .\'-]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-            'matric_no' => ['required', 'string', 'max:20', 'unique:students,matric_no']
+            // only allows numbers (0-9)
+            'matric_no' => ['required', 'string', 'max:20', 'unique:students,matric_no', 'regex:/^[0-9]+$/']
         ])->validate();
 
          // Create the user record.
