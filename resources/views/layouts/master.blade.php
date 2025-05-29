@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>MYKICT - Smart Study Planner</title>
+    <title>@yield('title', 'MyKICT Smart Study Planner')</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logokict2.png') }}">
+
     <link rel="shortcut icon" href="{{ asset('assets/img/logokict.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
@@ -16,561 +18,250 @@
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css"> -->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #007bff;
+            /* Blue */
+            --secondary-color: #0056b3;
+            /* Darker blue */
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+
+        /* Dark mode specific styles */
+        [data-bs-theme="dark"] {
+            --primary-color: #0056b3;
+            /* Darker blue */
+            --dark-color: #f1f2f3;
+            --light-color: #2c3e50;
+            background-color: #1e1e1e;
+            /* Slightly lighter than pure black */
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="dark"] .content-wrapper {
+            background-color: #2a2a2a;
+            /* Slightly different from navbar background */
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="dark"] .navbar {
+            background-color: #1e1e1e !important;
+        }
+
+        [data-bs-theme="dark"] .nav-link {
+            color: #e0e0e0 !important;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f4f6f7;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #000 !important;
+            font-size: 1.5rem;
+        }
+
+        [data-bs-theme="dark"] .navbar-brand {
+            color: #fff !important;
+        }
+
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        /* Main Content Area */
+        .content-wrapper {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Logout Link */
+        .logout-link {
+            color: #e74c3c !important;
+            transition: color 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #c0392b !important;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+                background-color: white;
+                padding: 1rem;
+            }
+
+            .nav-link {
+                margin: 10px 0;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <div class="main-wrapper">
-
-        <div class="header">
-
-            <div class="header-left">
-                <a href="dashboard" class="logo">
-                    <img src="{{ asset('assets/img/LOGO-KICT.png') }}" alt="Logo">
-                </a>
-                <a href="dashboard" class="logo logo-small">
-                    <img src="{{ asset('assets/img/LOGO-KICT.png') }}" alt="Logo" width="30" height="30">
-                </a>
-            </div>
-
-            <div class="menu-toggle">
-                <a href="javascript:void(0);" id="toggle_btn">
-                    <i class="fas fa-bars"></i>
-                </a>
-            </div>
-
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <a class="mobile_btn" id="mobile_btn">
-                <i class="fas fa-bars"></i>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img src="{{ asset('assets/img/kictlogo.png') }}" alt="MySystem Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;">
+                MyKICT Smart Study Planner
             </a>
-
-            <ul class="nav user-menu">
-                {{-- <li class="nav-item dropdown noti-dropdown language-drop me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-<img src="{{ asset('assets/img/icons/header-icon-01.svg') }}" alt="">
-                </a>
-                <div class="dropdown-menu ">
-                    <div class="noti-content">
-                        <div>
-                            <a class="dropdown-item" href="javascript:;"><i
-                                    class="flag flag-lr me-2"></i>English</a>
-                            <a class="dropdown-item" href="javascript:;"><i
-                                    class="flag flag-bl me-2"></i>Francais</a>
-                            <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
-                        </div>
-                    </div>
-                </div>
-                </li> --}}
-
-                {{-- <li class="nav-item dropdown noti-dropdown me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="{{ asset('assets/img/icons/header-icon-05.svg') }}" alt="">
-                </a>
-                <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
-                        <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                    </div>
-                    <div class="noti-content">
-                        <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                        <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/profiles/avatar-02.jpg') }}">
-                                        </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span>
-                                                has
-                                                approved <span class="noti-title">your estimate</span></p>
-                                            <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                        <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/profiles/avatar-11.jpg') }}">
-                                        </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">International
-                                                    Software
-                                                    Inc</span> has sent you a invoice in the amount of <span
-                                                    class="noti-title">$218</span></p>
-                                            <p class="noti-time"><span class="notification-time">6 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                        <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/profiles/avatar-17.jpg') }}">
-                                        </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">John Hendry</span>
-                                                sent
-                                                a cancellation request <span class="noti-title">Apple iPhone
-                                                    XR</span></p>
-                                            <p class="noti-time"><span class="notification-time">8 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media d-flex">
-                                        <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/profiles/avatar-13.jpg') }}">
-                                        </span>
-                                        <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">Mercury Software
-                                                    Inc</span> added a new product <span class="noti-title">Apple
-                                                    MacBook Pro</span></p>
-                                            <p class="noti-time"><span class="notification-time">12 mins
-                                                    ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="#">View all Notifications</a>
-                    </div>
-                </div>
-                </li> --}}
-
-                <li class="nav-item zoom-screen me-2">
-                    <a href="#" class="nav-link header-nav-list win-maximize">
-                        <img src="{{ asset('assets/img/icons/header-icon-04.svg') }}" alt="">
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown has-arrow new-user-menus">
-                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                        <span class="user-img">
-                            <img class="rounded-circle" src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" width="31" alt="{{ Auth::user()->name }}">
-                            <div class="user-text">
-                                <h6>{{ Auth::user()->name }}</h6>
-                                <p class="text-muted mb-0">{{ Auth::user()->role->name }}</p>
-                            </div>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        {{-- <div class="user-header">
-                            <div class="avatar avatar-sm">
-                                <img src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" alt="User Image" class="avatar-img rounded-circle">
-                    </div>
-                    <div class="user-text">
-                        <h6>{{ Auth::user()->name }}</h6>
-                        <p class="text-muted mb-0">{{ Auth::user()->role->name }}</p>
-                    </div>
-        </div> --}}
-        {{-- <a class="dropdown-item" href="profile.html">My Profile</a> --}}
-        <a class="dropdown-item" href="{{ route('update.profile') }}">My Profile</a>
-
-        {{-- <a class="dropdown-item" href="inbox.html">Inbox</a> --}}
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="dropdown-item">Logout</button>
-        </form>
-
-    </div>
-    </li>
-
-    </ul>
-
-    </div>
-
-
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li class="menu-title">
-                        <span>Main Menu</span>
-                    </li>
-
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    @auth
+                    {{-- Admin Navigation (Role ID: 1) --}}
                     @if (Auth::user()->role_id == '1')
-                    <li class="submenu active">
-                        <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
-                        <ul style="display: block;">
-                            <li class="{{ Request::is('admin-dashboard') ? 'active' : '' }}">
-                                <a href="admin-dashboard">Admin Dashboard</a>
-                            </li>
-                            <li class="{{ Request::is('admin-courses') ? 'active' : '' }}">
-                                <a href="admin-courses">Courses</a>
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="btn w-100 text-start logout-button" style="background: none; border: none; padding-left: 20px;">
-                                        <i class="feather-log-out"></i> Logout
-                                    </button>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.courses') }}">
+                            <i class="bi bi-book-half"></i> Courses
+                        </a>
+                    </li>
+                    </li>
 
-                                </form>
-                                <style>
-                                    .logout-button:hover {
-                                        color: red;
-                                        background-color: transparent;
-                                        /* optional: ensure background stays clean */
-                                    }
-                                </style>
-                        </ul>
+                    {{-- Student Navigation (Role ID: 6) --}}
+                    @elseif (Auth::user()->role_id == '6')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('student.dashboard') }}">
+                            <i class="bi bi-house-door-fill"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('student.courses') }}">
+                            <i class="bi bi-journal-text"></i> Study Plan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cgpa.calculator') }}">
+                            <i class="bi bi-calculator-fill"></i> CGPA Calculator
+                        </a>
                     </li>
                     @endif
 
-                    @if (Auth::user()->role_id == '6')
-                    <li class="submenu active">
-                        <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
-                        <ul style="display: block;">
-                            <li class="{{ Request::is('student-dashboard') ? 'active' : '' }}">
-                                <a href="student-dashboard">Student Dashboard</a>
-                            </li>
-                            <li class="{{ Request::is('student-courses') ? 'active' : '' }}">
-                                <a href="student-courses">View Suggested Courses</a>
-                            </li>
-                            <li class="{{ Request::is('cgpa-calculator') ? 'active' : '' }}">
-                                <a href="cgpa-calculator">CGPA Calculator and Predictor</a>
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="btn w-100 text-start logout-button" style="background: none; border: none; padding-left: 20px;">
-                                        <i class="feather-log-out"></i> Logout
-                                    </button>
-
-                                </form>
-                                <style>
-                                    .logout-button:hover {
-                                        color: red;
-                                        background-color: transparent;
-                                        /* optional: ensure background stays clean */
-                                    }
-                                </style>
-                            </li>
-                        </ul>
+                    {{-- Common Navigation Items --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('update.profile') }}">
+                            <i class="bi bi-person-circle"></i> Profile
+                        </a>
                     </li>
-                    @endif
-
-
-                    <!-- {{-- ORIGINAL NAV BAR FROM TEMPLATE --}}
-                    @if (Auth::user()->role_id == '1')
-                        <li class="submenu active">
-                            <a href="#"><i class="feather-grid"></i> <span> Administrator</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: block;">
-                                <li><a href="admin-dashboard">Admin Dashboard</a></li>
-                                <li><a href="list-course">Courses</a></li>
-                            </ul>
-                        </li>
-                    @endif
-
-                    @if (Auth::user()->role_id == '6')
-                        <li class="submenu active">
-                            <a href="#"><i class="feather-grid"></i> <span> Student</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: block;">
-                                <li><a href="SSP-dashboard">Student Dashboard</a></li>
-                                <li><a href="view-course">View Suggested Courses</a></li>
-                                <li><a href="cgpa-calculator">CGPA Calculator and Predictor</a></li>
-                            </ul>
-                        </li>
-                    @endif
-
-                    <li class="menu-title">
-                            <span>Profile</span>
-                        </li>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="dropdown-item">Logout</button>
-                    </form>
-                    
-                        @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '5')
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Academicians</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="teachers.html">Monthly Achievement</a></li>
-                                <li><a href="add-teacher.html">Teacher Add</a></li>
-                                <li><a href="edit-teacher.html">Teacher Edit</a></li>
-                            </ul>
-                        </li>
-                        @endif
-
-
-                        @if (Auth::user()->role_id == '1' || Auth::user()->role_id == '6')
-                        <li class="submenu">
-                                <a href="#"><i class="fas fa-graduation-cap"></i> <span>Smart Study Planner</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul>
-                                    <li><a href="admin-welcome">Administrator</a></li>
-                                    <li><a href="SSP-welcome">Student</a></li>
-                                    <li><a href="add-student.html">Student Add</a></li>
-                                    <li><a href="edit-student.html">Student Edit</a></li>
-                                </ul>
-                            </li>
-                        @endif -->
-
-
-                    <!-- <li class="submenu">
-                            <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="departments.html">Department List</a></li>
-                                <li><a href="add-department.html">Department Add</a></li>
-                                <li><a href="edit-department.html">Department Edit</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="subjects.html">Subject List</a></li>
-                                <li><a href="add-subject.html">Subject Add</a></li>
-                                <li><a href="edit-subject.html">Subject Edit</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-clipboard"></i> <span> Invoices</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="invoices.html">Invoices List</a></li>
-                                <li><a href="invoice-grid.html">Invoices Grid</a></li>
-                                <li><a href="add-invoice.html">Add Invoices</a></li>
-                                <li><a href="edit-invoice.html">Edit Invoices</a></li>
-                                <li><a href="view-invoice.html">Invoices Details</a></li>
-                                <li><a href="invoices-settings.html">Invoices Settings</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-title">
-                            <span>Management</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="fees-collections.html">Fees Collection</a></li>
-                                <li><a href="expenses.html">Expenses</a></li>
-                                <li><a href="salary.html">Salary</a></li>
-                                <li><a href="add-fees-collection.html">Add Fees</a></li>
-                                <li><a href="add-expenses.html">Add Expenses</a></li>
-                                <li><a href="add-salary.html">Add Salary</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
-                        </li>
-                        <li>
-                            <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>Fees</span></a>
-                        </li>
-                        <li>
-                            <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>Exam list</span></a>
-                        </li>
-                        <li>
-                            <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
-                        </li>
-                        <li>
-                            <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
-                        </li>
-                        <li>
-                            <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-newspaper"></i> <span> Blogs</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul>
-                                <li><a href="blog.html">All Blogs</a></li>
-                                <li><a href="add-blog.html">Add Blog</a></li>
-                                <li><a href="edit-blog.html">Edit Blog</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
-                        </li>
-                        <li class="menu-title">
-                            <span>Pages</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
-                                <li><a href="forgot-password.html">Forgot Password</a></li>
-                                <li><a href="error-404.html">Error Page</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
-                        </li>
-                        <li class="menu-title">
-                            <span>Others</span>
-                        </li>
-                        <li>
-                            <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
-                        </li>
-                        <li>
-                            <a href="hostel.html"><i class="fas fa-hotel"></i> <span>Hostel</span></a>
-                        </li>
-                        <li>
-                            <a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
-                        </li>
-                        <li class="menu-title">
-                            <span>UI Interface</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fab fa-get-pocket"></i> <span>Base UI </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="alerts.html">Alerts</a></li>
-                                <li><a href="accordions.html">Accordions</a></li>
-                                <li><a href="avatar.html">Avatar</a></li>
-                                <li><a href="badges.html">Badges</a></li>
-                                <li><a href="buttons.html">Buttons</a></li>
-                                <li><a href="buttongroup.html">Button Group</a></li>
-                                <li><a href="breadcrumbs.html">Breadcrumb</a></li>
-                                <li><a href="cards.html">Cards</a></li>
-                                <li><a href="carousel.html">Carousel</a></li>
-                                <li><a href="dropdowns.html">Dropdowns</a></li>
-                                <li><a href="grid.html">Grid</a></li>
-                                <li><a href="images.html">Images</a></li>
-                                <li><a href="lightbox.html">Lightbox</a></li>
-                                <li><a href="media.html">Media</a></li>
-                                <li><a href="modal.html">Modals</a></li>
-                                <li><a href="offcanvas.html">Offcanvas</a></li>
-                                <li><a href="pagination.html">Pagination</a></li>
-                                <li><a href="popover.html">Popover</a></li>
-                                <li><a href="progress.html">Progress Bars</a></li>
-                                <li><a href="placeholders.html">Placeholders</a></li>
-                                <li><a href="rangeslider.html">Range Slider</a></li>
-                                <li><a href="spinners.html">Spinner</a></li>
-                                <li><a href="sweetalerts.html">Sweet Alerts</a></li>
-                                <li><a href="tab.html">Tabs</a></li>
-                                <li><a href="toastr.html">Toasts</a></li>
-                                <li><a href="tooltip.html">Tooltip</a></li>
-                                <li><a href="typography.html">Typography</a></li>
-                                <li><a href="video.html">Video</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i data-feather="box"></i> <span>Elements </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="ribbon.html">Ribbon</a></li>
-                                <li><a href="clipboard.html">Clipboard</a></li>
-                                <li><a href="drag-drop.html">Drag & Drop</a></li>
-                                <li><a href="rating.html">Rating</a></li>
-                                <li><a href="text-editor.html">Text Editor</a></li>
-                                <li><a href="counter.html">Counter</a></li>
-                                <li><a href="scrollbar.html">Scrollbar</a></li>
-                                <li><a href="notification.html">Notification</a></li>
-                                <li><a href="stickynote.html">Sticky Note</a></li>
-                                <li><a href="timeline.html">Timeline</a></li>
-                                <li><a href="horizontal-timeline.html">Horizontal Timeline</a></li>
-                                <li><a href="form-wizard.html">Form Wizard</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i data-feather="bar-chart-2"></i> <span> Charts </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="chart-apex.html">Apex Charts</a></li>
-                                <li><a href="chart-js.html">Chart Js</a></li>
-                                <li><a href="chart-morris.html">Morris Charts</a></li>
-                                <li><a href="chart-flot.html">Flot Charts</a></li>
-                                <li><a href="chart-peity.html">Peity Charts</a></li>
-                                <li><a href="chart-c3.html">C3 Charts</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i data-feather="award"></i> <span> Icons </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
-                                <li><a href="icon-feather.html">Feather Icons</a></li>
-                                <li><a href="icon-ionic.html">Ionic Icons</a></li>
-                                <li><a href="icon-material.html">Material Icons</a></li>
-                                <li><a href="icon-pe7.html">Pe7 Icons</a></li>
-                                <li><a href="icon-simpleline.html">Simpleline Icons</a></li>
-                                <li><a href="icon-themify.html">Themify Icons</a></li>
-                                <li><a href="icon-weather.html">Weather Icons</a></li>
-                                <li><a href="icon-typicon.html">Typicon Icons</a></li>
-                                <li><a href="icon-flag.html">Flag Icons</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-                                <li><a href="form-input-groups.html">Input Groups </a></li>
-                                <li><a href="form-horizontal.html">Horizontal Form </a></li>
-                                <li><a href="form-vertical.html"> Vertical Form </a></li>
-                                <li><a href="form-mask.html"> Form Mask </a></li>
-                                <li><a href="form-validation.html"> Form Validation </a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="tables-basic.html">Basic Tables </a></li>
-                                <li><a href="data-tables.html">Data Table </a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul>
-                                <li class="submenu">
-                                    <a href="javascript:void(0);"> <span>Level 1</span> <span
-                                            class="menu-arrow"></span></a>
-                                    <ul>
-                                        <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-                                        <li class="submenu">
-                                            <a href="javascript:void(0);"> <span> Level 2</span> <span
-                                                    class="menu-arrow"></span></a>
-                                            <ul>
-                                                <li><a href="javascript:void(0);">Level 3</a></li>
-                                                <li><a href="javascript:void(0);">Level 3</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);"> <span>Level 1</span></a>
-                                </li>
-                            </ul>
-                        </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link logout-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                    @endauth
+                    {{-- Theme Toggle --}}
+                    <li class="nav-item">
+                        <button id="themeToggle" class="theme-toggle nav-link">
+                            <i class="bi bi-moon-stars-fill"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="text-center py-3 mt-4 text-muted">
+        <div class="container">
+            &copy; {{ date('Y') }} MyKICT Smart Study Planner. All Rights Reserved.
+        </div>
+    </footer>
 
-    <div class="page-wrapper">
-        <!-- This is where page content goes -->
-        @yield('content')
-        <footer>
-            <p>Copyright © 2024-2025 MYKICT.</p>
-        </footer>
-    </div>
-    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -579,6 +270,34 @@
     <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+
+    <script>
+        // Theme Toggle Script
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlTag = document.documentElement;
+            const storedTheme = localStorage.getItem('theme');
+
+            // Set initial theme
+            if (storedTheme) {
+                htmlTag.setAttribute('data-bs-theme', storedTheme);
+            }
+
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlTag.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                htmlTag.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+
+                // Update theme toggle icon
+                themeToggle.innerHTML = newTheme === 'dark' ?
+                    '<i class="bi bi-sun-fill"></i>' :
+                    '<i class="bi bi-moon-stars-fill"></i>';
+            });
+        });
+    </script>
 </body>
 
 </html>
