@@ -26,7 +26,7 @@
           <div class="row align-items-center">
             <div class="col">
               <h3 class="page-title">
-                Suggested Courses (Sem {{ $nextSem }}, Year {{ $nextYear }})
+                Suggested Courses (Year {{ $nextYear }}, Sem {{ $nextSem }})
               </h3>
             </div>
             <div class="col-auto ms-auto download-grp">

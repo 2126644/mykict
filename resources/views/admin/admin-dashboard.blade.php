@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="card report-card">
+    {{-- <div class="card report-card">
         <div class="card-body pb-0">
             <form method="GET" action="{{ route('admin.dashboard') }}">
                 <div class="row">
@@ -107,7 +107,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         @forelse($courses as $course)

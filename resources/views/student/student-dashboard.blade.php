@@ -39,76 +39,134 @@
 
 
     <div class="row">
-        <div class="col-xl-3 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Matric No</h6>
-                            <h3>{{ $student->matric_no }}</h3>
-
-                            <h6>Name</h6>
-                            <h3>{{ $student->st_name }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
-                        </div>
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Matric No</h6>
+                        <h3>{{ $student->matric_no }}</h3>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Major</h6>
-                            <h3>{{ $student->major }}</h3>
-                            <h6>Specialization</h6>
-                            <h3>{{ $student->specialization }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Year</h6>
-                            <h3>{{ $student->year }}</h3>
-                            <h6>Semester</h6>
-                            <h3>{{ $student->sem }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Current CGPA</h6>
-                            <h3>{{ $student->current_cgpa }}</h3>
-                            <h6>Targetted CGPA</h6>
-                            <h3>{{ $student->target_cgpa }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/student-icon-02.svg" alt="Dashboard Icon">
-                        </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Name</h6>
+                        <h3>{{ $student->st_name }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Major</h6>
+                        <h3>{{ $student->major }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Specialization</h6>
+                        <h3>{{ $student->specialization }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Year</h6>
+                        <h3>{{ $student->year }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Semester</h6>
+                        <h3>{{ $student->sem }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/student-icon-01.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Current CGPA</h6>
+                        <h3>{{ $student->current_cgpa }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/student-icon-02.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12 d-flex">
+        <div class="card bg-comman w-100">
+            <div class="card-body">
+                <div class="db-widgets d-flex justify-content-between align-items-center">
+                    <div class="db-info">
+                        <h6>Targeted CGPA</h6>
+                        <h3>{{ $student->target_cgpa }}</h3>
+                    </div>
+                    <div class="db-icon">
+                        <img src="assets/img/icons/student-icon-02.svg" alt="Dashboard Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <div class="row">
@@ -122,7 +180,7 @@
                         </div>
                         <div class="col-6">
                             <ul class="chart-list-out">
-            
+
                                 <li class="lesson-view-all"><a href="{{ route('student.courses') }}">View Study Plan</a>
                                 </li>
                             </ul>
@@ -273,7 +331,7 @@
                                 <div class="p-3 rounded shadow-sm d-flex justify-content-between align-items-center" style="background: #f8fafc;">
                                     <div>
                                         <div class="fw-bold" style="font-size: 1rem;">{{ $subject->course_code }} - {{ $subject->course_title }}</div>
-                                        <div style="font-size: 0.95rem; color: #789;">Target Grade: {{ $subject->target_grade ?? '-' }}</div>
+                                        {{-- <div style="font-size: 0.95rem; color: #789;">Target Grade: {{ $subject->target_grade ?? '-' }}</div> --}}
                                     </div>
                                     <div>
                                         <span class="badge text-dark" style="font-size: 1rem;">Credit Hour: {{ $subject->credit_hrs ?? '-' }}</span>
