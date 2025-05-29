@@ -1,95 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>MyKICT- Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyKICT - Login</title>
 
-    <!-- small logo at link-->
-    <link rel="shortcut icon" href="assets/img/logokict.png">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/logokict2.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/plugins/feather/feather.css">
-    <link rel="stylesheet" href="assets/plugins/icons/flags/flags.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #0056b3;
+            --body-bg: #f4f4f4;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('assets/img/background-kict2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
-
 <body>
-
-    <!-- Main Wrapper -->
-    <div class="main-wrapper login-body">
-        <div class="login-wrapper">
-            <div class="container">
-                <div class="loginbox">
-                    <div class="login-left">
-                        <img class="img-fluid" src="assets/img/logokict.png" alt="Logo">
-                    </div>
-                    <div class="login-right">
-                        <div class="login-right-wrap">
-                            <!-- Heading -->
-                            <h1>Welcome to MyKICT</h1>
-                            <p class="account-subtitle">Need an account? <a href="{{ route('register') }}">Sign Up</a>
-                            </p>
-                            <h2>Sign in</h2>
-
-                            @session('status')
-                                <div class="mb-4 font-medium text-sm text-green-600">
-                                    {{ $value }}
-                                </div>
-                            @endsession
+    <div class="login-wrapper">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <img class="img-fluid mb-3" src="assets/img/kictlogo.png" alt="Logo" style="max-height: 50px;">
+                                <h2 class="fw-bold text-primary">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </h2>
+                                <p class="text-muted">Welcome to MyKICT! Please enter your credentials.</p>
+                            </div>
 
                             <!-- Login Form -->
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <div class="form-group">
-                                    <label>Email <span class="login-danger">*</span></label>
-                                    <input class="form-control" type="email" name="email"
-                                        value="{{ old('email') }}" required autofocus>
-                                    <span class="profile-views"><i class="fas fa-user-circle"></i></span>
+                                
+                                <!-- Email Input -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="bi bi-envelope me-2"></i>Email Address
+                                    </label>
+                                    <input 
+                                        type="email" 
+                                        class="form-control @error('email') is-invalid @enderror" 
+                                        id="email" 
+                                        name="email" 
+                                        value="{{ old('email') }}" 
+                                        required 
+                                        autofocus
+                                    >
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label>Password <span class="login-danger">*</span></label>
-                                    <input class="form-control pass-input" type="password" name="password" required>
-                                    <span class="profile-views feather-eye toggle-password"></span>
+
+                                <!-- Password Input -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">
+                                        <i class="bi bi-lock me-2"></i>Password
+                                    </label>
+                                    <input 
+                                        type="password" 
+                                        class="form-control @error('password') is-invalid @enderror" 
+                                        id="password" 
+                                        name="password" 
+                                        required
+                                    >
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                <div class="forgotpass">
-                                    <div class="remember-me">
-                                        <label class="custom_check mr-2 mb-0 d-inline-flex remember-me">
-                                            Remember me
-                                            <input type="checkbox" name="remember">
-                                            <span class="checkmark"></span>
+
+                                <!-- Remember Me and Forgot Password -->
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="form-check">
+                                        <input 
+                                            type="checkbox" 
+                                            class="form-check-input" 
+                                            id="remember" 
+                                            name="remember"
+                                            {{ old('remember') ? 'checked' : '' }}
+                                        >
+                                        <label class="form-check-label" for="remember">
+                                            Remember Me
                                         </label>
                                     </div>
-                                    <a href="{{ route('password.request') }}">Forgot Password?</a>
+                                    <a href="{{ route('password.request') }}" class="text-primary">
+                                        Forgot Password?
+                                    </a>
                                 </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-block" type="submit">Login</button>
+
+                                <!-- Login Button -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                    </button>
                                 </div>
                             </form>
 
-                            {{-- <!-- Divider -->
-                            <div class="login-or">
-                                <span class="or-line"></span>
-                                <span class="span-or">or</span>
+                            <!-- Register Link -->
+                            <div class="text-center mt-3">
+                                Don't have an account? 
+                                <a href="{{ route('register') }}" class="text-primary">
+                                    Sign Up
+                                </a>
                             </div>
-
-                            <!-- Social Login -->
-                            <div class="social-login">
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div> --}}
-
                         </div>
                     </div>
                 </div>
@@ -97,11 +161,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/feather.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <!-- Bootstrap JS (optional, for future interactions) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
