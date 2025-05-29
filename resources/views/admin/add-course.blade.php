@@ -69,8 +69,13 @@
                             <div class="col-md-10">
                                 <select name="category" class="form-control form-select" required>
                                     <option value="" disabled selected>-- Select --</option>
-                                    <option value="Kulliyyah Required Course">Kulliyyah Required Course</option>
-                                    <option value="Department Required Course">Department Required Course</option>
+                                    <option value="University Required Courses">University Required Courses</option>
+                                    <option value="Core Computing Courses">Core Computing Courses</option>
+                                    <option value="Discipline Core Courses">Discipline Core Courses</option>
+                                    <option value="Field Electives">Field Electives</option>
+                                    <option value="Final Year Project (1&2)">Final Year Project (1&2)</option>
+                                    <option value="Industrial Attachment">Industrial Attachment</option>
+
                                 </select>
                             </div>
                         </div>
@@ -88,22 +93,23 @@
                             </div>
                         </div>
 
-                        <!-- Specialization -->
+                        <!-- Field Electives -->
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Specialization</label>
+                            <label class="col-form-label col-md-2">Field Electives</label>
                             <div class="col-md-10">
                                 <select name="specialization" class="form-control form-select">
                                     <option value="" disabled selected>-- BIT --</option>
-                                    <option value="Digital Media Design">Digital Media Design</option>
-                                    <option value="Business Intelligence & Information Science">Business Intelligence & Information Science</option>
-                                    <option value="Information Assurance & Security">Information Assurance & Security</option>
-                                    <option value="Enterprise Technology Management">Enterprise Technology Management</option>
-                                    <option value="Digitalpreneurship">Digitalpreneurship</option>
+                                    <option value="Cybersecurity">Cybersecurity</option>
+                                    <option value="Cloud Computing & System Paradigm">Cloud Computing & System Paradigm</option>
+                                    <option value="Innovative Digital Experience (IDEx)">Innovative Digital Experience (IDEx)</option>
+                                    <option value="Data Analytics">Data Analytics</option>
+                                    <option value="Digital Transformation">Digital Transformation</option>
                                     <option value="" disabled selected>-- BCS --</option>
-                                    <option value="Software Engineering">Software Engineering</option>
-                                    <option value="Data Science & Computational Intelligence">Data Science & Computational Intelligence</option>
-                                    <option value="Network & Security">Network & Security</option>
-                                    <option value="Free/ No Specialization">Free/ No Specialization</option>
+                                    <option value="Application Development Engineering">Application Development Engineering</option>
+                                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                    <option value="Security in Digital System">Security in Digital System</option>
+                                    <option value="Data Engineering">Data Engineering</option>
+                                    <option value="Network & Data Communications">Network & Data Communications</option>
                                 </select>
                             </div>
                         </div>
