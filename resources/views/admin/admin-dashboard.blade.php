@@ -1,199 +1,378 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    /* Ensure Poppins font is loaded and used */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    body,
+    * {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dashboard-cards .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        height: 180px;
+        /* Consistent height */
+    }
+
+    .dashboard-cards .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-cards .card-body {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .dashboard-icon {
+        background-color: rgba(0, 123, 255, 0.1);
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+    }
+
+    .dashboard-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+        /* Makes the <i> icon about 28px */
+    }
+
+    .dashboard-info h6 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #6c757d;
+        margin-bottom: 0.25rem;
+    }
+
+    .dashboard-info h3 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+</style>
+
 <div class="content container-fluid">
     <div class="page-header">
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-sub-header">
-                    <h3 class="page-title">Welcome {{ $admin->ad_name }}!</h3>
+                    <h3 class="page-title"><br>Welcome, <strong>{{ $admin->ad_name }}</strong>!</h3>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xl-6 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Admin ID</h6>
-                            <h3>{{ $admin->admin_id }}</h3>
-                            <h6>Name</h6>
-                            <h3>{{ $admin->ad_name }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-01.svg" alt="Dashboard Icon">
-                        </div>
+        
+    <div class="col-xl-4 col-md-6 col-12">
+            <div class="card border-secondary h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="dashboard-icon bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center me-3">
+                        <i class="bi bi-credit-card" style="font-size:1.75rem;"></i>
+                    </div>
+                    <div class="dashboard-info">
+                        <h6>Admin ID</h6>
+                        <h3>{{ $admin->admin_id }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-6 col-sm-6 col-12 d-flex">
-            <div class="card bg-comman w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-info">
-                            <h6>Email</h6>
-                            <h3>{{ $admin->ad_email }}</h3>
-                        </div>
-                        <div class="db-icon">
-                            <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">
-                        </div>
+        <div class="col-xl-4 col-md-6 col-12">
+            <div class="card border-secondary h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="dashboard-icon bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center me-3">
+                        <i class="bi bi-person-circle" style="font-size:1.75rem;"></i>
+                    </div>
+                    <div class="dashboard-info">
+                        <h6>Admin Name</h6>
+                        <h3>{{ $admin->ad_name }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+            <div class="card border-secondary h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="dashboard-icon bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center me-3">
+                        <i class="bi bi-envelope" style="font-size:1.75rem;"></i>
+                    </div>
+                    <div class="dashboard-info">
+                        <h6>Admin Email</h6>
+                        <h3>{{ $admin->ad_email }}</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- <div class="card report-card">
-        <div class="card-body pb-0">
-            <form method="GET" action="{{ route('admin.dashboard') }}">
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="department" class="form-label">Select Department</label>
-                        <select name="department" id="department" class="form-select">
-                            <option value="">-- All --</option>
-                            @foreach ($departments as $dept)
-                            <option value="{{ $dept }}" {{ request('department') == $dept ? 'selected' : '' }}>
-                                {{ $dept }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+    <div class="row mt-4">
 
-                    <div class="col-md-3 mb-3">
-                        <label for="specialization" class="form-label">Select Specialization</label>
-                        <select name="specialization" id="specialization" class="form-select">
-                            <option value="">-- All --</option>
-                            @foreach ($specializations as $spec)
-                            <option value="{{ $spec }}" {{ request('specialization') == $spec ? 'selected' : '' }}>
-                                {{ $spec }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="year" class="form-label">Select Year</label>
-                        <select name="year" id="year" class="form-select">
-                            <option value="">-- All --</option>
-                            @foreach ($years as $year)
-                            <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
-                                {{ $year }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="category" class="form-label">Select Category</label>
-                        <select name="category" id="category" class="form-select">
-                            <option value="">-- All --</option>
-                            @foreach ($categories as $cat)
-                            <option value="{{ $cat }}" {{ request('category') == $cat ? 'selected' : '' }}>
-                                {{ $cat }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary">Apply</button>
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Reset</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> --}}
-
-    <div class="row">
-        @forelse($courses as $course)
-        <div class="col-sm-6 col-lg-4 col-xl-3 d-flex">
-            <div class="card invoices-grid-card w-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <a href="#" class="invoice-grid-link">{{ $course->course_code }}</a>
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="{{ route('admin.course.edit', $course->course_code) }}"><i class="far fa-edit me-2"></i>Edit</a>
-                            <a class="dropdown-item" href="#"><i class="far fa-eye me-2"></i>View</a>
-                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-middle">
-                    <h2 class="card-middle-avatar">
-                        <a href="#">{{ $course->course_title }}</a>
-                    </h2>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title">Course Popularity</h5>
                 </div>
                 <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-                            <span><i class="fas fa-users"></i> Total Students</span>
-                            <h6 class="mb-0">{{ $course->total_students ?? 'N/A' }}</h6>
-                        </div>
-                        <div class="col-auto">
-                            <span><i class="fas fa-chalkboard-teacher"></i> Number of Sections</span>
-                            <h6 class="mb-0">{{ $course->sections ?? 'N/A' }}</h6>
-                        </div>
-                    </div>
+                    <div id="coursePopularity"></div>
                 </div>
-
-                <div class="card-footer">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <a href="{{ route('admin.course.edit', $course->course_code) }}" class="btn btn-primary">
-                                <i class="far fa-edit me-2"></i>Edit
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <form
-                                action="{{ route('admin.course.delete', $course->course_code) }}"
-                                method="POST"
-                                onsubmit="return confirm('Are you sure you want to delete {{ $course->course_code }}?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="far fa-trash-alt me-1"></i>Delete
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
 
-        @empty
-        <div class="col-12">
-            <div class="alert alert-warning text-center">
-                No courses found for the selected filters.
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title">Gender by Year/Semester</h5>
+                </div>
+                <div class="card-body">
+                    <div id="genderSemChart"></div>
+                </div>
             </div>
         </div>
-        @endforelse
+
+        <div class="col-md-6 mt-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title">Monthly Sign-Ups</h5>
+                </div>
+                <div class="card-body">
+                    <div id="signupTrend"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title">Departmental Demand</h5>
+                </div>
+                <div class="card-body">
+                    <div id="deptPie"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
+
+@push('scripts')
+<!-- ApexCharts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // 1) Course Popularity Bar Chart
+        new ApexCharts(
+            document.querySelector('#coursePopularity'), {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                series: [{
+                    name: 'Selections',
+                    data: @json($popularCounts)
+                }],
+                xaxis: {
+                    categories: @json($popularLabels),
+                    title: {
+                        text: 'Course Code'
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Number of Times Chosen'
+                    }
+                },
+                colors: ['#20c997'],
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4
+                    }
+                }
+            }
+        ).render();
 
 
-{{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
+        // 5) Gender by Year/Semester Column Chart (#s-col)
+        if ($('#genderSemChart').length > 0) {
+            var genderSem = {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                series: [{
+                        name: 'Male',
+                        data: @json($genderBySemMale)
+                    },
+                    {
+                        name: 'Female',
+                        data: @json($genderBySemFemale)
+                    }
+                ],
+                xaxis: {
+                    categories: @json($enrollLabels)
+                },
+                yaxis: {
+                    title: {
+                        text: 'Total Students'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val;
+                        }
+                    }
+                },
+                colors: ['#1E90FF', '#FF69B4']
+            };
+            new ApexCharts(
+                document.querySelector('#genderSemChart'),
+                genderSem
+            ).render();
 
-    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/feather.min.js"></script>
+            if ($('#signupTrend').length > 0) {
+                var signupLine = {
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        },
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 2
+                    },
+                    series: [{
+                        name: 'New Sign-Ups',
+                        data: @json($signupCounts)
+                    }],
+                    title: {
+                        text: 'Monthly New Student Sign-Ups',
+                        align: 'left'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f1f2f3', 'transparent'],
+                            opacity: 0.5
+                        }
+                    },
+                    xaxis: {
+                        categories: @json($signupLabels),
+                        title: {
+                            text: 'Month (YYYY-MM)'
+                        }
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Sign-Ups'
+                        }
+                    },
+                    markers: {
+                        size: 4
+                    },
+                    colors: ['#28a745'],
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return val;
+                            }
+                        }
+                    }
+                };
+                var chart = new ApexCharts(
+                    document.querySelector('#signupTrend'),
+                    signupLine
+                );
+                chart.render();
+            };
 
-    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+            // 6) Departmental Demand Treemap
+            // prepare your PHP‐generated data
+            var deptData = @json($treemapData);
+            // convert to C3 columns: [ ['Dept1', 5], ['Dept2', 3], … ]
+            var columns = deptData.map(function(d) {
+                return [d.x, d.y];
+            });
+            // optional: assign each department a color (you can customize this)
+            var colors = {};
+            var palette = ['#664dc9', '#44c4fa', '#2dce89', '#ff5b51', '#fbbc04', '#ea4335'];
+            deptData.forEach(function(d, i) {
+                colors[d.x] = palette[i % palette.length];
+            });
+            // optional: give friendly names (here same as the key)
+            var names = {};
+            deptData.forEach(function(d) {
+                names[d.x] = d.x;
+            });
 
+            // generate the pie chart with legend enabled
+            var chart = c3.generate({
+                bindto: '#deptPie',
+                data: {
+                    columns: columns,
+                    type: 'pie',
+                    colors: colors,
+                    names: names
+                },
+                legend: {
+                    show: true, // enable the legend
+                    position: 'right' // you can also use 'bottom', 'inset', etc.
+                },
+                padding: {
+                    bottom: 0,
+                    top: 0
+                }
+            });
+        }
 
-    <script src="assets/js/circle-progress.min.js"></script>
+    });
+</script>
+@endpush
 
-    <script src="assets/js/script.js"></script> --}}
-</body>
 @endsection
