@@ -8,13 +8,19 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logokict2.png') }}">
 
     <link rel="shortcut icon" href="{{ asset('assets/img/logokict.png') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icons/flags/flags.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZvYtb0BBQCkiGpM6i8B2Tk6Wj7TZ8yKPeG5SaZ9rEuCqHS5V4KzSa8NhFkZxWk" crossorigin="anonymous">
+
+    
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css"> -->
@@ -24,6 +30,9 @@
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet"/>
+
 
     <style>
         :root {
@@ -248,9 +257,9 @@
 
     <!-- Main Content -->
     <div class="container">
-        <div class="content-wrapper">
+        
             @yield('content')
-        </div>
+        
     </div>
 
     <!-- Footer -->
@@ -267,9 +276,17 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
+    
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    
+  <!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<!-- C3 & D3 -->
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
+
 
     <script>
         // Theme Toggle Script
@@ -298,6 +315,7 @@
             });
         });
     </script>
+    @stack('scripts')
 </body>
 
 </html>
