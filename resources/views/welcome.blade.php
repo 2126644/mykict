@@ -219,7 +219,7 @@
 <div class="hero">
     {{-- <img src="{{ asset('assets/img/logokict.png') }}" alt="MYKICT Logo" /> --}}
     <div style="display:flex; justify-content:center; align-items:center; margin-bottom:25px;">
-        <img src="{{ asset('assets/img/logokict.png') }}" alt="MYKICT" width="80" />
+        <img src="{{ asset('assets/img/logokict2.png') }}" alt="MYKICT" width="80" />
     </div>
     <h1>Plan Your Study, Shape Your Future</h1>
     <p>MYKICT: Smart Study Planner helps IIUM students select courses, track their academic path, and optimize graduation timelines. Less confusion, more confidence—your study journey made simple.</p>

@@ -9,14 +9,14 @@
             <div class="col-sm-12">
                 <div class="page-sub-header">
                     <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
-                    <ul class="breadcrumb">
+                    {{-- <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active">Student Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('student.courses') }}">View Suggested Courses</a>
                         </li>
                         <li class="breadcrumb-item"><a href="{{ route('cgpa.calculator') }}">CGPA Calculator</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>
