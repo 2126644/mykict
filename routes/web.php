@@ -51,7 +51,9 @@ Route::post('student-course/add', [StudentPreferenceController::class, 'storePre
 Route::middleware(['auth'])->group(function () {
     Route::get('/update-profile', [StudentController::class, 'editProfile'])->name('update.profile');
     Route::put('/student/update-profile', [StudentController::class, 'updateProfile'])->name('student.profile.update');
+    Route::get('/ajax/specializations/{programme}', [StudentController::class, 'getSpecializations'])->name('ajax.specializations');
 });
+
 
 Route::get('/admin/course/edit/{course_code}', [CourseController::class, 'editCourse'])->name('admin.course.edit');
 Route::post('/admin/course/update/{course_code}', [CourseController::class, 'updateCourse'])->name('admin.course.update');

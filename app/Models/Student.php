@@ -18,7 +18,7 @@ class Student extends Model
         'st_password',
         'year',
         'sem',
-        'major',
+        'programme',
         'specialization',
         'current_cgpa',
         'target_cgpa',
@@ -32,7 +32,7 @@ class Student extends Model
         'gpa_sem8', 'cgpa_sem8',
     ];
 
-    //relationships - NANTI BARU BUKAK BALIK
+    //relationships 
     public function preferences()
     {
         return $this->hasMany(StudentPreference::class, 'matric_no');
@@ -40,7 +40,7 @@ class Student extends Model
 
     public function user()
 {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class. 'user_id');
 }
 
 // App\Models\Student.php

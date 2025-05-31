@@ -7,13 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\StudentPreference;
 use App\Models\Student;
 use App\Models\Course;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Response;
 
 class StudentController extends Controller
 {
     //Display data from Student Table to SSP-dashboard
     public function showDashboardForLoggedInUser()
     {
-        $student = Auth::user()->student;
+        $student = Auth::user()->student; // returns null or a Student model
+        if (! $student) {
+            abort(404);
+        }
 
         if (!$student) {
             return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
@@ -57,78 +62,88 @@ class StudentController extends Controller
     //Edit student details
     public function editProfile()
     {
-        $user = Auth::user();
+        $student = Auth::user()->student; // returns null or a Student model
+        if (! $student) {
+            abort(404);
+        }
 
-        $student = Student::where('st_email', $user->email)->firstOrFail();
+        // Fetch distinct “specializations” from the courses table
+        $specializations = Course::select('specialization')
+            ->distinct()
+            ->orderBy('specialization')
+            ->pluck('specialization');
 
-        return view('student.update-profile', compact('student'));
+        $programmes = Course::select('programme')
+            ->distinct()
+            ->orderBy('programme')
+            ->pluck('programme');
+
+        return view('student.update-profile', compact('student', 'specializations', 'programmes'));
     }
 
     public function updateProfile(Request $request)
     {
-        $user = Auth::user();
+        $student = Auth::user()->student; // returns null or a Student model
+        if (! $student) {
+            abort(404);
+        }
 
-        // // Get student record based on authenticated user's email
-        $student = Student::where('st_email', $user->email)->firstOrFail();
+        // Validate inputs 
+        $validated = $request->validate([
+            // allow letters, spaces, dots, apostrophes, hyphens
+            'st_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z .\'-]+$/'],
 
-        // Validate inputs (optional but recommended)
-        $request->validate([
-            'st_name' => 'required|string|max:255|regex:/^[A-Za-z .\'-]+$/',
-            'major' => 'required|string',
-            'specialization' => 'nullable|string',
-            'year' => 'required|integer|min:1|max:4',
-            'sem' => 'required|integer|min:1|max:8',
-            // Between 0 and 4.00, 2 decimal places
-            'current_cgpa' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'target_cgpa' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem1' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem1' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem2' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem2' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem3' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem3' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem4' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem4' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem5' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem5' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem6' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem6' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem7' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem7' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'gpa_sem8' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
-            'cgpa_sem8' => 'nullable|numeric|between:0,4.00|regex:/^\d(\.\d{1,2})?$/',
+            'programme' => ['required', 'string', Rule::in(Course::distinct()->pluck('programme')->toArray())],
+            'specialization' => ['nullable', 'string', Rule::in(Course::distinct()->pluck('specialization')->toArray())],
+            'year' => ['required', 'integer', 'min:1', 'max:4'],
+            'sem' => ['required', 'integer', 'min:1', 'max:8'],
+
+            // Between 0 and 4.00, up to two decimal places:
+            'current_cgpa' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'target_cgpa' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+
+            'gpa_sem1' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem1' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem2' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem2' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem3' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem3' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem4' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem4' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem5' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem5' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem6' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem6' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem7' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem7' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'gpa_sem8' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
+            'cgpa_sem8' => ['nullable', 'numeric', 'between:0,4.00', 'regex:/^\d(\.\d{1,2})?$/'],
         ]);
 
-        // Update student fields
-        $student->update([
-            'st_name' => $request->input('st_name'),
-            'major' => $request->input('major'),
-            'specialization' => $request->input('specialization'),
-            'year' => $request->input('year'),
-            'sem' => $request->input('sem'),
-            'current_cgpa' => $request->input('current_cgpa'),
-            'target_cgpa' => $request->input('target_cgpa'),
-            'gpa_sem1' => $request->input('gpa_sem1'),
-            'cgpa_sem1' => $request->input('cgpa_sem1'),
-            'gpa_sem2' => $request->input('gpa_sem2'),
-            'cgpa_sem2' => $request->input('cgpa_sem2'),
-            'gpa_sem3' => $request->input('gpa_sem3'),
-            'cgpa_sem3' => $request->input('cgpa_sem3'),
-            'gpa_sem4' => $request->input('gpa_sem4'),
-            'cgpa_sem4' => $request->input('cgpa_sem4'),
-            'gpa_sem5' => $request->input('gpa_sem5'),
-            'cgpa_sem5' => $request->input('cgpa_sem5'),
-            'gpa_sem6' => $request->input('gpa_sem6'),
-            'cgpa_sem6' => $request->input('cgpa_sem6'),
-            'gpa_sem7' => $request->input('gpa_sem7'),
-            'cgpa_sem7' => $request->input('cgpa_sem7'),
-            'gpa_sem8' => $request->input('gpa_sem8'),
-            'cgpa_sem8' => $request->input('cgpa_sem8'),
-        ]);
 
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        // Mass‐assign everything at once
+        // If validation keys exactly match database column names, and listed in Student::$fillable
+        $student->update($validated);
+
+        return redirect()->route('student.dashboard')->with('success', 'Profile updated successfully.');
     }
 
+    /**
+     * Return a JSON list of distinct specializations for a given programme.
+     * Example URL: /ajax/specializations/BIT
+     */
+    public function getSpecializations(string $programme)
+    {
+        // Basic sanitation: make sure programme is a valid string
+        $programme = trim($programme);
+
+        // Or, without the scope:
+        $specializations = Course::where('programme', $programme)
+                                ->distinct()
+                                ->pluck('specialization');
+
+        return response()->json($specializations);
+    }
 }
 
 /**

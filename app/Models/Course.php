@@ -19,7 +19,8 @@ class Course extends Model
         'year',
         'sem',
         'specialization',
-        'category'
+        'category',
+        'programme'
     ];
 
     //relationships
@@ -37,4 +38,9 @@ class Course extends Model
     {
         return $this->belongsTo(Admin::class, 'admin_id');
     }
+
+    public function courses()
+{
+    return $this->hasMany(Student::class, 'student_preferences', 'course_code', 'matric_no');
+}
 }

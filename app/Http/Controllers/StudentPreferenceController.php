@@ -13,10 +13,10 @@ class StudentPreferenceController extends Controller
     // Show the “suggested” + “already selected” courses
     public function showRecommendedCourses(Request $request)
     {
-        $user = Auth::user();
-
-        // Get student info using email
-        $student = Student::where('st_email', $user->email)->firstOrFail();
+        $student = Auth::user()->student; // returns null or a Student model
+        if (! $student) {
+            abort(404);
+        }
 
         // Calculate next semester/year
         $currentYear = $student->year;
@@ -30,17 +30,15 @@ class StudentPreferenceController extends Controller
             $nextYear = $currentYear + 1;
         }
 
-        // Pull the student’s specialization
-        $spec = $student->specialization;
+        // Pull the student’s programme and specialization
+        $programme = $student->programme;
+        $specialization = $student->specialization;
 
         // Query courses for upcoming semester
         $query = Course::where('year', $nextYear)
-            ->where('sem',  $nextSem);
-
-        // Only filter by specialization if present
-        if ($spec) {
-            $query->where('specialization', $spec);
-        }
+            ->where('sem',  $nextSem)
+            ->where('programme',  $programme)
+            ->where('specialization',  $specialization);
 
         // Next sem/year, dept, spec
         $suggested = $query->get();
@@ -60,8 +58,10 @@ class StudentPreferenceController extends Controller
             'suggested',
             'selected',
             'all_courses',
+            'nextYear',
             'nextSem',
-            'nextYear'
+            'programme',
+            'specialization'
         ));
     }
 
