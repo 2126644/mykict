@@ -1,56 +1,59 @@
 @extends('layouts.master')
 
-
-
-
 @section('content')
-<!--<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
-
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
-
-
-
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-
-
-
-
-    <link rel="stylesheet" href="assets/plugins/feather/feather.css">
-
-
-
-
-    <link rel="stylesheet" href="assets/plugins/icons/flags/flags.css">
-
-
-
-
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-
-
-
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-
-
-
-    </head>-->
-
-
+    <style>
+    body {
+        background-color: #f4f8fb;
+    }
+    .card {
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    }
+    .card-body h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .card-body h6 {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    .page-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2980b9;
+    }
+    .btn-info {
+        background-color: #5dade2;
+        border-color: #5dade2;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+    .btn-info:hover {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+    .card-title {
+        font-weight: 600;
+        color: #2980b9;
+    }
+    .card-header p {
+        color: #7f8c8d;
+        margin-top: 5px;
+        font-size: 0.95rem;
+    }
+    </style>
 
 
     <div class="container mt-5">
-
-
-
 
         <div class="page-header">
             <div class="row align-items-center">
@@ -124,7 +127,7 @@
                     </div>
                     <div class="col-md-3">
                         <select class="form-select" name="grade[]">
-                            <option value="" selected disabled>Grade</option>
+                            <option value="" selected disabled>Target Grade</option>
                             <option value="4.00">A (4.00)</option>
                             <option value="3.67">A- (3.67)</option>
                             <option value="3.33">B+ (3.33)</option>
@@ -184,7 +187,8 @@
         </div>
     </div>
 
-
+    <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmb8x30m4002qwowpp0bbi4k2'></zapier-interfaces-chatbot-embed>
 
 
     <script>

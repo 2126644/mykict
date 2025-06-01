@@ -1,6 +1,79 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    body {
+        background-color: #f4f8fb;
+    }
+    .card {
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    }
+    .card-body h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .card-body h6 {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    .page-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2980b9;
+    }
+    .btn-info {
+        background-color: #5dade2;
+        border-color: #5dade2;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+    .btn-info:hover {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+    .card-title {
+        font-weight: 600;
+        color: #2980b9;
+    }
+    .card-header p {
+        color: #7f8c8d;
+        margin-top: 5px;
+        font-size: 0.95rem;
+    }
+    .db-icon img {
+        width: 50px;
+        opacity: 0.7;
+    }
+    .db-widgets {
+        padding: 10px;
+    }
+    .dash-details h4 {
+        font-weight: bold;
+        color: #34495e;
+    }
+    .lesson-imgs img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .lesson-activity {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .dash-circle .col-lg-3 {
+        margin-top: 20px;
+    }
+
+</style>
 
 <div class="content container-fluid">
 
@@ -9,7 +82,7 @@
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-sub-header">
@@ -178,7 +251,7 @@
                     </div>
                 </div>
                 <div class="dash-circle">
-                    <div class="row">
+                    <div class="row justify-content-center align-items-center text-center">
                         <div class="col-lg-3 col-md-12 dash-widget1">
                             <div class="circle-bar circle-bar2">
                                 <div class="circle-graph2" data-percent="75">
@@ -186,6 +259,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-md-3">
                             <div class="dash-details">
                                 <div class="lesson-activity">
@@ -259,6 +333,7 @@
                             </div>
                         </div>
 
+
                         <div class="col-lg-3 col-md-3 d-flex align-items-center justify-content-center">
                             <div class="skip-group">
                                 <!--<button type="submit" href="{{ url('update-profile') }}" class="btn btn-info skip-btn">Edit</button>-->
@@ -284,14 +359,7 @@
                                 <!-- GPA/CGPA Chart -->
                                 <div class="card-body">
                                     <div id="gpaCgpaChart" style="height: 350px;">
-                                        <!-- <div class="col-6">
-                                                    <ul class="chart-list-out">
-                                                        <li><span class="circle-blue"></span>CGPA</li>
-                                                        <li><span class="circle-green"></span>GPA</li>
-                                                        <li class="star-menus"><a href="javascript:;"><i
-                                                                    class="fas fa-ellipsis-v"></i></a></li>
-                                                    </ul>
-                                            </div>  -->
+
                                     </div>
                                 </div>
                             </div>
@@ -387,6 +455,8 @@
         var chart = new ApexCharts(document.querySelector("#gpaCgpaChart"), options);
         chart.render();
     </script>
+    <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmb8x30m4002qwowpp0bbi4k2'></zapier-interfaces-chatbot-embed>
     {{-- <script>
             // ApexCharts Configuration for GPA/CGPA
             var options = {

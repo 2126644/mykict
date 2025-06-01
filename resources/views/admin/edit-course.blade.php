@@ -2,6 +2,57 @@
 
 @section('content')
 
+{{-- style for background --}}
+<style>
+    body {
+        background-color: #f4f8fb;
+    }
+    .card {
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    }
+    .card-body h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .card-body h6 {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    .page-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2980b9;
+    }
+    .btn-info {
+        background-color: #5dade2;
+        border-color: #5dade2;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+    .btn-info:hover {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+    .card-title {
+        font-weight: 600;
+        color: #2980b9;
+    }
+    .card-header p {
+        color: #7f8c8d;
+        margin-top: 5px;
+        font-size: 0.95rem;
+    }
+    </style>
+
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">

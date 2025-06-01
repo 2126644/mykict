@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/img/logokict2.png') }}">
 
     <link rel="shortcut icon" href="{{ asset('assets/img/logokict.png') }}">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/feather/feather.css') }}">
@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZvYtb0BBQCkiGpM6i8B2Tk6Wj7TZ8yKPeG5SaZ9rEuCqHS5V4KzSa8NhFkZxWk" crossorigin="anonymous">
 
-    
+
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css"> -->
@@ -96,14 +96,19 @@
 
         /* Modern Navbar */
         .navbar {
-            background-color: white;
+            /* background-color: white; */
+            background-color: #2980b9;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 0.8rem 1rem;
         }
 
+        .nav-item .nav-link {
+        color: white !important;
+        }
+
         .navbar-brand {
             font-weight: 700;
-            color: #000 !important;
+            color: white !important;
             font-size: 1.5rem;
         }
 
@@ -143,7 +148,8 @@
         }
 
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            /* color: var(--primary-color) !important; */
+            color: rgb(135, 227, 255) !important;
         }
 
         /* Main Content Area */
@@ -226,14 +232,15 @@
                             <i class="bi bi-calculator-fill"></i> CGPA Calculator
                         </a>
                     </li>
-                    @endif
-
-                    {{-- Common Navigation Items --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('update.profile') }}">
                             <i class="bi bi-person-circle"></i> Profile
                         </a>
                     </li>
+                    @endif
+
+
+                    {{-- Common Navigation Items --}}
                     <li class="nav-item">
                         <a class="nav-link logout-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -257,9 +264,9 @@
 
     <!-- Main Content -->
     <div class="container">
-        
+
             @yield('content')
-        
+
     </div>
 
     <!-- Footer -->
@@ -276,9 +283,9 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    
+
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    
+
   <!-- ApexCharts -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
