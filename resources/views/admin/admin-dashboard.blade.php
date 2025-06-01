@@ -215,6 +215,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6 mt-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title">Specialization Demand</h5>
+                </div>
+                <div class="card-body">
+                    <div id="specTotalChart" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 
@@ -386,13 +398,13 @@
             };
 
             // 6) Departmental Demand Treemap
-            // prepare your PHP‐generated data
+            // PHP‐generated data
             var deptData = @json($treemapData);
             // convert to C3 columns: [ ['Dept1', 5], ['Dept2', 3], … ]
             var columns = deptData.map(function(d) {
                 return [d.x, d.y];
             });
-            // optional: assign each department a color (you can customize this)
+            // optional: assign each department a color 
             var colors = {};
             var palette = ['#664dc9', '#44c4fa', '#2dce89', '#ff5b51', '#fbbc04', '#ea4335'];
             deptData.forEach(function(d, i) {
@@ -424,6 +436,42 @@
             });
         }
 
+        if (document.querySelector('#specTotalChart')) {
+        new ApexCharts(
+            document.querySelector('#specTotalChart'), {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                series: [{
+                    name: 'Selections',
+                    data: @json($specCounts)
+                }],
+                xaxis: {
+                    categories: @json($specLabels),
+                    title: {
+                        text: 'Specialization'
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Number of Times Chosen'
+                    }
+                },
+                colors: ['#ffc107'],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%',
+                        borderRadius: 4
+                    }
+                }
+            }
+        ).render();
+        }
     });
 </script>
 @endpush

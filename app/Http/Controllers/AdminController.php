@@ -128,7 +128,16 @@ class AdminController extends Controller
             $treemapData[] = ['x' => $dept, 'y' => $sections];
         }
 
+        // 7) Total Students per Specialization
+        $specTotalsRaw = DB::table('student_preferences as sp')
+            ->join('courses as c', 'sp.course_code', '=', 'c.course_code')
+            ->select('c.specialization', DB::raw('COUNT(DISTINCT sp.matric_no) as total'))
+            ->groupBy('c.specialization')
+            ->pluck('total', 'specialization')
+            ->toArray();
 
+        $specLabels = array_keys($specTotalsRaw);
+        $specCounts = array_values($specTotalsRaw);
 
         // Return the view with all data
         return view('admin.admin-dashboard', compact(
@@ -144,7 +153,9 @@ class AdminController extends Controller
             'genderBySemFemale',
             'signupLabels',
             'signupCounts',
-            'treemapData'
+            'treemapData',
+            'specLabels', 
+            'specCounts'
         ));
     }
 

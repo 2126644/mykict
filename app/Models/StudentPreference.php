@@ -25,6 +25,6 @@ class StudentPreference extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_code');
+        return $this->belongsTo(Course::class, 'course_code', 'course_code');
     }
 }

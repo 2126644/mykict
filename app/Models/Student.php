@@ -35,7 +35,7 @@ class Student extends Model
     //relationships 
     public function preferences()
     {
-        return $this->hasMany(StudentPreference::class, 'matric_no');
+        return $this->hasMany(StudentPreference::class, 'matric_no', 'matric_no');
     }
 
     public function user()

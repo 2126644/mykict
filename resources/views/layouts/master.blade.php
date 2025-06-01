@@ -20,10 +20,8 @@
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZvYtb0BBQCkiGpM6i8B2Tk6Wj7TZ8yKPeG5SaZ9rEuCqHS5V4KzSa8NhFkZxWk" crossorigin="anonymous">
 
-
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <!-- <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css"> -->
+    <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -283,6 +281,8 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="assets/plugins/simple-calendar/jquery.simple-calendar.js"></script>
+    <script src="assets/js/calander.js"></script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
 

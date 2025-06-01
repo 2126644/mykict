@@ -36,6 +36,7 @@ class StudentController extends Controller
         $currentSem = $student->sem;
         $currentYear = $student->year;
 
+        // Compute “next semester” logic
         if ($currentSem == 1) {
             $nextSem = 2;
             $nextYear = $currentYear;
@@ -44,10 +45,23 @@ class StudentController extends Controller
             $nextYear = $currentYear + 1;
         }
 
-        $upcomingSubjects = Course::where('year', $nextYear)
-            ->where('sem', $nextSem)
+        $preferenceCourseCodes = $student->preferences()
+            ->where('action', 'add')
+            ->pluck('course_code')
+            ->unique()
+            ->toArray();
+
+        $upcomingSubjects = Course::whereIn('course_code', $preferenceCourseCodes)
+            ->orderBy('year')->orderBy('sem')
             ->get();
 
+        $totalSubjects = StudentPreference::where('matric_no', $student->matric_no)
+            ->where('action', 'add')
+            ->count();
+
+        $totalCreditHours = StudentPreference::where('matric_no', $student->matric_no)
+            ->where('action', 'add')
+            ->sum('credit_hours');
 
         return view('student.student-dashboard', compact(
             'student',
@@ -55,7 +69,9 @@ class StudentController extends Controller
             'cgpa',
             'nextSem',
             'nextYear',
-            'upcomingSubjects'
+            'upcomingSubjects',
+            'totalSubjects',
+            'totalCreditHours'
         ));
     }
 
@@ -139,8 +155,8 @@ class StudentController extends Controller
 
         // Or, without the scope:
         $specializations = Course::where('programme', $programme)
-                                ->distinct()
-                                ->pluck('specialization');
+            ->distinct()
+            ->pluck('specialization');
 
         return response()->json($specializations);
     }

@@ -56,7 +56,7 @@
     .db-widgets {
         padding: 10px;
     }
-    .dash-details h4 {
+    /* .dash-details h4 {
         font-weight: bold;
         color: #34495e;
     }
@@ -73,6 +73,19 @@
         margin-top: 20px;
     }
 
+    .dash-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center the content horizontally */
+
+/* Optional: Mobile responsiveness */
+@media (max-width: 768px) {
+    .dash-details {
+        flex-direction: row; /* Stack columns in a row on smaller screens */
+    }
+}
+
 </style>
 
 <div class="content container-fluid">
@@ -87,14 +100,6 @@
             <div class="col-sm-12">
                 <div class="page-sub-header">
                     <h3 class="page-title">Welcome {{ $student->st_name }}!</h3>
-                    {{-- <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Student Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('student.courses') }}">View Suggested Courses</a>
-                        </li>
-                        <li class="breadcrumb-item"><a href="{{ route('cgpa.calculator') }}">CGPA Calculator</a>
-                        </li>
-                    </ul> --}}
                 </div>
             </div>
         </div>
@@ -231,125 +236,98 @@
     </div>
 </div>
 
+<div class="row">
+<div class="col-12 col-lg-12 col-xl-8">
+<div class="card flex-fill comman-shadow">
+<div class="card-header">
+<div class="row align-items-center">
+<div class="col-6">
+<h5 class="card-title">Study Plan Summary</h5>
+<p>for Upcoming Semester</p>
+</div>
+</div>
+</div>
+<div class="dash-circle">
+<div class="row justify-content-center align-items-center">
+    @php
+    // Compute semester number 
+    // e.g. Year 1 Sem 1 → semIndex 1, Year 1 Sem 2 → semIndex 2, …, Year 4 Sem 2 → semIndex 8
+    $semIndex = ($student->year - 1) * 2 + $student->sem;
 
-    <div class="row">
-        <div class="col-12 col-lg-12 col-xl-12">
-            <div class="card flex-fill comman-shadow">
-                <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <h5 class="card-title">Study Plan Summary </h5>
-                            <p>for Upcoming Semester</p>
-                        </div>
-                        <div class="col-6">
-                            <ul class="chart-list-out">
+    // year 4 sem 2 student = 100% complete
+    $percent = round($semIndex / 8 * 100);
+    @endphp
+<div class="col-lg-3 col-md-3 dash-widget1 align-items-center justify-content-center">
+<div class="circle-bar circle-bar2">
+<div class="circle-graph2" data-percent="{{ $percent }}">
+<b>{{ $percent }}%</b>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-md-3 justify-content-center align-items-center">
+<div class="dash-details">
+<div class="lesson-activity">
+<div class="lesson-imgs">
+<img src="assets/img/icons/lesson-icon-01.svg" alt="">
+</div>
+<div class="views-lesson">
+<h5>Total Subject</h5>
+<h4>{{ $totalSubjects }}</h4>
+</div>
+</div>
+<div class="lesson-activity">
+<div class="lesson-imgs">
+<img src="assets/img/icons/lesson-icon-02.svg" alt="">
+</div>
+<div class="views-lesson">
+<h5>Total Credit Hour</h5>
+<h4>{{ $totalCreditHours }}</h4>
+</div>
+</div>
 
-                                <li class="lesson-view-all"><a href="{{ route('student.courses') }}">View Study Plan</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="dash-circle">
-                    <div class="row justify-content-center align-items-center text-center">
-                        <div class="col-lg-3 col-md-12 dash-widget1">
-                            <div class="circle-bar circle-bar2">
-                                <div class="circle-graph2" data-percent="75">
-                                    <b>75%</b>
-                                </div>
-                            </div>
-                        </div>
+</div>
+</div>
+<div class="col-lg-3 col-md-3 justify-content-center align-items-center">
+<div class="dash-details">
+<div class="lesson-activity">
+<div class="lesson-imgs">
+<img src="assets/img/icons/lesson-icon-04.svg" alt="">
+</div>
+@php
+$yearsLeft = max(0, 4 - $student->year);
+@endphp
+<div class="views-lesson">
+<h5>Year Left</h5>
+<h4>{{ $yearsLeft }} {{ $yearsLeft === 1 ? 'year' : 'years' }}</h4>
+</div>
+</div>
+<div class="lesson-activity">
+<div class="lesson-imgs">
+<img src="assets/img/icons/lesson-icon-05.svg" alt="">
+</div>
+@php
+$semLeft = max(0, 8 - ($student->year * 2));
+@endphp
+<div class="views-lesson">
+<h5>Semester Left</h5>
+<h4>{{ $semLeft }} {{ $semLeft === 1 ? 'semester' : 'semesters' }}</h4>
+</div>
+</div>
 
-                        <div class="col-lg-3 col-md-3">
-                            <div class="dash-details">
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-01.svg" alt="">
-                                    </div>
-                                    <div class="views-lesson">
-                                        <h5>Total subjects </h5>
-                                        <h4>6</h4>
-                                    </div>
-                                </div>
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-02.svg" alt="">
-                                    </div>
-                                    <div class="views-lesson">
-                                        <h5>Total Credit Hours</h5>
-                                        <h4>13.5</h4>
-                                    </div>
-                                </div>
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-03.svg" alt="">
-                                    </div>
-                                    <div class="views-lesson">
-                                        <h5>Credit Hours Completed</h5>
-                                        <h4>110/132</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3">
-                            <div class="dash-details">
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-04.svg" alt="">
-                                    </div>
+</div>
+</div>
 
-                                    @php
-                                    $semLeft = max(0, 8 - ($student->year * 2));
-                                    @endphp
+<div class="col-lg-3 col-md-3 d-flex justify-content-center align-items-center">
+<div class="skip-group">
+<a href="{{ route('update.profile') }}" class="btn btn-info skip-btn">Edit Profile</a>
+<a href="{{ route('student.courses') }}" class="btn btn-info continue-btn">View Study Plan</a>
+</div>
+</div>
 
-                                    <div class="views-lesson">
-                                        <h5>Semester Left</h5>
-                                        <h4>{{ $semLeft }} {{ $semLeft === 1 ? 'sem' : 'sem' }}</h4>
-                                    </div>
-                                </div>
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-05.svg" alt="">
-                                    </div>
-                                    <div class="views-lesson">
-                                        <h5>Specialization</h5>
-                                        <h4>{{ $student->specialization }}</h4>
-                                    </div>
-                                </div>
-                                <div class="lesson-activity">
-                                    <div class="lesson-imgs">
-                                        <img src="assets/img/icons/lesson-icon-06.svg" alt="">
-                                    </div>
+</div>
+</div>
+</div>
 
-                                    @php
-                                    $yearsLeft = max(0, 4 - $student->year);
-                                    @endphp
-
-                                    <div class="views-lesson">
-                                        <h5>Years Left</h5>
-                                        <h4>{{ $yearsLeft }} {{ $yearsLeft === 1 ? 'year' : 'years' }}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-3 col-md-3 d-flex align-items-center justify-content-center">
-                            <div class="skip-group">
-                                <!--<button type="submit" href="{{ url('update-profile') }}" class="btn btn-info skip-btn">Edit</button>-->
-                                <form action="{{ url('update-profile') }}" method="get">
-                                    <button type="submit" class="btn btn-info skip-btn">Edit</button>
-                                </form>
-
-                                <button type="submit" class="btn btn-info continue-btn">Continue</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 col-lg-12 col-xl-12 d-flex">
                     <div class="card flex-fill comman-shadow">
                         <div class="card-header">
                             <div class="row align-items-center">
@@ -365,49 +343,42 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+</div>
 
-            <div class="col-12 col-lg-12 col-xl-12 d-flex">
-                <div class="card flex-fill comman-shadow">
-                    <div class="card-body">
-                        <div id="calendar-doctor" class="calendar-container"></div>
-                        <div class="calendar-info calendar-info1">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <h4 class="mt-0">Upcoming Subjects</h4>
-                                </div>
-                                <!-- Display the upcoming semester/year dynamically -->
-                                <!-- Calculate $nextSem and $nextYear in controller and pass to view -->
-                                <div>
-                                    <h4 class="mt-0">Semester {{ $nextSem }}, {{ $nextYear }}/{{ $nextYear + 1 }}</h4>
-                                </div>
-                            </div>
+<div class="col-12 col-lg-12 col-xl-4 d-flex">
+<div class="card flex-fill comman-shadow">
+<div class="card-body">
+<div id="calendar-doctor" class="calendar-container"></div>
+<div class="calendar-info calendar-info1">
+<div class="up-come-header">
+<h3>Upcoming Subjects</h3>
+</div>
+<h4>Semester {{ $nextSem }}, {{ date('Y') }}/{{ date('Y')+1 }}</h4>
 
-                            @forelse ($upcomingSubjects as $subject)
-                            <div class="mb-3">
-                                <div class="p-3 rounded shadow-sm d-flex justify-content-between align-items-center" style="background: #f8fafc;">
-                                    <div>
-                                        <div class="fw-bold" style="font-size: 1rem;">{{ $subject->course_code }} - {{ $subject->course_title }}</div>
-                                        {{-- <div style="font-size: 0.95rem; color: #789;">Target Grade: {{ $subject->target_grade ?? '-' }}</div> --}}
-                                    </div>
-                                    <div>
-                                        <span class="badge text-dark" style="font-size: 1rem;">Credit Hour: {{ $subject->credit_hrs ?? '-' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @empty
-                            <div class="alert alert-warning mb-3">
-                                No upcoming subjects added yet!
-                            </div>
-                            @endforelse
-                        </div>
-                    </div>
-                </div>
-            </div>
+@forelse ($upcomingSubjects as $subject)
+<div class="calendar-details">
+<p>{{ $subject->course_code }}</p>
+<div class="calendar-box normal-bg">
+<div class="calandar-event-name">
+<h4>{{ $subject->course_title }}</h4>
+<h5>Target Grade: {{ $subject->target_grade ?? '-' }}</h5>
+<h5>Credit Hour: {{ $subject->credit_hrs }}</h5>
+</div>
+</div>
+</div>
+@empty
+<div class="alert alert-warning mb-3">
+No upcoming subjects added yet!
+</div>
+@endforelse
 
-        </div>
-    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
     <!-- UPDATED SCRIPT FOR CGPA TRACKER-->
     <script src="assets/js/jquery-3.6.0.min.js"></script> <!--assets ni yg buat tepi2 takleh tekan and circle tu ada bentuk-->
     <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
