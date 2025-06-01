@@ -1,6 +1,56 @@
 @extends('layouts.master')
 
 @section('content')
+ <style>
+    body {
+        background-color: #f4f8fb;
+    }
+    .card {
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    }
+    .card-body h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .card-body h6 {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    .page-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2980b9;
+    }
+    .btn-info {
+        background-color: #5dade2;
+        border-color: #5dade2;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+    .btn-info:hover {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+    .card-title {
+        font-weight: 600;
+        color: #2980b9;
+    }
+    .card-header p {
+        color: #7f8c8d;
+        margin-top: 5px;
+        font-size: 0.95rem;
+    }
+    </style>
+
 <div class="content container-fluid">
     <div class="page-header">
         @if(session('success'))
@@ -44,7 +94,7 @@
                             </div>
                         </div>
 
-                        
+
         <div class="form-group row mb-3">
             <label for="programme" class="col-form-label col-md-2">Programme</label>
             <div class="col-md-5">
@@ -71,7 +121,6 @@
                                         ->distinct()
                                         ->pluck('specialization');
                         @endphp
-
                         @foreach($preloadedSpecs as $spec)
                             <option value="{{ $spec }}" {{ old('specialization', $student->specialization) === $spec ? 'selected' : '' }}>
                                 {{ $spec }}
@@ -117,7 +166,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-md-2">Current CGPA</label>
                     <div class="col-md-5">
-                        <input type="number" step="0.01" min="0" max="4.00" name="current_cgpa" class="form-control @error('current_cgpa') is-invalid @enderror" 
+                        <input type="number" step="0.01" min="0" max="4.00" name="current_cgpa" class="form-control @error('current_cgpa') is-invalid @enderror"
                             value="{{ old('current_cgpa', $student->current_cgpa) }}"
                             placeholder="Enter your current CGPA">
                             @error('current_cgpa')
@@ -129,8 +178,8 @@
                 <div class="form-group row mb-3">
                     <label class="col-form-label col-md-2">Target CGPA</label>
                     <div class="col-md-5">
-                        <input type="number" step="0.01" min="0" max="4.00" name="target_cgpa" class="form-control @error('target_cgpa') is-invalid @enderror" 
-                        value="{{ old('target_cgpa', $student->target_cgpa) }}" 
+                        <input type="number" step="0.01" min="0" max="4.00" name="target_cgpa" class="form-control @error('target_cgpa') is-invalid @enderror"
+                        value="{{ old('target_cgpa', $student->target_cgpa) }}"
                             placeholder="Enter your target CGPA" >
                             @error('target_cgpa')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -233,6 +282,8 @@
         });
     });
 </script>
+<script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+<zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmb8x30m4002qwowpp0bbi4k2'></zapier-interfaces-chatbot-embed>
 @endpush
 
 @endsection
