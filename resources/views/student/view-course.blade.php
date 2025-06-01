@@ -60,6 +60,7 @@
                     <th>Category</th>
                     <th>Department</th>
                     <th>Specialization</th>
+                    <th>Programme</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,6 +83,7 @@
                       <td>{{ $course->category }}</td>
                       <td>{{ $course->department }}</td>
                       <td>{{ $course->specialization }}</td>
+                      <td>{{ $course->programme }}</td>
                     </tr>
                   @endforeach
                 </tbody>
