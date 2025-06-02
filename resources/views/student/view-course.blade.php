@@ -121,7 +121,7 @@
                           type="checkbox"
                           name="course_codes[]"
                           value="{{ $course->course_code }}"
-                          {{ in_array($course->course_code, $selected) ? 'checked' : '' }}
+                          {{ in_array($course->course_code, $selectedCodes) ? 'checked' : '' }}
                         >
                       </td>
                       <td>{{ $course->course_code }}</td>

@@ -40,23 +40,21 @@ class StudentPreferenceController extends Controller
             ->where('programme',  $programme)
             ->where('specialization',  $specialization);
 
-        // Next sem/year, dept, spec
+        // Courses recommended for the next semester (based on student's year, sem, programme, specialization)
         $suggested = $query->get();
 
-        // Get all course_codes the student already has
-        // Already in pivot
-        $selected = $student
-        ->courses()
-        ->select('courses.course_code')    // disambiguate here
-        ->pluck('course_code')
-        ->toArray();
+        // Get full course data the student already selected
+        $selected = $student->courses()->get(); // returns Course models
 
-        // All other courses for the “extra” selector/ not in $selected
-        $all_courses = Course::whereNotIn('course_code', $selected)->get();
+        $selectedCodes = $selected->pluck('course_code')->toArray();
+
+        // 	All other courses not yet selected
+        $all_courses = Course::whereNotIn('course_code', $selectedCodes)->get();
 
         return view('student.view-course', compact(
             'suggested',
             'selected',
+            'selectedCodes',
             'all_courses',
             'nextYear',
             'nextSem',
@@ -76,14 +74,21 @@ class StudentPreferenceController extends Controller
             $request->input('extra_codes', []) // Multi-select or modal for other courses
         );
 
-        // Validate that every code actually exists
-        $request->validate([
-            'course_codes.*' => 'exists:courses,course_code',
-            'extra_codes.*'  => 'exists:courses,course_code',
-        ]);
+        // Clear old preferences
+    $student->preferences()->delete();
 
-        // Add any codes not yet in the pivot table and remove any codes that were unchecked
-        $student->courses()->sync($codes);
+    foreach ($codes as $code) {
+        $course = Course::where('course_code', $code)->first();
+
+        if ($course) {
+            $student->preferences()->create([
+                'course_code'   => $course->course_code,
+                'course_title'  => $course->course_title,
+                'credit_hrs'    => $course->credit_hrs,
+                'action'        => 'add', // or any default value
+            ]);
+        }
+    }
 
         return back()->with('success', 'Study plan updated!');
     }

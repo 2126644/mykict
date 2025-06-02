@@ -86,27 +86,14 @@ class StudentController extends Controller
         return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
     }
 
-    $preferences = $student->preferences()->get(); // ✅ This will get all related preferences
+    $matricNo = $student->matric_no;
 
-    $preferenceCourseCodes = $preferences
-        ->where('action', 'add')
-        ->pluck('course_code')
-        ->unique()
-        ->toArray();
+    $courses = StudentPreference::where('matric_no', $matricNo)
+    ->select('course_title', 'credit_hrs')
+    ->get();
 
-    $upcomingSubjects = Course::whereIn('course_code', $preferenceCourseCodes)
-        ->orderBy('year')
-        ->orderBy('sem')
-        ->get();
-
-    $totalCreditHours = StudentPreference::where('matric_no', $student->matric_no)
-            ->where('action', 'add')
-            ->sum('credit_hrs');
-
-    return view('student.cgpa-calculator', compact('student', 'preferences', 'upcomingSubjects', 'totalCreditHours'));
+    return view('student.cgpa-calculator', compact('student', 'courses'));
     }
-
-
 
     //Edit student details
     public function editProfile()

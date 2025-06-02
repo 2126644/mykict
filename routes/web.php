@@ -29,16 +29,10 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 
-// Route for CGPA Calculator TAK JADI
-// Route::get('cgpa-calculator', [StudentController::class, 'showCgpaCalculator'])
-//      ->middleware('auth')
-//      ->name('cgpa.calculator');
-
-// Route for CGPA Calculator
-Route::get('cgpa-calculator', function () {
-    return view('student.cgpa-calculator');
-})->name('cgpa.calculator');
-
+//Route for CGPA Calculator
+Route::get('cgpa-calculator', [StudentController::class, 'showCgpaCalculator'])
+     ->middleware('auth')
+     ->name('cgpa.calculator');
 
 //Route for DATABASE
 Route::middleware(['auth'])->group(function () {
