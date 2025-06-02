@@ -29,6 +29,11 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 
+// Route for CGPA Calculator TAK JADI
+// Route::get('cgpa-calculator', [StudentController::class, 'showCgpaCalculator'])
+//      ->middleware('auth')
+//      ->name('cgpa.calculator');
+
 // Route for CGPA Calculator
 Route::get('cgpa-calculator', function () {
     return view('student.cgpa-calculator');
@@ -39,7 +44,7 @@ Route::get('cgpa-calculator', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('student-dashboard', [StudentController::class, 'showDashboardForLoggedInUser'])->name('student.dashboard');
     Route::get('admin-dashboard', [AdminController::class, 'showDashboardForLoggedInAdmin'])->name('admin.dashboard');
-    
+
 });
 
 Route::get('admin-courses', [AdminController::class, 'showCoursesList'])->name('admin.courses');

@@ -75,6 +75,39 @@ class StudentController extends Controller
         ));
     }
 
+    //SO FAR TAK JADI PAKAI SBB BUTTON TAK JALAN Show data from student preference table to cgpa calculator page
+    public function showCgpaCalculator()
+    {
+    $user = Auth::user();
+
+    $student = Student::where('user_id', $user->id)->first();
+
+    if (! $student) {
+        return redirect()->route('logout')->withErrors(['error' => 'Student profile not found!']);
+    }
+
+    $preferences = $student->preferences()->get(); // ✅ This will get all related preferences
+
+    $preferenceCourseCodes = $preferences
+        ->where('action', 'add')
+        ->pluck('course_code')
+        ->unique()
+        ->toArray();
+
+    $upcomingSubjects = Course::whereIn('course_code', $preferenceCourseCodes)
+        ->orderBy('year')
+        ->orderBy('sem')
+        ->get();
+
+    $totalCreditHours = StudentPreference::where('matric_no', $student->matric_no)
+            ->where('action', 'add')
+            ->sum('credit_hrs');
+
+    return view('student.cgpa-calculator', compact('student', 'preferences', 'upcomingSubjects', 'totalCreditHours'));
+    }
+
+
+
     //Edit student details
     public function editProfile()
     {
@@ -104,7 +137,7 @@ class StudentController extends Controller
             abort(404);
         }
 
-        // Validate inputs 
+        // Validate inputs
         $validated = $request->validate([
             // allow letters, spaces, dots, apostrophes, hyphens
             'st_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z .\'-]+$/'],
