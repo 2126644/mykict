@@ -158,6 +158,7 @@
                                 <th><input type="checkbox" id="selectAll"></th>
                                 <th>Course Code</th>
                                 <th>Course Title</th>
+                                <th>Total Students</th>
                                 <th>Credit Hour</th>
                                 <th>Pre-Requisite</th>
                                 <th>Year</th>
@@ -166,7 +167,6 @@
                                 <th>Department</th>
                                 <th>Specialization</th>
                                 <th>Programme</th>
-                                <th>Total Students</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -179,6 +179,7 @@
                                     </a>
                                 </td>
                                 <td>{{ $course->course_title }}</td>
+                                <td>{{ $course->total_students }}</td>
                                 <td>{{ $course->credit_hrs }}</td>
                                 <td>{{ $course->pre_requisites }}</td>
                                 <td>{{ $course->year }}</td>
@@ -187,7 +188,6 @@
                                 <td>{{ $course->department }}</td>
                                 <td>{{ $course->specialization }}</td>
                                 <td>{{ $course->programme }}</td>
-                                <td>{{ $course->total_students }}</td>
                             </tr>
                             @endforeach
                         </tbody>

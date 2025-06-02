@@ -61,7 +61,7 @@ class StudentController extends Controller
 
         $totalCreditHours = StudentPreference::where('matric_no', $student->matric_no)
             ->where('action', 'add')
-            ->sum('credit_hours');
+            ->sum('credit_hrs');
 
         return view('student.student-dashboard', compact(
             'student',
