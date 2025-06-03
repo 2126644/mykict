@@ -193,7 +193,7 @@
         </script>
 
         <script>
-            
+
             document.getElementById('calculateGpa').addEventListener('click', function() {
                 // Fetch user inputs with validation
                 const currentCgpa = parseFloat(document.getElementById('currentCgpa').value) || 0;
@@ -253,9 +253,9 @@
                     motivationMessage = "🎯 This will require strong commitment, but is achievable with dedication!";
                 } else if (updatedCgpa >= targetCgpa) {
                     if (updatedCgpa >= 4.0) {
-                        motivationMessage = "🎉 Congratulations! You're one of the 4 Flat Achiever! Flying HIGH!";
+                        motivationMessage = "🎉 Congratulations! You'll be one of the 4 Flat Achiever! Keep it up and Flying HIGH!";
                     } else if (updatedCgpa >= 3.5) {
-                        motivationMessage = "🎉 Congratulations! You're one of the Dean List Recepient! Let's maintain this till the next semester!";
+                        motivationMessage = "🎉 Congratulations! You'll be one of the Dean List Recepient! Let's focus to make it real for the next semester!";
                     } else {
                         motivationMessage = "🎉 Congratulations! You're on track to meet your goal! Keep up the good work!";
                     }
