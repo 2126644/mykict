@@ -1,8 +1,6 @@
 @extends('layouts.master')
-
 @section('content')
 
-{{-- style for background --}}
 <style>
     body {
         background-color: #f4f8fb;
@@ -26,11 +24,7 @@
         color: #7f8c8d;
         font-size: 0.9rem;
     }
-    .page-title {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #2980b9;
-    }
+
     .btn-info {
         background-color: #5dade2;
         border-color: #5dade2;
@@ -58,7 +52,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Edit Course</h3>
+                    <h3 class="page-title"><br>Edit Course</h3>
                 </div>
             </div>
         </div>
@@ -148,19 +142,3 @@
         </div>
     </div>
 </div>
-
-</div>
-
-
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-
-<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/js/feather.min.js"></script>
-
-<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<script src="assets/js/script.js"></script>
-</body>
-
-</html>

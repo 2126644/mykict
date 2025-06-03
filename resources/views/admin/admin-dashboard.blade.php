@@ -26,11 +26,7 @@
         color: #7f8c8d;
         font-size: 0.9rem;
     }
-    .page-title {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #2980b9;
-    }
+
     .btn-info {
         background-color: #5dade2;
         border-color: #5dade2;

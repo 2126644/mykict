@@ -44,7 +44,7 @@ class StudentPreferenceController extends Controller
         $suggested = $query->get();
 
         // Get full course data the student already selected
-        $selected = $student->courses()->get(); // returns Course models
+        $selected = $student->preferences()->with('course')->get(); // Use Relationship to Course Table
 
         $selectedCodes = $selected->pluck('course_code')->toArray();
 
@@ -80,6 +80,7 @@ class StudentPreferenceController extends Controller
     foreach ($codes as $code) {
         $course = Course::where('course_code', $code)->first();
 
+        // saving all selected courses into the preferences() relation
         if ($course) {
             $student->preferences()->create([
                 'course_code'   => $course->course_code,
@@ -90,6 +91,6 @@ class StudentPreferenceController extends Controller
         }
     }
 
-        return back()->with('success', 'Study plan updated!');
+        return redirect()->route('student.dashboard')->with('success', 'Study plan updated!');
     }
 }

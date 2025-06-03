@@ -2,98 +2,100 @@
 
 @section('content')
 
-<!-- Head section -->
-{{-- <head>
-    <link rel="stylesheet" href="assets/plugins/feather/feather.css">
-    <link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
-</head> --}}
 <style>
-    body {
-        background-color: #f4f8fb;
-    }
-    .card {
-        background: #ffffff;
-        border: none;
-        border-radius: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-    }
-    .card:hover {
-        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
-    }
-    .card-body h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #2c3e50;
-    }
-    .card-body h6 {
-        color: #7f8c8d;
-        font-size: 0.9rem;
-    }
-    .page-title {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #2980b9;
-    }
-    .btn-info {
-        background-color: #5dade2;
-        border-color: #5dade2;
-        border-radius: 12px;
-        padding: 10px 20px;
-        font-weight: 500;
-    }
-    .btn-info:hover {
-        background-color: #3498db;
-        border-color: #3498db;
-    }
-    .card-title {
-        font-weight: 600;
-        color: #2980b9;
-    }
-    .card-header p {
-        color: #7f8c8d;
-        margin-top: 5px;
-        font-size: 0.95rem;
-    }
-    </style>
+  body {
+    background-color: #f4f8fb;
+  }
+
+  .card {
+    background: #ffffff;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-body h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .card-body h6 {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
+
+  .btn-info {
+    background-color: #5dade2;
+    border-color: #5dade2;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 500;
+  }
+
+  .btn-info:hover {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+
+  .card-title {
+    font-weight: 600;
+    color: #2980b9;
+  }
+
+  .card-header p {
+    color: #7f8c8d;
+    margin-top: 5px;
+    font-size: 0.95rem;
+  }
+</style>
 
 <div class="content container-fluid">
 
-    <div class="page-header">
-        <div class="row align-items-center">
-            <div class="col">
-                <h3 class="page-title">Course</h3>
-            </div>
-        </div>
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title"><br>My Study Plan</h3>
+      </div>
     </div>
+  </div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card card-table">
-      <div class="card-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
 
-        <div class="page-header">
-          <div class="row align-items-center">
-            <div class="col">
-              <h3 class="page-title">
-                Suggested Courses (Year {{ $nextYear }}, Sem {{ $nextSem }})
-              </h3>
-            </div>
-            <div class="col-auto ms-auto download-grp">
-              <a href="{{ asset('assets/files/BCS-Study-Plan-Batch-241.pdf') }}"
-                 class="btn btn-outline-primary me-2" download>
-                <i class="fas fa-download"></i> BCS Study Plan 241
-              </a>
-              <a href="{{ asset('assets/files/BIT-Study-Plan-Batch-241.pdf') }}"
-                 class="btn btn-outline-primary me-2" download>
-                <i class="fas fa-download"></i> BIT Study Plan 241
-              </a>
+          <div class="page-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="page-title">
+                  Suggested Courses (Year {{ $nextYear }}, Sem {{ $nextSem }})
+                </h3>
+              </div>
+
+              <div class="col-auto ms-auto download-grp">
+                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addOtherCoursesModal">
+                <i class="bi bi-plus-circle"></i> Add Other Courses
+              </button>
+                <a href="{{ asset('assets/files/BCS-Study-Plan-Batch-241.pdf') }}"
+                  class="btn btn-outline-primary me-2" download>
+                  <i class="bi bi-download"></i>  BCS Study Plan 241
+                </a>
+                <a href="{{ asset('assets/files/BIT-Study-Plan-Batch-241.pdf') }}"
+                  class="btn btn-outline-primary me-2" download>
+                  <i class="bi bi-download"></i>  BIT Study Plan 241
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="table-responsive">
-          @if($suggested->count())
+          <div class="table-responsive">
+            @if($suggested->count())
             <form method="POST" action="{{ route('student.preferences.store') }}">
               @csrf
 
@@ -115,97 +117,144 @@
                 </thead>
                 <tbody>
                   @foreach($suggested as $course)
-                    <tr>
-                      <td>
-                        <input
-                          type="checkbox"
-                          name="course_codes[]"
-                          value="{{ $course->course_code }}"
-                          {{ in_array($course->course_code, $selectedCodes) ? 'checked' : '' }}
-                        >
-                      </td>
-                      <td>{{ $course->course_code }}</td>
-                      <td>{{ $course->course_title }}</td>
-                      <td>{{ $course->credit_hrs }}</td>
-                      <td>{{ $course->pre_requisites }}</td>
-                      <td>{{ $course->year }}</td>
-                      <td>{{ $course->sem }}</td>
-                      <td>{{ $course->category }}</td>
-                      <td>{{ $course->department }}</td>
-                      <td>{{ $course->specialization }}</td>
-                      <td>{{ $course->programme }}</td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="checkbox"
+                        name="course_codes[]"
+                        value="{{ $course->course_code }}"
+                        {{ in_array($course->course_code, $selectedCodes) ? 'checked' : '' }}>
+                    </td>
+                    <td>{{ $course->course_code }}</td>
+                    <td>{{ $course->course_title }}</td>
+                    <td>{{ $course->credit_hrs }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td>{{ $course->year }}</td>
+                    <td>{{ $course->sem }}</td>
+                    <td>{{ $course->category }}</td>
+                    <td>{{ $course->department }}</td>
+                    <td>{{ $course->specialization }}</td>
+                    <td>{{ $course->programme }}</td>
+                  </tr>
                   @endforeach
+
+                  <!-- Where the newly selected courses from the modal will be inserted -->
+                  <!-- Extra manually added (non-suggested) preferences -->
+                  @foreach ($selected as $course)
+                  @if (!in_array($course->course_code, $suggested->pluck('course_code')->toArray()))
+                  <tr style="background-color: #f4fcf9;" data-extra="{{ $course->course_code }}">
+                    <td>
+                      <input type="checkbox" name="course_codes[]" value="{{ $course->course_code }}" checked>
+                    </td>
+                    <td>{{ $course->course_code }}</td>
+                    <td>{{ $course->course_title }}</td>
+                    <td>{{ $course->credit_hrs }}</td>        
+                    <!-- $course = the Preference  $course->course = the related Course model -->
+                    <td>{{ $course->course->pre_requisites ?? '-' }}</td>
+                    <td>{{ $course->course->year ?? '-' }}</td>
+                    <td>{{ $course->course->sem ?? '-' }}</td>
+                    <td>{{ $course->course->category ?? '-' }}</td>
+                    <td>{{ $course->course->department ?? '-' }}</td>
+                    <td>{{ $course->course->specialization ?? '-' }}</td>
+                    <td>{{ $course->course->programme ?? '-' }}</td>
+                  </tr>
+                  @endif
+                  @endforeach
+                  <!-- Placeholder for JS-added rows -->
+                  <tr id="extra-courses-placeholder"></tr>
                 </tbody>
               </table>
 
-              <h4>Add Other Courses</h4>
-              <select name="extra_codes[]" multiple class="form-select mb-3">
-                @foreach($all_courses as $course)
-                  <option value="{{ $course->course_code }}">
-                    {{ $course->course_code }} – {{ $course->course_title }}
-                  </option>
-                @endforeach
-              </select>
-
               <button type="submit" class="btn btn-primary">Save Study Plan</button>
             </form>
-          @else
+            @else
             <div class="alert alert-warning text-center">
               No suggested courses found.
             </div>
-          @endif
-        </div>
+            @endif
+          </div>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-    <!-- Modal for Save Confirmation -->
-    <div class="modal custom-modal fade" id="save_invocies_details" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-header">
-                        <h3>Save Subject Details</h3>
-                        <p>Are you sure you want to save?</p>
-                    </div>
-                    <div class="modal-btn delete-action">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Save</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary paid-cancel-btn">Cancel</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Add Other Courses Modal -->
+  <div class="modal fade" id="addOtherCoursesModal" tabindex="-1" aria-labelledby="addOtherCoursesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addOtherCoursesLabel">Add Other Courses</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Course Code</th>
+                <th>Course Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($all_courses as $course)
+              <tr>
+                <td>
+                  <input type="checkbox" class="extra-course" value="{{ $course->course_code }}" data-title="{{ $course->course_title }}">
+                </td>
+                <td>{{ $course->course_code }}</td>
+                <td>{{ $course->course_title }}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="addSelectedCourses">Add Selected</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    {{-- <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/feather.min.js"></script>
-    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="assets/plugins/select2/js/select2.min.js"></script>
-    <script src="assets/plugins/moment/moment.min.js"></script>
-    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="assets/js/script.js"></script> --}}
+  <!-- JavaScript to append selected courses -->
+  <script>
+    document.getElementById('addSelectedCourses').addEventListener('click', function() {
+      let selected = document.querySelectorAll('.extra-course:checked');
+      selected.forEach(input => {
+        let code = input.value;
+        let title = input.dataset.title;
 
-    <script>
-        function saveSubjectDetails() {
-            // Logic for saving subject details can go here.
-            alert("Subject details saved!");
-            // Perform backend actions to save the data (e.g., AJAX or form submission).
+        // Check if already added
+        if (!document.querySelector(`[data-extra="${code}"]`)) {
+          let row = `
+                <tr data-extra="${code}">
+                    <td><input type="checkbox" name="course_codes[]" value="${code}" checked></td>
+                    <td>${code}</td>
+                    <td>${title}</td>
+                    <td colspan="8">Added manually</td>
+                </tr>
+            `;
+          document.querySelector('#extra-courses-placeholder').insertAdjacentHTML('beforebegin', row);
         }
-    </script>
+      });
 
-    <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
-    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmb8x30m4002qwowpp0bbi4k2'></zapier-interfaces-chatbot-embed>
+      // Close modal
+      var modal = bootstrap.Modal.getInstance(document.getElementById('addOtherCoursesModal'));
+      modal.hide();
+    });
+  </script>
 
-    @endsection
+  <script>
+    function saveSubjectDetails() {
+      // Logic for saving subject details can go here.
+      alert("Subject details saved!");
+      // Perform backend actions to save the data (e.g., AJAX or form submission).
+    }
+  </script>
+
+  <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+  <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmb8x30m4002qwowpp0bbi4k2'></zapier-interfaces-chatbot-embed>
+
+  @endsection
+
