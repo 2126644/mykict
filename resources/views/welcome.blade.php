@@ -183,27 +183,63 @@
         text-align: center;
     }
 
+     :root {
+        --content-max-width: 1200px;
+    }
+
+    /* Update your video wrapper styles */
+    .videos-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        max-width: var(--content-max-width);
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
     .video-section {
-        margin: 60px auto 40px;
-        max-width: 800px;
-        text-align: center;
+        flex: 1;
+        min-width: 0;
+        /* background: rgba(255, 255, 255, 0.9); */
+        border-radius: 12px;
+        padding: 20px;
+        /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); */
+    }
+
+    .video-section .section-title {
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        text-shadow: none;
     }
 
     .video-container {
         position: relative;
-        width: 100%;
         padding-bottom: 56.25%;
         height: 0;
-        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        border-radius: 8px;
     }
 
     .video-container iframe {
         position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        border: 0;
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .videos-wrapper {
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .video-section {
+            width: 100%;
+        }
     }
 
     .portal-footer {
@@ -274,26 +310,33 @@
     <h2 class="section-title">System Interface Previews</h2>
     <div class="system-images">
     <div class="image-container">
-        <img src="{{ asset('assets/img/student-dashboard1.png') }}" alt="System Screenshot 1">
+        <img src="{{ asset('assets/img/student-dashboard1.jpg') }}" alt="System Screenshot 1">
         <div class="hover-text">Student Dashboard: View your semester plan</div>
     </div>
     <div class="image-container">
-        <img src="{{ asset('assets/img/student-dashboard2.png') }}" alt="System Screenshot 2">
+        <img src="{{ asset('assets/img/student-dashboard2.jpg') }}" alt="System Screenshot 2">
         <div class="hover-text">Course Selection: Choose based on CGPA and progress</div>
     </div>
     <div class="image-container">
-        <img src="{{ asset('assets/img/admin-dashboard.png') }}" alt="System Screenshot 3">
+        <img src="{{ asset('assets/img/admin-dashboard.jpg') }}" alt="System Screenshot 3">
         <div class="hover-text">Admin Dashboard: Monitor student academic status</div>
     </div>
     </div>
 
-
+    <div class="videos-wrapper">
     <div class="video-section">
-        <h2 class="section-title">Watch the Demo</h2>
+        <h2 class="section-title">Demo Student View</h2>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dsr-OpyxxOI" allowfullscreen></iframe>
         </div>
     </div>
+    <div class="video-section">
+        <h2 class="section-title">Demo Admin View</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/sY6yN9aGF0U" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
 
 </div>
 
@@ -308,4 +351,3 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </x-guest-layout>
 </div>
-
