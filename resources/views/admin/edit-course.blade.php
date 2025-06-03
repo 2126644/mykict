@@ -47,9 +47,9 @@
     }
     </style>
 
-<div class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
+
             <div class="row">
                 <div class="col-sm-12">
                     <h3 class="page-title"><br>Edit Course</h3>
@@ -141,4 +141,4 @@
             </div>
         </div>
     </div>
-</div>
+    @endsection

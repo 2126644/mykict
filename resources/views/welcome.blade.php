@@ -310,11 +310,11 @@
     <h2 class="section-title">System Interface Previews</h2>
     <div class="system-images">
     <div class="image-container">
-        <img src="{{ asset('assets/img/student-dashboard1.jpg') }}" alt="System Screenshot 1">
+        <img src="{{ asset('assets/img/student-dashboard-up.png') }}" alt="System Screenshot 1">
         <div class="hover-text">Student Dashboard: View your semester plan</div>
     </div>
     <div class="image-container">
-        <img src="{{ asset('assets/img/student-dashboard2.jpg') }}" alt="System Screenshot 2">
+        <img src="{{ asset('assets/img/student-dashboard-bottom.png') }}" alt="System Screenshot 2">
         <div class="hover-text">Course Selection: Choose based on CGPA and progress</div>
     </div>
     <div class="image-container">
@@ -342,9 +342,9 @@
 
 <div class="portal-footer">
     <span>
-        <strong>Project by:</strong> Nur Fatihah Adawiyah binti Rusdi | Nur Ain binti Lizam &bull; IIUM KICT<br>
-        <strong>Powered by:</strong> Laravel | MySQL | Blade | Fortify | Bootstrap | XAMPP | phpMyAdmin<br>
-        <strong>Supervised by:</strong> Asst. Prof. Dr. Mohd Khairul Azmi bin Hasan
+        <strong>Project by:</strong> Nur Fatihah Adawiyah binti Rusdi | Nur Ain binti Lizam &bull; FYP 2 BIT &bull; KICT IIUM<br>
+        <strong>Powered by:</strong> VSCode | XAMPP | phpMyAdmin | Laravel | PHP | MySQL | Bootstrap<br>
+        <strong>Supervised by:</strong> Asst. Prof. Dr. Mohd Khairul Azmi bin Hassan
     </span>
 </div>
 
