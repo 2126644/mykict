@@ -211,12 +211,12 @@
                     <h5 class="card-title">Departmental Demand</h5>
                 </div>
                 <div class="card-body">
-                    <div id="deptPie"></div>
+                    <div id="deptDonut"></div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mt-4">
+        <div class="col-md-12 mt-4">
             <div class="card shadow-sm">
                 <div class="card-header">
                     <h5 class="card-title">Specialization Demand</h5>
@@ -226,9 +226,15 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
+
+{{-- add this code so that the first bar not COUNT ALL that will overshadow other data--}}
+@php
+    $adjustedCounts = array_slice($specCounts, 1); // remove the first count (e.g., 42)
+    $adjustedLabels = array_slice($specLabels, 1); // remove the first label (e.g., 'Selections')
+@endphp
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
@@ -256,7 +262,7 @@
                 xaxis: {
                     categories: @json($popularLabels),
                     title: {
-                        text: 'Course Code'
+                        text: 'Course Codes'
                     }
                 },
                 yaxis: {
@@ -404,7 +410,7 @@
             var columns = deptData.map(function(d) {
                 return [d.x, d.y];
             });
-            // optional: assign each department a color 
+            // optional: assign each department a color
             var colors = {};
             var palette = ['#664dc9', '#44c4fa', '#2dce89', '#ff5b51', '#fbbc04', '#ea4335'];
             deptData.forEach(function(d, i) {
@@ -418,10 +424,10 @@
 
             // generate the pie chart with legend enabled
             var chart = c3.generate({
-                bindto: '#deptPie',
+                bindto: '#deptDonut',
                 data: {
                     columns: columns,
-                    type: 'pie',
+                    type: 'donut',
                     colors: colors,
                     names: names
                 },
@@ -456,11 +462,23 @@
                         text: 'Specialization'
                     }
                 },
+                //add new to remove first bar count all
+                series: [{
+                    name: 'Specializations',
+                    data: @json($adjustedCounts)
+                }],
+                xaxis: {
+                    categories: @json($adjustedLabels),
+                    title: {
+                        text: 'Specialization'
+                    }
+                },
                 yaxis: {
                     title: {
                         text: 'Number of Times Chosen'
                     }
                 },
+
                 colors: ['#ffc107'],
                 plotOptions: {
                     bar: {
