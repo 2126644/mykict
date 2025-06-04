@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentPreferenceController;
+use App\Http\Controllers\TwoFactorController;
 
 // Home page
 Route::get('/', function () {
@@ -27,6 +28,12 @@ Route::get('/dashboard', function () {
     // otherwise send guests to login
     return redirect()->route('login');
 })->middleware('auth')->name('dashboard');
+
+// Two-Factor Routes
+// Show 2FA challenge page
+Route::get('/two-factor-challenge', [TwoFactorController::class, 'index'])->name('two-factor.login');
+// Handle submitted code
+Route::post('/two-factor-challenge', [TwoFactorController::class, 'store'])->name('two-factor.store');
 
 
 //Route for CGPA Calculator
