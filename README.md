@@ -1,17 +1,17 @@
 # MyKICT Smart Study Planner
 
-**MyKICT** is a web application developed using Laravel to assist students and administrators at IIUM in efficiently planning study programs and course allocations each semester. It automates prerequisite validation, enforces credit hour limits, and provides clean, role-based dashboards.
+MyKICT is a Laravel-based web application developed for the International Islamic University Malaysia (IIUM) to streamline academic planning and course allocation for students and administrators. It automatiacally suggests students’ next semester course selection, helps them to create study plan, provides semester-wise GPA and CGPA tracking, supports role-based dashboards for both students and admins, and offers statistics on total students to help determine the number of course sections to open. Incorporating secure multi-factor authentication and built with a responsive Bootstrap interface alongside Laravel Fortify, MyKICT enhances academic management and delivers a smooth user experience.
 
 ---
 
 ## Table of Contents
 
 - [Features](#features)  
-- [Technology Stack](#technology-stack)  
+- [Technology Stack & Tools](#technology-stack--tools)
+- [Development Environment & Tools](#development-environment--tools)
 - [Installation](#installation)  
 - [Configuration](#configuration)  
-- [Usage](#usage)  
-- [Database Schema](#database-schema)  
+- [Database Schema Overview](#database-schema-overview)  
 - [Authentication & Security](#authentication--security)  
 - [Testing](#testing)  
 - [Contributing](#contributing)  
@@ -22,25 +22,20 @@
 ## Features
 
 ### Student Features
-- View dashboard showing current academic year, semester, and GPA summary.  
-- Generate study plans for the next semester, automatically calculating semester and year rollover.  
-- Enforces prerequisite checks before allowing course selection.  
-- Validates credit hour limits per semester to avoid under/overloading.  
-- Filter courses by department, specialization, category, and semester.  
+- Student dashboard showing profile details, upcoming semester summary and courses details, and GPA and CGPA progress chart.  
 - Profile update and management.
+- View suggested courses based on their programme, year and semester (automatically calculating semester and year rollover)
+- Track CGPA and GPA progress through a chart.
+- Use a calculation and forecasting tool to project academic performance.
+- Chat with AI-powered academic advisor in chatbot.
 
 ### Administrator Features
+- Admin dashboard with summary reports (graphs of student enrollment for each course, department and specialization).
 - Manage courses: add, edit, delete courses with detailed metadata including pre-requisites, specialization, and category.  
-- Bulk deletion of multiple courses.  
-- Manage departments and specializations.  
-- View security and activity logs.  
-- Admin dashboard with summary reports.
-
-### Security & Authentication
-- Laravel Fortify integration with email-based OTP two-factor authentication (2FA).  
-- Passwords hashed using Argon2id with an additional per-user manual salt for enhanced security.  
-- Login attempts rate limiting to prevent brute force attacks.  
-- Session management and CSRF protection out of the box with Laravel.
+- Bulk deletion of multiple courses.
+- Filter courses by department, specialization, category, programme and year.
+- Search courses by course code and course title.
+- Sort courses by each column.
 
 ### UI & UX
 - Responsive design leveraging Bootstrap 5 and Google Fonts (Poppins).  
@@ -51,15 +46,21 @@
 
 ---
 
-## Technology Stack
+## Technology Stack & Tools
 
 - **Backend:** PHP 8.2, Laravel 11.x  
 - **Frontend:** Blade templates, Bootstrap 5, jQuery  
-- **Database:** MySQL  
-- **Authentication:** Laravel Fortify, Argon2id, manual password salting, email OTP 2FA  
+- **Database:** MySQL, phpMyAdmin
+- **Authentication:** Laravel Fortify, Argon2id (via Laravel’s native hashing),  email OTP 2FA  
 - **Task Automation:** Laravel Artisan, npm scripts with Vite  
 - **Charts & Visualization:** ApexCharts, C3.js, D3.js  
 - **Icons & Fonts:** Font Awesome 5.15.4, Bootstrap Icons, Google Fonts (Poppins)
+- **AI for Chatbot:** Zapier
+
+## Development Environment & Tools
+
+- **Local Server Stack:** XAMPP (Local Apache, PHP, and MySQL server stack)
+- **Code Editor:** Visual Studio Code (VSCode) 
 
 ---
 
@@ -67,8 +68,9 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/<your-username>/mykict.git
+git clone [https://github.com/<your-username>/mykict.git](https://github.com/mkazmiiium/mykict.git)
 cd mykict
+git checkout mykict_student
 
 # Install PHP dependencies
 composer install
@@ -92,7 +94,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-By default, the application will be accessible at `http://localhost:8000`.
+By default, the application will be accessible at `http://localhost:8000` or `http://127.0.0.1:8000`.
 
 ---
 
@@ -100,19 +102,39 @@ By default, the application will be accessible at `http://localhost:8000`.
 
 Edit your `.env` file for environment-specific settings such as:
 
-* `APP_URL` (base URL of your app)
-* Database credentials: `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
-* Mail server for OTP emails: `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`
+* Use `php artisan key:generate` to generate a valid `APP_KEY`.
+* Update database credentials: `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
+* Update mail credentials for email OTP functionality.
 * Session and cache driver settings (default uses database and file)
 
----
+```dotenv
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:your-app-key-generated-by-laravel
+APP_DEBUG=true
+APP_TIMEZONE=UTC
+APP_URL=http://localhost
 
-## Usage
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mykict
+DB_USERNAME=mykict_user
+DB_PASSWORD=mykict_user20242025
 
-* Register as a new user or login (admin accounts should be seeded or created manually).
-* Students can generate and manage their study plans, view CGPA, and update profiles.
-* Admins can manage courses, departments, specializations, and monitor logs.
-* Use the theme toggle in the navbar to switch between light and dark mode.
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+
+CACHE_STORE=database
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-email-password-or-app-password
+MAIL_FROM_ADDRESS=your-email@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
 ---
 
@@ -142,7 +164,7 @@ Edit your `.env` file for environment-specific settings such as:
 - Timestamps
 
 > **Relationship:**  
-> Each user belongs to one role (e.g., admin, student).
+> Each user belongs to one role (admin, student).
 
 ---
 
@@ -219,7 +241,7 @@ Edit your `.env` file for environment-specific settings such as:
 
 ### Notes
 
-- The schema uses **bigint unsigned** primary keys for users and admins to ensure scalability.  
+- The schema uses bigint unsigned primary keys for users and admins to ensure scalability.  
 - `students.matric_no` is an integer primary key rather than an auto-increment ID.  
 - GPA is stored per semester to allow detailed academic tracking.  
 - Passwords are stored hashed in the `users` and `admins` tables.
@@ -229,7 +251,7 @@ Edit your `.env` file for environment-specific settings such as:
 ## Authentication & Security
 
 * Passwords are hashed automatically using Laravel’s built-in Argon2id algorithm via the native `hashed` attribute casting on the User model.  
-* There is **no manual salting** applied to passwords; Laravel handles all salting internally and securely.  
+* There is no manual salting applied to passwords; Laravel handles all salting internally and securely.  
 * Laravel Fortify is used to manage registration, login, password resets, and two-factor authentication (2FA) via email OTP codes.  
 * Uses Laravel's default `web` guard with session driver and Eloquent user provider (`App\Models\User`).  
 * Password resets utilize a custom tokens table (`password_reset_tokens`) with standard expiry (60 minutes) and throttle (60 seconds).  
